@@ -2,22 +2,12 @@
 <html lang="ja">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>NANYO FOOTBALL CLUB</title>
 
-
 <style>
-
-/* ======================================
-   RESET
-====================================== */
 
 *{
   margin:0;
@@ -30,11 +20,7 @@ body{
   width:100%;
   background:#000;
   color:#fff;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
@@ -42,13 +28,11 @@ body{
 }
 
 
-
-/* ======================================
+/* =========================
    HEADER
-====================================== */
+========================= */
 
 .header{
-
   width:100%;
   height:82px;
 
@@ -65,71 +49,50 @@ body{
       #b6001d 55%,
       #980018 100%
     );
-
-  position:relative;
-
-  z-index:20;
 }
 
-
 .brand{
-
   display:flex;
   align-items:center;
-
   gap:13px;
 }
 
-
 .brand-logo{
-
   width:56px;
   height:56px;
-
-  display:block;
-
   object-fit:contain;
+  display:block;
 }
 
-
 .brand-name{
-
   color:#fff;
 
   font-size:31px;
-
   line-height:1;
 
   font-weight:900;
-
   letter-spacing:.055em;
 
   white-space:nowrap;
 }
 
-
 .menu{
-
   width:48px;
   height:48px;
 
   display:flex;
-
   flex-direction:column;
-
-  align-items:center;
   justify-content:center;
+  align-items:center;
 
   gap:7px;
 }
 
-
 .menu span{
+  display:block;
 
   width:30px;
   height:3px;
-
-  display:block;
 
   border-radius:3px;
 
@@ -137,17 +100,14 @@ body{
 }
 
 
-
-/* ======================================
+/* =========================
    MOVIE
-====================================== */
+========================= */
 
 .movie-wrap{
-
   position:relative;
 
   width:100%;
-
   aspect-ratio:16 / 9;
 
   overflow:hidden;
@@ -155,286 +115,47 @@ body{
   background:#000;
 }
 
-
 #heroVideo{
-
   position:absolute;
-
   inset:0;
 
   width:100%;
   height:100%;
+
+  display:block;
 
   object-fit:contain;
   object-position:center;
 
-  display:block;
-
   background:#000;
-
-  transform:scale(1.01);
-
-  will-change:transform;
 }
 
 
-/*
-   動画開始時に
-   ゆっくりほんの少しズーム
-*/
-
-#heroVideo.motion{
-
-  animation:
-    movieMotion
-    var(--video-duration, 8s)
-    linear
-    forwards;
-}
-
-
-@keyframes movieMotion{
-
-  from{
-    transform:scale(1.01);
-  }
-
-  to{
-    transform:scale(1.045);
-  }
-
-}
-
-
-
-/* ======================================
-   MOVIE SHADE
-====================================== */
-
-.movie-shade{
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:2;
-
-  pointer-events:none;
-
-
-  background:
-
-    linear-gradient(
-      to bottom,
-
-      rgba(0,0,0,.02) 0%,
-
-      transparent 50%,
-
-      rgba(0,0,0,.07) 100%
-    );
-}
-
-
-
-/* ======================================
-   SVG OVERLAY
-====================================== */
-
-.mark-layer{
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:3;
-
-  pointer-events:none;
-
-  overflow:hidden;
-}
-
-
-.mark-svg{
-
-  width:100%;
-  height:100%;
-
-  display:block;
-}
-
-
-
-/*
-   ロゴ本体
-
-   動画を邪魔しないよう
-   かなり薄め
-*/
-
-.logo-shape{
-
-  fill:#e0002c;
-
-  fill-opacity:.085;
-}
-
-
-
-/*
-   8秒かけて
-   左から徐々に完成
-*/
-
-.reveal-box{
-
-  transform-origin:left center;
-
-  transform:scaleX(0);
-}
-
-
-.mark-layer.play
-.reveal-box{
-
-  animation:
-    revealMark
-    8s
-    cubic-bezier(.22,.70,.18,1)
-    forwards;
-}
-
-
-@keyframes revealMark{
-
-  0%{
-    transform:scaleX(0);
-  }
-
-  100%{
-    transform:scaleX(1);
-  }
-
-}
-
-
-
-/*
-   描画の先端だけ
-   ごく薄く光る
-*/
-
-.draw-head{
-
-  position:absolute;
-
-  top:0;
-  left:-8%;
-
-  width:9%;
-  height:100%;
-
-  opacity:0;
-
-  pointer-events:none;
-
-
-  background:
-
-    linear-gradient(
-      90deg,
-
-      transparent,
-
-      rgba(255,40,60,.10),
-
-      rgba(255,255,255,.13),
-
-      transparent
-    );
-}
-
-
-.mark-layer.play
-.draw-head{
-
-  animation:
-    drawHeadMove
-    8s
-    linear
-    forwards;
-}
-
-
-@keyframes drawHeadMove{
-
-  0%{
-
-    left:-9%;
-
-    opacity:0;
-  }
-
-  5%{
-
-    opacity:1;
-  }
-
-  95%{
-
-    opacity:1;
-  }
-
-  100%{
-
-    left:100%;
-
-    opacity:0;
-  }
-
-}
-
-
-
-/* ======================================
-   TEXT AREA
-====================================== */
+/* =========================
+   COPY
+========================= */
 
 .hero-copy{
-
   width:100%;
 
-  overflow:hidden;
-
   padding:
-
     31px
     0
     46px
     22px;
 
+  overflow:hidden;
 
   background:
-
     radial-gradient(
       circle at 100% 0%,
-
       rgba(140,0,15,.18),
-
       transparent 43%
     ),
-
     #000;
 }
 
-
-
-/* ======================================
-   TITLE
-====================================== */
-
 .main-title{
-
   padding-right:20px;
 
   color:#fff;
@@ -453,50 +174,7 @@ body{
   letter-spacing:-.055em;
 }
 
-
-.main-title.play{
-
-  animation:
-    titleIn
-    .65s
-    cubic-bezier(.12,.8,.2,1);
-}
-
-
-@keyframes titleIn{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateX(-28px);
-
-    filter:
-      blur(4px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-      translateX(0);
-
-    filter:
-      blur(0);
-  }
-
-}
-
-
-
-/* ======================================
-   COUNTERATTACK
-====================================== */
-
 .catch{
-
   margin-top:22px;
 
   padding-right:12px;
@@ -515,49 +193,10 @@ body{
   font-weight:900;
   font-style:italic;
 
-  letter-spacing:.012em;
-
   white-space:nowrap;
 }
 
-
-.catch.play{
-
-  animation:
-    catchIn
-    .55s
-    ease;
-}
-
-
-@keyframes catchIn{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateX(-18px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-      translateX(0);
-  }
-
-}
-
-
-
-/* ======================================
-   RED LINE
-====================================== */
-
 .red-line{
-
   width:
     calc(100vw - 22px);
 
@@ -565,89 +204,43 @@ body{
 
   margin-top:20px;
 
-  transform-origin:left center;
-
-
   background:
-
     linear-gradient(
       90deg,
-
       #ed001d 0%,
-
       #ff1931 65%,
-
       transparent 100%
     );
 }
 
 
-.red-line.play{
-
-  animation:
-    redLineIn
-    .75s
-    cubic-bezier(.1,.8,.18,1);
-}
-
-
-@keyframes redLineIn{
-
-  from{
-
-    transform:
-      scaleX(0);
-  }
-
-  to{
-
-    transform:
-      scaleX(1);
-  }
-
-}
-
-
-
-/* ======================================
+/* =========================
    PC
-====================================== */
+========================= */
 
 @media(min-width:768px){
 
   .header{
-
     height:98px;
-
-    padding:
-      0 42px;
+    padding:0 42px;
   }
 
-
   .brand-logo{
-
     width:70px;
     height:70px;
   }
 
-
   .brand-name{
-
     font-size:40px;
   }
 
-
   .menu span{
-
     width:36px;
     height:4px;
   }
 
-
   .hero-copy{
-
     padding:
-
       48px
       0
       65px
@@ -657,24 +250,15 @@ body{
 }
 
 </style>
-
 </head>
-
 
 
 <body>
 
 
-
-<!-- ======================================
-     HEADER
-====================================== -->
-
 <header class="header">
 
-
   <div class="brand">
-
 
     <img
       src="nf1.png"
@@ -682,529 +266,118 @@ body{
       class="brand-logo"
     >
 
-
     <div class="brand-name">
-
       NANYO FC
-
     </div>
 
-
   </div>
-
 
 
   <div class="menu">
-
     <span></span>
     <span></span>
     <span></span>
-
   </div>
-
 
 </header>
 
 
 
-
-<!-- ======================================
-     MOVIE
-====================================== -->
-
 <section class="movie-wrap">
 
-
   <video
-
     id="heroVideo"
-
+    autoplay
     muted
-
     playsinline
-
     webkit-playsinline
-
-    preload="auto"
-
-  ></video>
-
-
-
-  <div class="movie-shade"></div>
-
-
-
-
-  <!-- ==================================
-       SVG OVERLAY
-       別ファイル不要
-  =================================== -->
-
-  <div
-    id="markLayer"
-    class="mark-layer"
-  >
-
-
-    <svg
-
-      class="mark-svg"
-
-      viewBox="0 0 1536 922"
-
-      preserveAspectRatio="xMidYMid slice"
-
-      aria-hidden="true"
-
-    >
-
-
-      <defs>
-
-
-        <clipPath id="drawClip">
-
-
-          <rect
-
-            id="revealBox"
-
-            class="reveal-box"
-
-            x="0"
-
-            y="0"
-
-            width="1536"
-
-            height="922"
-
-          />
-
-
-        </clipPath>
-
-
-      </defs>
-
-
-
-      <!--
-           このpathが
-           送ってくれた形を
-           トレースしたデータ
-      -->
-
-
-      <g clip-path="url(#drawClip)">
-
-
-        <path
-
-          class="logo-shape"
-
-          fill-rule="evenodd"
-
-          d="
-M308,66
-L355,156
-L398,245
-L381,291
-L365,341
-L353,416
-L356,498
-L381,599
-L415,632
-L448,682
-L495,733
-L549,774
-L620,810
-L693,830
-L768,836
-L845,826
-L910,804
-L972,769
-L1034,716
-L1040,707
-L1004,682
-L1008,705
-L1003,715
-L995,708
-L993,693
-L984,685
-L973,686
-L966,678
-L975,672
-L961,652
-L953,658
-L927,681
-L870,718
-L864,720
-L772,743
-L759,750
-L743,715
-L676,596
-L669,579
-L543,352
-L641,423
-L705,382
-L710,375
-L569,273
-L567,277
-L516,233
-L505,228
-L503,241
-L502,226
-L496,220
-L490,228
-L489,261
-L488,221
-L481,210
-L416,160
-L396,151
-L359,126
-L375,165
-L676,738
-L621,719
-L580,696
-L534,657
-L508,623
-L515,614
-L571,575
-L571,570
-L540,511
-L524,520
-L521,528
-L519,525
-L516,528
-L514,559
-L512,530
-L471,553
-L458,511
-L451,455
-L452,418
-L461,363
-L409,265
-L384,325
-L370,388
-L366,457
-L372,509
-L389,574
-L415,632
-Z
-
-
-M548,233
-L576,207
-L623,175
-L663,158
-L714,145
-L796,288
-L804,312
-L796,321
-L726,367
-L638,304
-L584,256
-Z
-
-
-M817,328
-L852,389
-L653,521
-L619,457
-L698,404
-L774,355
-L792,343
-Z
-
-
-M663,535
-L727,490
-L786,533
-L888,601
-L939,635
-L944,644
-L910,675
-L857,705
-L811,721
-L767,729
-Z
-
-
-M846,161
-L898,182
-L934,208
-L955,230
-L902,266
-Z
-
-
-M1010,312
-L1025,342
-L1036,392
-L1038,445
-L1031,486
-L954,358
-L954,349
-Z
-
-
-M471,172
-L524,123
-L577,89
-L647,60
-L717,46
-L787,45
-L858,58
-L911,77
-L970,109
-L1008,138
-L1055,186
-L1091,238
-L1123,304
-L1140,364
-L1147,424
-L1144,490
-L1130,551
-L1111,602
-L1102,616
-L1081,582
-L1041,511
-L1051,459
-L1051,400
-L1039,339
-L1019,291
-L942,337
-L909,279
-L945,255
-L978,234
-L945,198
-L921,179
-L877,154
-L835,137
-L809,131
-L828,180
-L1084,615
-L1170,775
-L1123,743
-L742,482
-L804,439
-L904,498
-L946,526
-L723,130
-L664,142
-L616,162
-L572,191
-L533,227
-Z
-          "
-
-        />
-
-
-      </g>
-
-
-    </svg>
-
-
-    <div class="draw-head"></div>
-
-
-  </div>
-
+    preload="auto">
+  </video>
 
 </section>
 
 
-
-
-<!-- ======================================
-     COPY
-====================================== -->
 
 <section class="hero-copy">
 
-
-  <h1
-    id="mainTitle"
-    class="main-title"
-  >
-
+  <h1 class="main-title">
     NANYO<br>
-
     FOOTBALL CLUB
-
   </h1>
 
-
-
-  <div
-    id="catchText"
-    class="catch"
-  >
-
+  <div class="catch">
     COUNTERATTACK BEGINS
-
   </div>
 
-
-
-  <div
-    id="redLine"
-    class="red-line"
-  ></div>
-
+  <div class="red-line"></div>
 
 </section>
-
 
 
 
 <script>
 
-
-/* ======================================
-   MOVIE LIST
-====================================== */
-
 const movies = [
-
   "movie/nf1.mp4",
-
   "movie/nf2.mp4",
-
   "movie/nf3.mp4",
-
   "movie/nf4.mp4",
-
   "movie/nf5.mp4",
-
   "movie/nf6.mp4"
-
 ];
 
-
-
 const video =
-  document.getElementById(
-    "heroVideo"
-  );
-
-
-const markLayer =
-  document.getElementById(
-    "markLayer"
-  );
-
-
-const mainTitle =
-  document.getElementById(
-    "mainTitle"
-  );
-
-
-const catchText =
-  document.getElementById(
-    "catchText"
-  );
-
-
-const redLine =
-  document.getElementById(
-    "redLine"
-  );
-
+  document.getElementById("heroVideo");
 
 
 let playlist = [];
-
-let previousMovie = null;
-
-let loading = false;
+let lastMovie = null;
 
 
-
-/* ======================================
-   SHUFFLE
-====================================== */
+/* =========================
+   シャッフル
+========================= */
 
 function shuffleMovies(){
 
-
-  playlist =
-    [...movies];
-
+  playlist = [...movies];
 
   for(
-
-    let i =
-      playlist.length - 1;
-
+    let i = playlist.length - 1;
     i > 0;
-
     i--
-
   ){
 
-
     const j =
-
       Math.floor(
-
-        Math.random()
-        *
-        (i + 1)
-
+        Math.random() * (i + 1)
       );
 
-
     [
-
       playlist[i],
       playlist[j]
-
     ] = [
-
       playlist[j],
       playlist[i]
-
     ];
 
   }
 
 
-
-  /*
-     一巡後、
-
-     前回最後の動画と
-     次回最初が同じになるのを防ぐ
-  */
+  /* 一巡の境目で同じ動画を防ぐ */
 
   if(
-
-    previousMovie &&
-
+    lastMovie &&
     playlist.length > 1 &&
-
-    playlist[0] ===
-    previousMovie
-
+    playlist[0] === lastMovie
   ){
 
-
     [
-
       playlist[0],
       playlist[1]
-
     ] = [
-
       playlist[1],
       playlist[0]
-
     ];
 
   }
@@ -1212,373 +385,106 @@ function shuffleMovies(){
 }
 
 
-
-/* ======================================
-   GET NEXT
-====================================== */
+/* =========================
+   次の動画
+========================= */
 
 function getNextMovie(){
 
-
-  if(
-    playlist.length === 0
-  ){
-
+  if(playlist.length === 0){
     shuffleMovies();
-
   }
-
 
   const next =
     playlist.shift();
 
-
-  previousMovie =
+  lastMovie =
     next;
-
 
   return next;
 
 }
 
 
+/* =========================
+   動画読込
+========================= */
 
-/* ======================================
-   RESTART CLASS
-====================================== */
-
-function restartClass(
-  element,
-  className
-){
-
-
-  element
-    .classList
-    .remove(className);
-
-
-  void element.offsetWidth;
-
-
-  element
-    .classList
-    .add(className);
-
-}
-
-
-
-/* ======================================
-   SVG START
-====================================== */
-
-function startSvgAnimation(){
-
-
-  markLayer
-    .classList
-    .remove("play");
-
-
-  void markLayer.offsetWidth;
-
-
-  markLayer
-    .classList
-    .add("play");
-
-}
-
-
-
-/* ======================================
-   TEXT
-====================================== */
-
-function startTextAnimation(){
-
-
-  restartClass(
-    mainTitle,
-    "play"
-  );
-
-
-  setTimeout(
-    () => {
-
-      restartClass(
-        catchText,
-        "play"
-      );
-
-    },
-    100
-  );
-
-
-  setTimeout(
-    () => {
-
-      restartClass(
-        redLine,
-        "play"
-      );
-
-    },
-    220
-  );
-
-}
-
-
-
-/* ======================================
-   VIDEO MOTION
-====================================== */
-
-function startVideoMotion(){
-
-
-  video
-    .classList
-    .remove("motion");
-
-
-  void video.offsetWidth;
-
-
-  video
-    .classList
-    .add("motion");
-
-}
-
-
-
-/* ======================================
-   PLAY
-====================================== */
-
-function playNextMovie(){
-
-
-  if(loading){
-    return;
-  }
-
-
-  loading = true;
-
+function loadNextMovie(){
 
   const next =
     getNextMovie();
 
+  video.pause();
 
   video.src =
     next;
 
-
   video.load();
-
-
-
-  /*
-     SVGは動画読み込みとは
-     完全に分離。
-
-     動画読込失敗で
-     SVGまで止まらない。
-  */
-
-  startSvgAnimation();
-
-
-
-  /*
-     下文字も毎回再演出
-  */
-
-  startTextAnimation();
-
-
-
-  const playPromise =
-    video.play();
-
-
-  if(
-    playPromise !== undefined
-  ){
-
-
-    playPromise
-
-      .then(
-        () => {
-
-          loading = false;
-
-        }
-      )
-
-      .catch(
-        () => {
-
-          loading = false;
-
-        }
-      );
 
 }
 
 
-
-/* ======================================
-   METADATA
-====================================== */
+/* =========================
+   再生可能になってから再生
+========================= */
 
 video.addEventListener(
-
-  "loadedmetadata",
+  "canplay",
 
   () => {
 
-
-    const duration =
-
-      Number.isFinite(
-        video.duration
-      )
-
-      ?
-
-      video.duration
-
-      :
-
-      8;
-
-
-
-    video.style
-      .setProperty(
-
-        "--video-duration",
-
-        duration + "s"
-
-      );
-
-
-    startVideoMotion();
-
+    video
+      .play()
+      .catch(() => {});
 
   }
-
 );
 
 
-
-/* ======================================
-   VIDEO END
-====================================== */
+/* =========================
+   終わったらランダム次動画
+========================= */
 
 video.addEventListener(
-
   "ended",
 
   () => {
 
-
-    playNextMovie();
-
+    loadNextMovie();
 
   }
-
 );
 
 
-
-/* ======================================
-   ERROR
-====================================== */
+/* =========================
+   1本壊れていても次へ
+========================= */
 
 video.addEventListener(
-
   "error",
 
   () => {
 
-
-    /*
-       万一1本だけ
-       読み込みに失敗しても
-       次へ進む
-    */
-
-
-    loading = false;
-
-
     setTimeout(
-      playNextMovie,
+      loadNextMovie,
       300
     );
 
-
   }
-
 );
 
 
-
-/* ======================================
-   スマホ復帰時
-====================================== */
-
-document.addEventListener(
-
-  "visibilitychange",
-
-  () => {
-
-
-    if(
-      !document.hidden &&
-      video.paused &&
-      !video.ended
-    ){
-
-
-      video
-        .play()
-        .catch(
-          () => {}
-        );
-
-
-    }
-
-  }
-
-);
-
-
-
-/* ======================================
+/* =========================
    START
-====================================== */
+========================= */
 
 shuffleMovies();
 
-playNextMovie();
-
+loadNextMovie();
 
 </script>
 
 
 </body>
-
 </html>
