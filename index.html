@@ -1,581 +1,1230 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NANYO FOOTBALL CLUB</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
 
-    html,
-    body {
-      width: 100%;
-      background: #000;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    body {
-      overflow-x: hidden;
-    }
+<title>NANYO FOOTBALL CLUB</title>
 
 
-    /* =========================
-       HEADER
-    ========================= */
+<style>
 
-    .header {
-      width: 100%;
-      height: 80px;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+/* ========================================
+   RESET
+======================================== */
 
-      padding: 0 20px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-      background: #a90016;
-    }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+html,
+body{
+  width:100%;
+  background:#000;
+  color:#fff;
 
-    .brand-logo {
-      width: 55px;
-      height: 55px;
-      object-fit: contain;
-      display: block;
-    }
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
 
-    .brand-name {
-      color: #d9b45d;
 
-      font-size: 20px;
-      font-weight: 900;
+body{
+  overflow-x:hidden;
+}
 
-      letter-spacing: 0.14em;
-      white-space: nowrap;
-    }
 
+/* ========================================
+   HEADER
+======================================== */
 
-    /* ハンバーガー */
+.header{
 
-    .menu {
-      width: 46px;
-      height: 46px;
+  width:100%;
+  height:80px;
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-      gap: 7px;
-    }
+  padding:0 20px;
 
-    .menu span {
-      width: 29px;
-      height: 3px;
+  background:
+    linear-gradient(
+      180deg,
+      #c90020 0%,
+      #ae001b 42%,
+      #870014 100%
+    );
 
-      display: block;
+  border-bottom:
+    1px solid rgba(255,215,100,.18);
 
-      background: #d9b45d;
-    }
+  position:relative;
 
+  z-index:20;
+}
 
-    /* =========================
-       MOVIE
-    ========================= */
 
-    .movie-wrap {
-      position: relative;
+/* ----------------------------------------
+   BRAND
+---------------------------------------- */
 
-      width: 100%;
-      aspect-ratio: 16 / 9;
+.brand{
 
-      overflow: hidden;
-      background: #000;
-    }
+  display:flex;
+  align-items:center;
 
-    .movie {
-      position: absolute;
-      inset: 0;
+  gap:13px;
+}
 
-      width: 100%;
-      height: 100%;
 
-      object-fit: contain;
-      object-position: center;
+/* ロゴ */
 
-      background: #000;
+.brand-logo{
 
-      opacity: 0;
+  display:block;
 
-      transition:
-        opacity 0.5s ease,
-        transform 8s linear;
+  width:56px;
+  height:56px;
 
-      transform: scale(1);
-    }
+  object-fit:contain;
+}
 
-    .movie.active {
-      opacity: 1;
-      transform: scale(1.025);
-    }
 
+/* NANYO FC */
 
-    /* 映像を少し締める */
+.brand-name{
 
-    .movie-shade {
-      position: absolute;
-      inset: 0;
+  font-size:21px;
+  font-weight:900;
 
-      z-index: 4;
+  letter-spacing:.15em;
 
-      pointer-events: none;
+  white-space:nowrap;
 
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.08),
-          rgba(0,0,0,0) 55%,
-          rgba(0,0,0,0.15)
-        );
-    }
 
+  /* GOLD */
 
-    /* 切替フラッシュ */
+  background:
+    linear-gradient(
+      180deg,
 
-    .flash {
-      position: absolute;
-      inset: 0;
+      #fff8d0 0%,
+      #f8e49b 14%,
+      #d7ad3a 30%,
+      #9d6911 44%,
+      #fff0a4 55%,
+      #d5a62c 68%,
+      #8d5b0c 82%,
+      #e7c85d 100%
+    );
 
-      z-index: 5;
 
-      background: #fff;
+  -webkit-background-clip:text;
+  background-clip:text;
 
-      opacity: 0;
-      pointer-events: none;
-    }
+  -webkit-text-fill-color:transparent;
+  color:transparent;
 
-    .flash.fire {
-      animation: flashEffect 0.24s ease;
-    }
 
-    @keyframes flashEffect {
-      0% {
-        opacity: 0;
-      }
+  filter:
+    drop-shadow(
+      0 1px 1px
+      rgba(0,0,0,.35)
+    );
+}
 
-      35% {
-        opacity: 0.65;
-      }
 
-      100% {
-        opacity: 0;
-      }
-    }
+/* ========================================
+   MENU
+======================================== */
 
+.menu{
 
-    /* =========================
-       VIDEO下の文字
-    ========================= */
+  width:48px;
+  height:48px;
 
-    .hero-copy {
-      width: 100%;
+  display:flex;
 
-      padding: 32px 22px 48px;
+  flex-direction:column;
 
-      background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(130,0,0,0.18),
-          transparent 45%
-        ),
-        #000;
-    }
+  justify-content:center;
+  align-items:center;
 
+  gap:7px;
+}
 
-    .main-title {
-      color: #fff;
 
-      font-size: clamp(39px, 10.5vw, 70px);
-      font-weight: 900;
+.menu span{
 
-      line-height: 0.9;
-      letter-spacing: -0.05em;
+  display:block;
 
-      opacity: 0;
-      transform: translateY(20px);
+  width:30px;
+  height:3px;
 
-      animation: titleIn 0.8s ease forwards;
-      animation-delay: 0.2s;
-    }
+  border-radius:100px;
 
 
-    .catch {
-      margin-top: 22px;
+  background:
+    linear-gradient(
+      90deg,
 
-      color: #ed1717;
+      #fff7c8 0%,
+      #d9ad39 22%,
+      #8e5c0b 42%,
+      #ffe999 59%,
+      #b68119 78%,
+      #f2d775 100%
+    );
 
-      font-size: clamp(18px, 5vw, 32px);
-      font-weight: 900;
-      font-style: italic;
 
-      line-height: 1;
-      letter-spacing: 0.02em;
+  box-shadow:
+    0 1px 1px
+    rgba(0,0,0,.25);
+}
 
-      white-space: nowrap;
 
-      opacity: 0;
-      transform: translateX(-18px);
+/* ========================================
+   MOVIE
+======================================== */
 
-      animation: catchIn 0.7s ease forwards;
-      animation-delay: 0.7s;
-    }
+.movie-wrap{
 
+  position:relative;
 
-    .red-line {
-      width: 0;
-      height: 3px;
+  width:100%;
 
-      margin-top: 20px;
+  aspect-ratio:16 / 9;
 
-      background: #ed1717;
+  overflow:hidden;
 
-      animation: lineIn 0.9s ease forwards;
-      animation-delay: 1s;
-    }
+  background:#000;
+}
 
 
-    @keyframes titleIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* 動画本体 */
 
-    @keyframes catchIn {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+.movie{
 
-    @keyframes lineIn {
-      to {
-        width: 150px;
-      }
-    }
+  position:absolute;
 
+  inset:0;
 
-    /* =========================
-       PC
-    ========================= */
+  width:100%;
+  height:100%;
 
-    @media (min-width: 768px) {
+  object-fit:contain;
+  object-position:center;
 
-      .header {
-        height: 95px;
-        padding: 0 45px;
-      }
+  background:#000;
 
-      .brand-logo {
-        width: 68px;
-        height: 68px;
-      }
+  opacity:0;
 
-      .brand-name {
-        font-size: 25px;
-      }
+  transform:scale(1);
 
-      .hero-copy {
-        padding: 45px 6vw 65px;
-      }
+  transition:
+    opacity .45s ease,
+    transform 8s linear;
+}
 
-      .main-title {
-        font-size: clamp(65px, 7vw, 105px);
-      }
 
-      .catch {
-        font-size: clamp(27px, 3vw, 48px);
-      }
-    }
+.movie.active{
 
-  </style>
+  opacity:1;
+
+  transform:
+    scale(1.025);
+}
+
+
+/* 動画の色味調整 */
+
+.movie-shade{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:5;
+
+  pointer-events:none;
+
+
+  background:
+    linear-gradient(
+      to bottom,
+
+      rgba(0,0,0,.06) 0%,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,.14) 100%
+    );
+}
+
+
+/* ========================================
+   FLASH
+======================================== */
+
+.flash{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:10;
+
+  background:#fff;
+
+  opacity:0;
+
+  pointer-events:none;
+}
+
+
+.flash.fire{
+
+  animation:
+    movieFlash .28s ease;
+}
+
+
+@keyframes movieFlash{
+
+  0%{
+    opacity:0;
+  }
+
+  25%{
+    opacity:.75;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+
+/* ========================================
+   TEXT AREA
+======================================== */
+
+.hero-copy{
+
+  position:relative;
+
+  width:100%;
+
+  padding:
+    32px
+    22px
+    46px;
+
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+
+      rgba(150,0,15,.16),
+      transparent 45%
+    ),
+
+    #000;
+}
+
+
+/* ========================================
+   MAIN TITLE
+======================================== */
+
+.main-title{
+
+  color:#fff;
+
+  font-size:
+    clamp(
+      39px,
+      10.5vw,
+      70px
+    );
+
+  font-weight:900;
+
+  line-height:.90;
+
+  letter-spacing:-.05em;
+
+
+  opacity:1;
+}
+
+
+/* 毎回発火 */
+
+.main-title.play{
+
+  animation:
+    titleMovie .75s
+    cubic-bezier(
+      .17,
+      .84,
+      .26,
+      1
+    );
+}
+
+
+@keyframes titleMovie{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      translateY(25px);
+
+    filter:
+      blur(5px);
+  }
+
+
+  100%{
+
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+    filter:
+      blur(0);
+  }
+
+}
+
+
+/* ========================================
+   COUNTERATTACK
+======================================== */
+
+.catch{
+
+  margin-top:22px;
+
+  color:#ee151b;
+
+  font-size:
+    clamp(
+      18px,
+      5vw,
+      32px
+    );
+
+  font-weight:900;
+  font-style:italic;
+
+  line-height:1;
+
+  letter-spacing:.015em;
+
+  white-space:nowrap;
+
+  opacity:1;
+}
+
+
+/* 毎回発火 */
+
+.catch.play{
+
+  animation:
+    catchMovie .58s ease;
+}
+
+
+@keyframes catchMovie{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      translateX(-25px);
+
+    filter:
+      blur(8px);
+  }
+
+
+  45%{
+
+    opacity:1;
+
+    transform:
+      translateX(4px);
+
+    filter:
+      blur(1px);
+  }
+
+
+  58%{
+
+    transform:
+      translateX(-3px);
+  }
+
+
+  72%{
+
+    transform:
+      translateX(2px);
+  }
+
+
+  100%{
+
+    opacity:1;
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+  }
+
+}
+
+
+/* ========================================
+   RED LINE
+======================================== */
+
+.red-line{
+
+  height:3px;
+
+  margin-top:20px;
+
+  width:150px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ef101b,
+      #ff2731
+    );
+}
+
+
+.red-line.play{
+
+  animation:
+    redLineMovie .72s ease;
+}
+
+
+@keyframes redLineMovie{
+
+  0%{
+    width:0;
+    opacity:0;
+  }
+
+  100%{
+    width:150px;
+    opacity:1;
+  }
+
+}
+
+
+/* ========================================
+   PC
+======================================== */
+
+@media(min-width:768px){
+
+
+  .header{
+
+    height:96px;
+
+    padding:
+      0 45px;
+  }
+
+
+  .brand-logo{
+
+    width:68px;
+    height:68px;
+  }
+
+
+  .brand-name{
+
+    font-size:26px;
+  }
+
+
+  .hero-copy{
+
+    padding:
+      45px
+      6vw
+      65px;
+  }
+
+
+  .main-title{
+
+    font-size:
+      clamp(
+        65px,
+        7vw,
+        105px
+      );
+  }
+
+
+  .catch{
+
+    font-size:
+      clamp(
+        27px,
+        3vw,
+        48px
+      );
+  }
+
+}
+
+
+</style>
+
 </head>
+
 
 
 <body>
 
 
-  <!-- HEADER -->
 
-  <header class="header">
+<!-- ========================================
+     HEADER
+========================================= -->
 
-    <div class="brand">
+<header class="header">
 
-      <img
-        src="nf1.png"
-        alt="NANYO FC"
-        class="brand-logo"
-      >
 
-      <div class="brand-name">
-        NANYO FC
-      </div>
+  <div class="brand">
+
+
+    <img
+
+      src="nf1.png"
+
+      alt="NANYO FC"
+
+      class="brand-logo"
+
+    >
+
+
+    <div class="brand-name">
+
+      NANYO FC
 
     </div>
 
 
-    <div class="menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-  </header>
+  </div>
 
 
 
-  <!-- MOVIE -->
+  <div class="menu">
 
-  <section class="movie-wrap">
+    <span></span>
+    <span></span>
+    <span></span>
 
-    <video
-      id="movieA"
-      class="movie active"
-      muted
-      playsinline
-      preload="auto">
-    </video>
+  </div>
 
-    <video
-      id="movieB"
-      class="movie"
-      muted
-      playsinline
-      preload="metadata">
-    </video>
 
-    <div class="movie-shade"></div>
-
-    <div
-      id="flash"
-      class="flash">
-    </div>
-
-  </section>
+</header>
 
 
 
-  <!-- VIDEO直下の文字 -->
 
-  <section class="hero-copy">
+<!-- ========================================
+     MOVIE
+========================================= -->
 
-    <h1 class="main-title">
-      NANYO<br>
-      FOOTBALL CLUB
-    </h1>
-
-    <div class="catch">
-      COUNTERATTACK BEGINS
-    </div>
-
-    <div class="red-line"></div>
-
-  </section>
+<section class="movie-wrap">
 
 
+  <video
 
-  <script>
+    id="movieA"
 
-    const movies = [
-      "movie/nf1.mp4",
-      "movie/nf2.mp4",
-      "movie/nf3.mp4",
-      "movie/nf4.mp4",
-      "movie/nf5.mp4",
-      "movie/nf6.mp4"
+    class="movie active"
+
+    muted
+
+    playsinline
+
+    preload="auto">
+
+  </video>
+
+
+
+  <video
+
+    id="movieB"
+
+    class="movie"
+
+    muted
+
+    playsinline
+
+    preload="metadata">
+
+  </video>
+
+
+
+  <div class="movie-shade"></div>
+
+
+  <div
+    id="flash"
+    class="flash">
+  </div>
+
+
+</section>
+
+
+
+
+<!-- ========================================
+     TEXT
+========================================= -->
+
+<section class="hero-copy">
+
+
+  <h1
+    id="mainTitle"
+    class="main-title">
+
+    NANYO<br>
+    FOOTBALL CLUB
+
+  </h1>
+
+
+
+  <div
+    id="catchText"
+    class="catch">
+
+    COUNTERATTACK BEGINS
+
+  </div>
+
+
+
+  <div
+    id="redLine"
+    class="red-line">
+  </div>
+
+
+</section>
+
+
+
+
+<script>
+
+
+/* ========================================
+   MOVIE LIST
+======================================== */
+
+const movies = [
+
+  "movie/nf1.mp4",
+
+  "movie/nf2.mp4",
+
+  "movie/nf3.mp4",
+
+  "movie/nf4.mp4",
+
+  "movie/nf5.mp4",
+
+  "movie/nf6.mp4"
+
+];
+
+
+
+const movieA =
+  document.getElementById(
+    "movieA"
+  );
+
+
+const movieB =
+  document.getElementById(
+    "movieB"
+  );
+
+
+const flash =
+  document.getElementById(
+    "flash"
+  );
+
+
+const mainTitle =
+  document.getElementById(
+    "mainTitle"
+  );
+
+
+const catchText =
+  document.getElementById(
+    "catchText"
+  );
+
+
+const redLine =
+  document.getElementById(
+    "redLine"
+  );
+
+
+
+let activeMovie =
+  movieA;
+
+
+let standbyMovie =
+  movieB;
+
+
+let playlist = [];
+
+
+let lastMovie = null;
+
+
+let switching = false;
+
+
+
+/* ========================================
+   RANDOM
+======================================== */
+
+function shuffleMovies(){
+
+
+  playlist =
+    [...movies];
+
+
+  for(
+
+    let i =
+      playlist.length - 1;
+
+    i > 0;
+
+    i--
+
+  ){
+
+
+    const j =
+
+      Math.floor(
+
+        Math.random()
+        *
+        (i + 1)
+
+      );
+
+
+    [
+
+      playlist[i],
+      playlist[j]
+
+    ] = [
+
+      playlist[j],
+      playlist[i]
+
     ];
 
-
-    const movieA =
-      document.getElementById("movieA");
-
-    const movieB =
-      document.getElementById("movieB");
-
-    const flash =
-      document.getElementById("flash");
+  }
 
 
-    let activeMovie = movieA;
-    let standbyMovie = movieB;
 
-    let playlist = [];
-    let lastMovie = null;
-    let switching = false;
+  if(
 
+    lastMovie &&
 
-    function shuffleMovies() {
+    playlist.length > 1 &&
 
-      playlist = [...movies];
+    playlist[0] ===
+    lastMovie
 
-      for (
-        let i = playlist.length - 1;
-        i > 0;
-        i--
-      ) {
-
-        const j =
-          Math.floor(Math.random() * (i + 1));
-
-        [
-          playlist[i],
-          playlist[j]
-        ] = [
-          playlist[j],
-          playlist[i]
-        ];
-      }
+  ){
 
 
-      if (
-        lastMovie &&
-        playlist.length > 1 &&
-        playlist[0] === lastMovie
-      ) {
+    [
 
-        [
-          playlist[0],
-          playlist[1]
-        ] = [
-          playlist[1],
-          playlist[0]
-        ];
-      }
-    }
+      playlist[0],
+      playlist[1]
 
+    ] = [
 
-    function getNextMovie() {
+      playlist[1],
+      playlist[0]
 
-      if (playlist.length === 0) {
-        shuffleMovies();
-      }
+    ];
 
-      const next = playlist.shift();
+  }
 
-      lastMovie = next;
-
-      return next;
-    }
+}
 
 
-    function prepareNextMovie() {
-
-      standbyMovie.src = getNextMovie();
-
-      standbyMovie.load();
-    }
 
 
-    function fireFlash() {
-
-      flash.classList.remove("fire");
-
-      void flash.offsetWidth;
-
-      flash.classList.add("fire");
-    }
+function getNextMovie(){
 
 
-    function switchMovie() {
+  if(
+    playlist.length === 0
+  ){
 
-      if (switching) return;
+    shuffleMovies();
 
-      switching = true;
-
-      fireFlash();
-
-
-      setTimeout(() => {
-
-        standbyMovie.currentTime = 0;
-
-        standbyMovie.play()
-
-          .then(() => {
-
-            standbyMovie.classList.add("active");
-
-            activeMovie.classList.remove("active");
+  }
 
 
-            setTimeout(() => {
+  const next =
+    playlist.shift();
+
+
+  lastMovie =
+    next;
+
+
+  return next;
+
+}
+
+
+
+/* ========================================
+   次動画準備
+======================================== */
+
+function prepareNextMovie(){
+
+
+  standbyMovie.src =
+    getNextMovie();
+
+
+  standbyMovie.load();
+
+}
+
+
+
+/* ========================================
+   FLASH
+======================================== */
+
+function fireFlash(){
+
+
+  flash.classList.remove(
+    "fire"
+  );
+
+
+  void flash.offsetWidth;
+
+
+  flash.classList.add(
+    "fire"
+  );
+
+}
+
+
+
+/* ========================================
+   文字演出を毎回リセット
+======================================== */
+
+function replayTextAnimation(){
+
+
+  mainTitle.classList.remove(
+    "play"
+  );
+
+
+  catchText.classList.remove(
+    "play"
+  );
+
+
+  redLine.classList.remove(
+    "play"
+  );
+
+
+  /*
+    一度DOMを再計算させて
+    animationを最初から実行
+  */
+
+  void mainTitle.offsetWidth;
+
+
+  mainTitle.classList.add(
+    "play"
+  );
+
+
+  catchText.classList.add(
+    "play"
+  );
+
+
+  redLine.classList.add(
+    "play"
+  );
+
+}
+
+
+
+/* ========================================
+   動画切替
+======================================== */
+
+function switchMovie(){
+
+
+  if(switching){
+    return;
+  }
+
+
+  switching = true;
+
+
+
+  /* FLASH */
+
+  fireFlash();
+
+
+
+  setTimeout(
+    () => {
+
+
+      standbyMovie.currentTime =
+        0;
+
+
+
+      standbyMovie.play()
+
+
+      .then(
+        () => {
+
+
+          standbyMovie.classList.add(
+            "active"
+          );
+
+
+          activeMovie.classList.remove(
+            "active"
+          );
+
+
+
+          /*
+
+          動画が切り替わったら
+          文字演出を最初から
+
+          */
+
+          replayTextAnimation();
+
+
+
+          setTimeout(
+            () => {
+
 
               activeMovie.pause();
 
-              const oldMovie = activeMovie;
 
-              activeMovie = standbyMovie;
 
-              standbyMovie = oldMovie;
+              const oldMovie =
+                activeMovie;
+
+
+
+              activeMovie =
+                standbyMovie;
+
+
+
+              standbyMovie =
+                oldMovie;
+
+
 
               prepareNextMovie();
 
-              switching = false;
-
-            }, 550);
-
-          })
-
-          .catch(() => {
-
-            switching = false;
-
-          });
-
-      }, 90);
-    }
 
 
-    function startMovies() {
-
-      shuffleMovies();
-
-      activeMovie.src = getNextMovie();
-
-      activeMovie.load();
-
-      activeMovie.play().catch(() => {});
-
-      prepareNextMovie();
-    }
+              switching =
+                false;
 
 
-    movieA.addEventListener(
-      "ended",
-      switchMovie
+            },
+
+            500
+
+          );
+
+
+        }
+      )
+
+
+      .catch(
+        () => {
+
+          switching =
+            false;
+
+        }
+      );
+
+
+    },
+
+    100
+
+  );
+
+}
+
+
+
+/* ========================================
+   START
+======================================== */
+
+function startMovies(){
+
+
+  shuffleMovies();
+
+
+
+  activeMovie.src =
+    getNextMovie();
+
+
+
+  activeMovie.load();
+
+
+
+  activeMovie.play()
+    .catch(
+      () => {}
     );
 
-    movieB.addEventListener(
-      "ended",
-      switchMovie
-    );
 
 
-    startMovies();
+  prepareNextMovie();
 
-  </script>
+
+
+  /* 最初の文字演出 */
+
+  replayTextAnimation();
+
+}
+
+
+
+/* ========================================
+   END
+======================================== */
+
+movieA.addEventListener(
+
+  "ended",
+
+  switchMovie
+
+);
+
+
+movieB.addEventListener(
+
+  "ended",
+
+  switchMovie
+
+);
+
+
+
+startMovies();
+
+
+</script>
 
 
 </body>
+
 </html>
