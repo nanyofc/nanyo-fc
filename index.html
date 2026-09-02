@@ -2,12 +2,21 @@
 <html lang="ja">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>NANYO FOOTBALL CLUB</title>
 
 <style>
+
+/* ======================================
+   RESET
+====================================== */
 
 *{
   margin:0;
@@ -28,11 +37,12 @@ body{
 }
 
 
-/* =========================
+/* ======================================
    HEADER
-========================= */
+====================================== */
 
 .header{
+
   width:100%;
   height:82px;
 
@@ -49,6 +59,9 @@ body{
       #b6001d 55%,
       #980018 100%
     );
+
+  position:relative;
+  z-index:20;
 }
 
 .brand{
@@ -58,13 +71,16 @@ body{
 }
 
 .brand-logo{
+
   width:56px;
   height:56px;
+
   object-fit:contain;
   display:block;
 }
 
 .brand-name{
+
   color:#fff;
 
   font-size:31px;
@@ -77,11 +93,13 @@ body{
 }
 
 .menu{
+
   width:48px;
   height:48px;
 
   display:flex;
   flex-direction:column;
+
   justify-content:center;
   align-items:center;
 
@@ -89,6 +107,7 @@ body{
 }
 
 .menu span{
+
   display:block;
 
   width:30px;
@@ -100,11 +119,12 @@ body{
 }
 
 
-/* =========================
+/* ======================================
    MOVIE
-========================= */
+====================================== */
 
 .movie-wrap{
+
   position:relative;
 
   width:100%;
@@ -113,38 +133,104 @@ body{
   overflow:hidden;
 
   background:#000;
+
+  --cut-time:460ms;
 }
 
-#heroVideo{
+.movie{
+
   position:absolute;
   inset:0;
 
   width:100%;
   height:100%;
 
-  display:block;
-
   object-fit:contain;
   object-position:center;
 
+  display:block;
+
   background:#000;
+
+  opacity:0;
+
+  z-index:1;
+}
+
+.movie.active{
+  opacity:1;
 }
 
 
-/* =========================
+/* ======================================
+   CUT BLACK
+====================================== */
+
+.cut-black{
+
+  position:absolute;
+  inset:0;
+
+  z-index:10;
+
+  background:#000;
+
+  opacity:0;
+
+  pointer-events:none;
+}
+
+
+/*
+  毎回同じ時間で暗転
+*/
+
+.cut-black.play{
+
+  animation:
+    blackCut
+    var(--cut-time)
+    linear
+    forwards;
+}
+
+
+@keyframes blackCut{
+
+  0%{
+    opacity:0;
+  }
+
+  38%{
+    opacity:1;
+  }
+
+  62%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+
+/* ======================================
    COPY
-========================= */
+====================================== */
 
 .hero-copy{
+
   width:100%;
+
+  overflow:hidden;
 
   padding:
     31px
     0
     46px
     22px;
-
-  overflow:hidden;
 
   background:
     radial-gradient(
@@ -155,7 +241,13 @@ body{
     #000;
 }
 
+
+/* ======================================
+   TITLE
+====================================== */
+
 .main-title{
+
   padding-right:20px;
 
   color:#fff;
@@ -174,7 +266,53 @@ body{
   letter-spacing:-.055em;
 }
 
+
+/*
+  毎回動画切替で動く
+*/
+
+.main-title.play{
+
+  animation:
+    titleMove
+    .75s
+    cubic-bezier(.15,.80,.20,1);
+}
+
+
+@keyframes titleMove{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      translateX(-35px);
+
+    filter:
+      blur(4px);
+  }
+
+  100%{
+
+    opacity:1;
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+  }
+
+}
+
+
+/* ======================================
+   CATCH
+====================================== */
+
 .catch{
+
   margin-top:22px;
 
   padding-right:12px;
@@ -196,13 +334,51 @@ body{
   white-space:nowrap;
 }
 
+
+.catch.play{
+
+  animation:
+    catchMove
+    .65s
+    cubic-bezier(.15,.80,.20,1);
+}
+
+
+@keyframes catchMove{
+
+  0%{
+
+    opacity:0;
+
+    transform:
+      translateX(28px);
+  }
+
+  100%{
+
+    opacity:1;
+
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+/* ======================================
+   RED LINE
+====================================== */
+
 .red-line{
+
   width:
     calc(100vw - 22px);
 
   height:4px;
 
   margin-top:20px;
+
+  transform-origin:left center;
 
   background:
     linear-gradient(
@@ -214,9 +390,33 @@ body{
 }
 
 
-/* =========================
+.red-line.play{
+
+  animation:
+    lineMove
+    .85s
+    cubic-bezier(.1,.8,.18,1);
+}
+
+
+@keyframes lineMove{
+
+  0%{
+    transform:scaleX(0);
+    opacity:0;
+  }
+
+  100%{
+    transform:scaleX(1);
+    opacity:1;
+  }
+
+}
+
+
+/* ======================================
    PC
-========================= */
+====================================== */
 
 @media(min-width:768px){
 
@@ -240,6 +440,7 @@ body{
   }
 
   .hero-copy{
+
     padding:
       48px
       0
@@ -250,11 +451,16 @@ body{
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- ======================================
+     HEADER
+====================================== -->
 
 <header class="header">
 
@@ -283,33 +489,70 @@ body{
 
 
 
+<!-- ======================================
+     MOVIE
+====================================== -->
+
 <section class="movie-wrap">
 
   <video
-    id="heroVideo"
-    autoplay
+    id="movieA"
+    class="movie active"
     muted
     playsinline
     webkit-playsinline
     preload="auto">
   </video>
 
+
+  <video
+    id="movieB"
+    class="movie"
+    muted
+    playsinline
+    webkit-playsinline
+    preload="auto">
+  </video>
+
+
+  <div
+    id="cutBlack"
+    class="cut-black">
+  </div>
+
 </section>
 
 
 
+<!-- ======================================
+     COPY
+====================================== -->
+
 <section class="hero-copy">
 
-  <h1 class="main-title">
+  <h1
+    id="mainTitle"
+    class="main-title">
+
     NANYO<br>
     FOOTBALL CLUB
+
   </h1>
 
-  <div class="catch">
+
+  <div
+    id="catchText"
+    class="catch">
+
     COUNTERATTACK BEGINS
+
   </div>
 
-  <div class="red-line"></div>
+
+  <div
+    id="redLine"
+    class="red-line">
+  </div>
 
 </section>
 
@@ -317,30 +560,60 @@ body{
 
 <script>
 
+
+/* ======================================
+   MOVIES
+====================================== */
+
 const movies = [
+
   "movie/nf1.mp4",
   "movie/nf2.mp4",
   "movie/nf3.mp4",
   "movie/nf4.mp4",
   "movie/nf5.mp4",
   "movie/nf6.mp4"
+
 ];
 
-const video =
-  document.getElementById("heroVideo");
 
+const movieA =
+  document.getElementById("movieA");
+
+const movieB =
+  document.getElementById("movieB");
+
+const cutBlack =
+  document.getElementById("cutBlack");
+
+const mainTitle =
+  document.getElementById("mainTitle");
+
+const catchText =
+  document.getElementById("catchText");
+
+const redLine =
+  document.getElementById("redLine");
+
+
+let activeVideo = movieA;
+let standbyVideo = movieB;
 
 let playlist = [];
+
 let lastMovie = null;
 
+let switching = false;
 
-/* =========================
-   シャッフル
-========================= */
+
+/* ======================================
+   SHUFFLE
+====================================== */
 
 function shuffleMovies(){
 
   playlist = [...movies];
+
 
   for(
     let i = playlist.length - 1;
@@ -353,18 +626,25 @@ function shuffleMovies(){
         Math.random() * (i + 1)
       );
 
+
     [
       playlist[i],
       playlist[j]
+
     ] = [
+
       playlist[j],
       playlist[i]
+
     ];
 
   }
 
 
-  /* 一巡の境目で同じ動画を防ぐ */
+  /*
+    一巡した境目で
+    同じ動画が連続しない
+  */
 
   if(
     lastMovie &&
@@ -375,9 +655,12 @@ function shuffleMovies(){
     [
       playlist[0],
       playlist[1]
+
     ] = [
+
       playlist[1],
       playlist[0]
+
     ];
 
   }
@@ -385,9 +668,9 @@ function shuffleMovies(){
 }
 
 
-/* =========================
-   次の動画
-========================= */
+/* ======================================
+   NEXT
+====================================== */
 
 function getNextMovie(){
 
@@ -395,93 +678,349 @@ function getNextMovie(){
     shuffleMovies();
   }
 
+
   const next =
     playlist.shift();
 
+
   lastMovie =
     next;
+
 
   return next;
 
 }
 
 
-/* =========================
-   動画読込
-========================= */
+/* ======================================
+   ANIMATION RESTART
+====================================== */
 
-function loadNextMovie(){
+function restartAnimation(
+  element,
+  className
+){
 
-  const next =
-    getNextMovie();
+  element
+    .classList
+    .remove(className);
 
-  video.pause();
 
-  video.src =
-    next;
+  void element.offsetWidth;
 
-  video.load();
+
+  element
+    .classList
+    .add(className);
 
 }
 
 
-/* =========================
-   再生可能になってから再生
-========================= */
+/* ======================================
+   TEXT ANIMATION
+====================================== */
 
-video.addEventListener(
-  "canplay",
+function animateText(){
 
-  () => {
+  restartAnimation(
+    mainTitle,
+    "play"
+  );
 
-    video
-      .play()
-      .catch(() => {});
 
+  setTimeout(
+    () => {
+
+      restartAnimation(
+        catchText,
+        "play"
+      );
+
+    },
+    110
+  );
+
+
+  setTimeout(
+    () => {
+
+      restartAnimation(
+        redLine,
+        "play"
+      );
+
+    },
+    240
+  );
+
+}
+
+
+/* ======================================
+   PRELOAD NEXT
+====================================== */
+
+function preloadNext(){
+
+  const next =
+    getNextMovie();
+
+
+  standbyVideo.src =
+    next;
+
+
+  standbyVideo.load();
+
+}
+
+
+/* ======================================
+   CUT
+====================================== */
+
+function switchMovie(){
+
+  if(switching){
+    return;
   }
-);
 
 
-/* =========================
-   終わったらランダム次動画
-========================= */
+  switching = true;
 
-video.addEventListener(
+
+  /*
+    黒フェード開始
+  */
+
+  restartAnimation(
+    cutBlack,
+    "play"
+  );
+
+
+  /*
+    0.46秒のちょうど中央付近で
+    動画を交換
+
+    230ms固定
+  */
+
+  setTimeout(
+
+    () => {
+
+
+      standbyVideo.currentTime =
+        0;
+
+
+      standbyVideo
+        .play()
+        .catch(() => {});
+
+
+      activeVideo
+        .classList
+        .remove("active");
+
+
+      standbyVideo
+        .classList
+        .add("active");
+
+
+      activeVideo.pause();
+
+
+      /*
+        動画が変わるたびに
+        下の文字も再アニメーション
+      */
+
+      animateText();
+
+
+      const oldVideo =
+        activeVideo;
+
+
+      activeVideo =
+        standbyVideo;
+
+
+      standbyVideo =
+        oldVideo;
+
+
+      /*
+        次の動画をすぐ裏で先読み
+      */
+
+      preloadNext();
+
+
+    },
+
+    230
+
+  );
+
+
+  /*
+    暗転終了後
+  */
+
+  setTimeout(
+
+    () => {
+
+      switching =
+        false;
+
+    },
+
+    520
+
+  );
+
+}
+
+
+/* ======================================
+   VIDEO END
+====================================== */
+
+movieA.addEventListener(
   "ended",
-
-  () => {
-
-    loadNextMovie();
-
-  }
+  switchMovie
 );
 
 
-/* =========================
-   1本壊れていても次へ
-========================= */
+movieB.addEventListener(
+  "ended",
+  switchMovie
+);
 
-video.addEventListener(
+
+/* ======================================
+   ERROR
+====================================== */
+
+movieA.addEventListener(
+
   "error",
 
   () => {
 
-    setTimeout(
-      loadNextMovie,
-      300
-    );
+    if(
+      activeVideo === movieA
+    ){
+
+      switchMovie();
+
+    }
 
   }
+
 );
 
 
-/* =========================
+movieB.addEventListener(
+
+  "error",
+
+  () => {
+
+    if(
+      activeVideo === movieB
+    ){
+
+      switchMovie();
+
+    }
+
+  }
+
+);
+
+
+/* ======================================
    START
-========================= */
+====================================== */
 
-shuffleMovies();
+function start(){
 
-loadNextMovie();
+  shuffleMovies();
+
+
+  /*
+    最初の動画
+  */
+
+  activeVideo.src =
+    getNextMovie();
+
+
+  activeVideo.load();
+
+
+  /*
+    次の動画は最初から裏で準備
+  */
+
+  preloadNext();
+
+
+  /*
+    最初の文字演出
+  */
+
+  animateText();
+
+
+  /*
+    最初の動画を再生
+  */
+
+  const startPlay = () => {
+
+    activeVideo
+      .play()
+      .catch(() => {});
+
+  };
+
+
+  if(
+    activeVideo.readyState >= 2
+  ){
+
+    startPlay();
+
+  }
+
+  else{
+
+    activeVideo.addEventListener(
+
+      "loadeddata",
+
+      startPlay,
+
+      {
+        once:true
+      }
+
+    );
+
+  }
+
+}
+
+
+start();
+
 
 </script>
 
