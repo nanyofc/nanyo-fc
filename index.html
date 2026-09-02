@@ -16,9 +16,9 @@
 <style>
 
 
-/* =====================================
+/* =========================================
    RESET
-===================================== */
+========================================= */
 
 *{
   margin:0;
@@ -46,9 +46,9 @@ body{
 
 
 
-/* =====================================
+/* =========================================
    HEADER
-===================================== */
+========================================= */
 
 .header{
 
@@ -64,21 +64,21 @@ body{
   background:
     linear-gradient(
       180deg,
-      #c60022 0%,
-      #ae001d 55%,
-      #980019 100%
+      #d00023 0%,
+      #b5001d 52%,
+      #980018 100%
     );
 
   position:relative;
 
-  z-index:20;
+  z-index:30;
+
+  box-shadow:
+    0 3px 12px
+    rgba(0,0,0,.28);
 }
 
 
-
-/* =====================================
-   BRAND
-===================================== */
 
 .brand{
 
@@ -87,29 +87,23 @@ body{
   align-items:center;
 
   gap:13px;
-
-  min-width:0;
 }
 
 
-
-/* ロゴ */
 
 .brand-logo{
 
   width:56px;
   height:56px;
 
-  flex:0 0 56px;
+  object-fit:contain;
 
   display:block;
 
-  object-fit:contain;
+  flex:0 0 56px;
 }
 
 
-
-/* NANYO FC */
 
 .brand-name{
 
@@ -126,21 +120,20 @@ body{
   white-space:nowrap;
 
   text-shadow:
-    0 2px 4px rgba(0,0,0,.18);
+    0 2px 5px
+    rgba(0,0,0,.22);
 }
 
 
 
-/* =====================================
+/* =========================================
    HAMBURGER
-===================================== */
+========================================= */
 
 .menu{
 
   width:48px;
   height:48px;
-
-  flex:0 0 48px;
 
   display:flex;
 
@@ -156,23 +149,25 @@ body{
 
 .menu span{
 
-  display:block;
-
   width:30px;
   height:3px;
 
-  border-radius:3px;
+  display:block;
 
-  /* 普通のゴールド */
+  border-radius:4px;
 
-  background:#d8b44a;
+  background:#d9b44a;
+
+  box-shadow:
+    0 1px 2px
+    rgba(0,0,0,.2);
 }
 
 
 
-/* =====================================
-   MOVIE
-===================================== */
+/* =========================================
+   MOVIE AREA
+========================================= */
 
 .movie-wrap{
 
@@ -185,6 +180,8 @@ body{
   overflow:hidden;
 
   background:#000;
+
+  isolation:isolate;
 }
 
 
@@ -199,18 +196,22 @@ body{
   height:100%;
 
   object-fit:contain;
-
   object-position:center;
 
   background:#000;
 
   opacity:0;
 
-  transform:scale(1);
+  transform:
+    scale(1);
+
+  filter:
+    contrast(1.04)
+    saturate(1.05);
 
   transition:
-    opacity .48s ease,
-    transform 8s linear;
+    opacity .32s ease;
+
 }
 
 
@@ -218,13 +219,13 @@ body{
 .movie.active{
 
   opacity:1;
-
-  transform:scale(1.025);
 }
 
 
 
-/* 動画を少し締める */
+/* =========================================
+   CINEMATIC SHADE
+========================================= */
 
 .movie-shade{
 
@@ -232,59 +233,102 @@ body{
 
   inset:0;
 
-  z-index:5;
+  z-index:7;
 
   pointer-events:none;
 
   background:
+
     linear-gradient(
       to bottom,
 
-      rgba(0,0,0,.04) 0%,
-      rgba(0,0,0,0) 55%,
-      rgba(0,0,0,.13) 100%
+      rgba(0,0,0,.10) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(0,0,0,.20) 100%
     );
+
 }
 
 
 
-/* =====================================
-   FLASH
-===================================== */
+/* =========================================
+   SCAN LINES
+========================================= */
 
-.flash{
+.scanlines{
 
   position:absolute;
 
   inset:0;
 
-  z-index:10;
+  z-index:8;
+
+  pointer-events:none;
+
+  opacity:.12;
+
+  background:
+
+    repeating-linear-gradient(
+
+      to bottom,
+
+      rgba(255,255,255,.08) 0px,
+
+      rgba(255,255,255,.08) 1px,
+
+      transparent 1px,
+
+      transparent 4px
+
+    );
+
+}
+
+
+
+/* =========================================
+   WHITE FLASH
+========================================= */
+
+.flash-white{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:20;
+
+  pointer-events:none;
 
   background:#fff;
 
   opacity:0;
-
-  pointer-events:none;
 }
 
 
 
-.flash.fire{
+.flash-white.fire{
 
   animation:
-    flashEffect .27s ease;
+    whiteFlash .32s ease;
 }
 
 
 
-@keyframes flashEffect{
+@keyframes whiteFlash{
 
   0%{
     opacity:0;
   }
 
-  28%{
-    opacity:.68;
+  16%{
+    opacity:.95;
+  }
+
+  35%{
+    opacity:.22;
   }
 
   100%{
@@ -295,11 +339,410 @@ body{
 
 
 
-/* =====================================
-   VIDEO下 TEXT AREA
-===================================== */
+/* =========================================
+   RED FLASH
+========================================= */
+
+.flash-red{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:19;
+
+  pointer-events:none;
+
+  background:#ef001b;
+
+  opacity:0;
+
+  mix-blend-mode:screen;
+}
+
+
+
+.flash-red.fire{
+
+  animation:
+    redFlash .42s ease;
+}
+
+
+
+@keyframes redFlash{
+
+  0%{
+    opacity:0;
+  }
+
+  18%{
+    opacity:.55;
+  }
+
+  40%{
+    opacity:.12;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+
+
+/* =========================================
+   BLACKOUT
+========================================= */
+
+.blackout{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:18;
+
+  pointer-events:none;
+
+  background:#000;
+
+  opacity:0;
+}
+
+
+
+.blackout.fire{
+
+  animation:
+    blackoutFx .36s ease;
+}
+
+
+
+@keyframes blackoutFx{
+
+  0%{
+    opacity:0;
+  }
+
+  15%{
+    opacity:.95;
+  }
+
+  36%{
+    opacity:.95;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+
+
+/* =========================================
+   RED SLASH
+========================================= */
+
+.red-slash{
+
+  position:absolute;
+
+  z-index:17;
+
+  pointer-events:none;
+
+  top:-60%;
+
+  left:-120%;
+
+  width:180%;
+  height:220%;
+
+  opacity:0;
+
+  transform:
+    rotate(-18deg);
+
+  background:
+
+    linear-gradient(
+
+      90deg,
+
+      transparent 0%,
+
+      rgba(255,0,28,0) 28%,
+
+      rgba(255,0,28,.92) 46%,
+
+      #ff263d 50%,
+
+      rgba(255,0,28,.86) 55%,
+
+      transparent 72%
+
+    );
+
+}
+
+
+
+.red-slash.fire{
+
+  animation:
+    slashFx .58s
+    cubic-bezier(.12,.72,.2,1);
+}
+
+
+
+@keyframes slashFx{
+
+  0%{
+
+    left:-150%;
+
+    opacity:0;
+
+  }
+
+  12%{
+
+    opacity:1;
+
+  }
+
+  100%{
+
+    left:110%;
+
+    opacity:0;
+
+  }
+
+}
+
+
+
+/* =========================================
+   RGB LAYERS
+========================================= */
+
+.rgb-red,
+.rgb-blue{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:12;
+
+  pointer-events:none;
+
+  opacity:0;
+}
+
+
+
+.rgb-red{
+
+  background:
+    rgba(255,0,30,.22);
+
+  mix-blend-mode:screen;
+}
+
+
+
+.rgb-blue{
+
+  background:
+    rgba(0,170,255,.20);
+
+  mix-blend-mode:screen;
+}
+
+
+
+.movie-wrap.rgb .rgb-red{
+
+  animation:
+    rgbRed .32s steps(2);
+}
+
+
+
+.movie-wrap.rgb .rgb-blue{
+
+  animation:
+    rgbBlue .32s steps(2);
+}
+
+
+
+@keyframes rgbRed{
+
+  0%{
+    opacity:0;
+    transform:translateX(0);
+  }
+
+  25%{
+    opacity:.8;
+    transform:translateX(-8px);
+  }
+
+  55%{
+    opacity:.35;
+    transform:translateX(5px);
+  }
+
+  100%{
+    opacity:0;
+    transform:translateX(0);
+  }
+
+}
+
+
+
+@keyframes rgbBlue{
+
+  0%{
+    opacity:0;
+    transform:translateX(0);
+  }
+
+  25%{
+    opacity:.8;
+    transform:translateX(8px);
+  }
+
+  55%{
+    opacity:.35;
+    transform:translateX(-5px);
+  }
+
+  100%{
+    opacity:0;
+    transform:translateX(0);
+  }
+
+}
+
+
+
+/* =========================================
+   VIDEO PUNCH
+========================================= */
+
+.movie-wrap.punch
+.movie.active{
+
+  animation:
+    punchZoom .72s
+    cubic-bezier(.16,.8,.2,1);
+}
+
+
+
+@keyframes punchZoom{
+
+  0%{
+
+    transform:
+      scale(1.16);
+
+    filter:
+      contrast(1.45)
+      saturate(1.45)
+      brightness(1.15);
+
+  }
+
+
+  40%{
+
+    transform:
+      scale(1.06);
+
+  }
+
+
+  100%{
+
+    transform:
+      scale(1);
+
+    filter:
+      contrast(1.04)
+      saturate(1.05)
+      brightness(1);
+
+  }
+
+}
+
+
+
+/* =========================================
+   SCREEN SHAKE
+========================================= */
+
+.movie-wrap.shake{
+
+  animation:
+    screenShake .34s
+    linear;
+}
+
+
+
+@keyframes screenShake{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  15%{
+    transform:translate(-5px,2px);
+  }
+
+  30%{
+    transform:translate(6px,-2px);
+  }
+
+  45%{
+    transform:translate(-4px,-1px);
+  }
+
+  60%{
+    transform:translate(5px,2px);
+  }
+
+  75%{
+    transform:translate(-2px,0);
+  }
+
+  100%{
+    transform:translate(0,0);
+  }
+
+}
+
+
+
+/* =========================================
+   TEXT AREA
+========================================= */
 
 .hero-copy{
+
+  position:relative;
 
   width:100%;
 
@@ -307,17 +750,18 @@ body{
 
   padding:
 
-    32px
+    31px
     0
     46px
     22px;
+
 
   background:
 
     radial-gradient(
       circle at 100% 0%,
-      rgba(120,0,15,.15),
-      transparent 42%
+      rgba(135,0,16,.18),
+      transparent 43%
     ),
 
     #000;
@@ -325,13 +769,15 @@ body{
 
 
 
-/* =====================================
-   NANYO FOOTBALL CLUB
-===================================== */
+/* =========================================
+   MAIN TITLE
+========================================= */
 
 .main-title{
 
-  padding-right:22px;
+  position:relative;
+
+  padding-right:20px;
 
   color:#fff;
 
@@ -347,6 +793,8 @@ body{
   font-weight:900;
 
   letter-spacing:-.055em;
+
+  transform-origin:left center;
 }
 
 
@@ -354,24 +802,50 @@ body{
 .main-title.play{
 
   animation:
-    mainTitleAnimation
-    .75s
-    cubic-bezier(.16,.8,.25,1);
+    titleSlam
+    .72s
+    cubic-bezier(.08,.82,.22,1);
 }
 
 
 
-@keyframes mainTitleAnimation{
+@keyframes titleSlam{
 
   0%{
 
     opacity:0;
 
     transform:
-      translateY(22px);
+      translateX(-45px)
+      skewX(-13deg)
+      scale(1.17);
 
     filter:
-      blur(5px);
+      blur(10px);
+
+  }
+
+
+  42%{
+
+    opacity:1;
+
+    transform:
+      translateX(8px)
+      skewX(3deg)
+      scale(1.03);
+
+    filter:
+      blur(1px);
+
+  }
+
+
+  62%{
+
+    transform:
+      translateX(-4px)
+      skewX(-2deg);
 
   }
 
@@ -381,7 +855,9 @@ body{
     opacity:1;
 
     transform:
-      translateY(0);
+      translateX(0)
+      skewX(0)
+      scale(1);
 
     filter:
       blur(0);
@@ -392,11 +868,15 @@ body{
 
 
 
-/* =====================================
+/* =========================================
    COUNTERATTACK
-===================================== */
+========================================= */
 
 .catch{
+
+  position:relative;
+
+  display:inline-block;
 
   margin-top:22px;
 
@@ -420,6 +900,7 @@ body{
   letter-spacing:.012em;
 
   white-space:nowrap;
+
 }
 
 
@@ -427,52 +908,82 @@ body{
 .catch.play{
 
   animation:
-    catchAnimation
-    .58s ease;
+    catchGlitch .76s
+    steps(1);
 }
 
 
 
-@keyframes catchAnimation{
+@keyframes catchGlitch{
 
   0%{
 
     opacity:0;
 
     transform:
-      translateX(-28px);
+      translateX(-40px);
 
-    filter:
-      blur(7px);
+    text-shadow:none;
 
   }
 
 
-  45%{
+  14%{
 
     opacity:1;
 
     transform:
-      translateX(5px);
+      translateX(7px);
 
-    filter:
-      blur(1px);
+    text-shadow:
+      -7px 0 #00eaff,
+      7px 0 #ff0033;
 
   }
 
 
-  60%{
+  28%{
 
     transform:
-      translateX(-3px);
+      translateX(-5px);
+
+    text-shadow:
+      5px 0 #00eaff,
+      -5px 0 #ff0033;
 
   }
 
 
-  76%{
+  40%{
+
+    transform:
+      translateX(4px);
+
+    text-shadow:
+      -3px 0 #00eaff,
+      3px 0 #ff0033;
+
+  }
+
+
+  52%{
+
+    transform:
+      translateX(-2px);
+
+    text-shadow:none;
+
+  }
+
+
+  68%{
 
     transform:
       translateX(2px);
+
+    text-shadow:
+      2px 0 #00eaff,
+      -2px 0 #ff0033;
 
   }
 
@@ -484,8 +995,7 @@ body{
     transform:
       translateX(0);
 
-    filter:
-      blur(0);
+    text-shadow:none;
 
   }
 
@@ -493,29 +1003,39 @@ body{
 
 
 
-/* =====================================
+/* =========================================
    RED LINE
-===================================== */
+========================================= */
 
 .red-line{
 
-  height:3px;
-
-  margin-top:20px;
+  position:relative;
 
   width:
     calc(100vw - 22px);
 
+  height:4px;
+
+  margin-top:20px;
+
   transform-origin:left center;
 
   background:
+
     linear-gradient(
+
       90deg,
 
-      #ef101b 0%,
-      #ff2029 72%,
-      rgba(255,32,41,.1) 100%
+      #ef001c 0%,
+
+      #ff263c 50%,
+
+      #ff001f 78%,
+
+      transparent 100%
+
     );
+
 }
 
 
@@ -523,21 +1043,32 @@ body{
 .red-line.play{
 
   animation:
-    redLineAnimation
-    .9s
-    cubic-bezier(.2,.8,.2,1);
+    redBeam .7s
+    cubic-bezier(.1,.76,.18,1);
 }
 
 
 
-@keyframes redLineAnimation{
+@keyframes redBeam{
 
   0%{
 
     transform:
       scaleX(0);
 
-    opacity:.2;
+    filter:
+      brightness(3);
+
+  }
+
+
+  55%{
+
+    transform:
+      scaleX(1.06);
+
+    filter:
+      brightness(2);
 
   }
 
@@ -547,7 +1078,8 @@ body{
     transform:
       scaleX(1);
 
-    opacity:1;
+    filter:
+      brightness(1);
 
   }
 
@@ -555,9 +1087,39 @@ body{
 
 
 
-/* =====================================
+/* 光の先端 */
+
+.red-line::after{
+
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  top:50%;
+
+  width:22px;
+  height:10px;
+
+  transform:
+    translateY(-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      #fff 0%,
+      #ff263c 28%,
+      transparent 72%
+    );
+
+  opacity:.8;
+}
+
+
+
+/* =========================================
    PC
-===================================== */
+========================================= */
 
 @media(min-width:768px){
 
@@ -585,14 +1147,6 @@ body{
   .brand-name{
 
     font-size:40px;
-
-  }
-
-
-  .menu{
-
-    width:56px;
-    height:56px;
 
   }
 
@@ -661,9 +1215,9 @@ body{
 
 
 
-<!-- =====================================
+<!-- =========================================
      HEADER
-===================================== -->
+========================================== -->
 
 <header class="header">
 
@@ -707,11 +1261,14 @@ body{
 
 
 
-<!-- =====================================
+<!-- =========================================
      MOVIE
-===================================== -->
+========================================== -->
 
-<section class="movie-wrap">
+<section
+  id="movieWrap"
+  class="movie-wrap"
+>
 
 
   <video
@@ -748,10 +1305,30 @@ body{
 
   <div class="movie-shade"></div>
 
+  <div class="scanlines"></div>
+
+  <div class="rgb-red"></div>
+
+  <div class="rgb-blue"></div>
 
   <div
-    id="flash"
-    class="flash">
+    id="blackout"
+    class="blackout">
+  </div>
+
+  <div
+    id="flashRed"
+    class="flash-red">
+  </div>
+
+  <div
+    id="flashWhite"
+    class="flash-white">
+  </div>
+
+  <div
+    id="redSlash"
+    class="red-slash">
   </div>
 
 
@@ -760,9 +1337,9 @@ body{
 
 
 
-<!-- =====================================
-     TEXT
-===================================== -->
+<!-- =========================================
+     COPY
+========================================== -->
 
 <section class="hero-copy">
 
@@ -810,9 +1387,9 @@ body{
 <script>
 
 
-/* =====================================
-   VIDEO LIST
-===================================== */
+/* =========================================
+   MOVIES
+========================================= */
 
 const movies = [
 
@@ -840,8 +1417,24 @@ const movieB =
   document.getElementById("movieB");
 
 
-const flash =
-  document.getElementById("flash");
+const movieWrap =
+  document.getElementById("movieWrap");
+
+
+const flashWhite =
+  document.getElementById("flashWhite");
+
+
+const flashRed =
+  document.getElementById("flashRed");
+
+
+const blackout =
+  document.getElementById("blackout");
+
+
+const redSlash =
+  document.getElementById("redSlash");
 
 
 const mainTitle =
@@ -877,9 +1470,9 @@ let switching =
 
 
 
-/* =====================================
+/* =========================================
    SHUFFLE
-===================================== */
+========================================= */
 
 function shuffleMovies(){
 
@@ -956,9 +1549,6 @@ function shuffleMovies(){
 
 
 
-/* =====================================
-   NEXT
-===================================== */
 
 function getNextMovie(){
 
@@ -986,9 +1576,9 @@ function getNextMovie(){
 
 
 
-/* =====================================
+/* =========================================
    PRELOAD
-===================================== */
+========================================= */
 
 function prepareNextMovie(){
 
@@ -1003,75 +1593,265 @@ function prepareNextMovie(){
 
 
 
-/* =====================================
-   FLASH
-===================================== */
+/* =========================================
+   ANIMATION RESET
+========================================= */
 
-function fireFlash(){
+function restartClass(
+  element,
+  className
+){
 
 
-  flash.classList.remove(
-    "fire"
+  element
+    .classList
+    .remove(className);
+
+
+  void element.offsetWidth;
+
+
+  element
+    .classList
+    .add(className);
+
+}
+
+
+
+/* =========================================
+   TEXT FX
+========================================= */
+
+function replayText(){
+
+
+  restartClass(
+    mainTitle,
+    "play"
   );
 
 
-  void flash.offsetWidth;
+  setTimeout(
+
+    () => {
+
+      restartClass(
+        catchText,
+        "play"
+      );
+
+    },
+
+    100
+
+  );
 
 
-  flash.classList.add(
-    "fire"
+  setTimeout(
+
+    () => {
+
+      restartClass(
+        redLine,
+        "play"
+      );
+
+    },
+
+    230
+
   );
 
 }
 
 
 
-/* =====================================
-   TEXT REPLAY
-===================================== */
+/* =========================================
+   RANDOM PV EFFECT
+========================================= */
 
-function replayTextAnimation(){
+function runMovieFx(){
 
 
-  mainTitle.classList.remove(
-    "play"
+  movieWrap.classList.remove(
+
+    "rgb",
+    "punch",
+    "shake"
+
   );
 
 
-  catchText.classList.remove(
-    "play"
-  );
+  const type =
+    Math.floor(
+      Math.random() * 3
+    );
 
 
-  redLine.classList.remove(
-    "play"
-  );
+
+  /*
+     TYPE 0
+     BLACK → FLASH → PUNCH
+  */
+
+  if(type === 0){
 
 
-  void mainTitle.offsetWidth;
+    restartClass(
+      blackout,
+      "fire"
+    );
 
 
-  mainTitle.classList.add(
-    "play"
-  );
+    setTimeout(
+      () => {
+
+        restartClass(
+          flashWhite,
+          "fire"
+        );
+
+      },
+      80
+    );
 
 
-  catchText.classList.add(
-    "play"
-  );
+    setTimeout(
+      () => {
+
+        movieWrap
+          .classList
+          .add(
+            "punch"
+          );
+
+      },
+      130
+    );
+
+  }
 
 
-  redLine.classList.add(
-    "play"
+
+  /*
+     TYPE 1
+     RED SLASH → SHAKE
+  */
+
+  if(type === 1){
+
+
+    restartClass(
+      redSlash,
+      "fire"
+    );
+
+
+    restartClass(
+      flashRed,
+      "fire"
+    );
+
+
+    setTimeout(
+      () => {
+
+        movieWrap
+          .classList
+          .add(
+            "shake"
+          );
+
+      },
+      90
+    );
+
+  }
+
+
+
+  /*
+     TYPE 2
+     RGB → FLASH → SHAKE
+  */
+
+  if(type === 2){
+
+
+    movieWrap
+      .classList
+      .add(
+        "rgb"
+      );
+
+
+    restartClass(
+      flashWhite,
+      "fire"
+    );
+
+
+    setTimeout(
+      () => {
+
+        movieWrap
+          .classList
+          .add(
+            "shake"
+          );
+
+      },
+      70
+    );
+
+
+    setTimeout(
+      () => {
+
+        movieWrap
+          .classList
+          .add(
+            "punch"
+          );
+
+      },
+      110
+    );
+
+  }
+
+
+
+  /*
+     FXクラス解除
+  */
+
+  setTimeout(
+
+    () => {
+
+      movieWrap.classList.remove(
+
+        "rgb",
+        "punch",
+        "shake"
+
+      );
+
+    },
+
+    850
+
   );
 
 }
 
 
 
-/* =====================================
+/* =========================================
    SWITCH
-===================================== */
+========================================= */
 
 function switchMovie(){
 
@@ -1086,7 +1866,11 @@ function switchMovie(){
 
 
 
-  fireFlash();
+  /*
+     先にPVエフェクト
+  */
+
+  runMovieFx();
 
 
 
@@ -1099,91 +1883,97 @@ function switchMovie(){
         0;
 
 
-      standbyMovie.play()
+
+      standbyMovie
+        .play()
 
 
-      .then(
+        .then(
 
-        () => {
-
-
-          standbyMovie
-          .classList
-          .add("active");
+          () => {
 
 
-          activeMovie
-          .classList
-          .remove("active");
+            standbyMovie
+              .classList
+              .add(
+                "active"
+              );
 
 
-
-          /*
-             動画変更ごとに
-             文字＋線も再演出
-          */
-
-          replayTextAnimation();
+            activeMovie
+              .classList
+              .remove(
+                "active"
+              );
 
 
 
-          setTimeout(
+            /*
+              TEXT PV
+            */
 
-            () => {
-
-
-              activeMovie.pause();
-
-
-
-              const oldMovie =
-                activeMovie;
-
-
-              activeMovie =
-                standbyMovie;
-
-
-              standbyMovie =
-                oldMovie;
+            replayText();
 
 
 
-              prepareNextMovie();
+            setTimeout(
+
+              () => {
+
+
+                activeMovie.pause();
 
 
 
-              switching =
-                false;
+                const old =
+                  activeMovie;
 
 
-            },
 
-            500
-
-          );
+                activeMovie =
+                  standbyMovie;
 
 
-        }
 
-      )
+                standbyMovie =
+                  old;
 
 
-      .catch(
 
-        () => {
+                prepareNextMovie();
 
-          switching =
-            false;
 
-        }
 
-      );
+                switching =
+                  false;
+
+
+              },
+
+              480
+
+            );
+
+          }
+
+        )
+
+
+        .catch(
+
+          () => {
+
+            switching =
+              false;
+
+          }
+
+        );
 
 
     },
 
-    100
+    130
 
   );
 
@@ -1191,9 +1981,9 @@ function switchMovie(){
 
 
 
-/* =====================================
+/* =========================================
    START
-===================================== */
+========================================= */
 
 function startMovies(){
 
@@ -1210,10 +2000,11 @@ function startMovies(){
 
 
 
-  activeMovie.play()
-  .catch(
-    () => {}
-  );
+  activeMovie
+    .play()
+    .catch(
+      () => {}
+    );
 
 
 
@@ -1221,15 +2012,31 @@ function startMovies(){
 
 
 
-  replayTextAnimation();
+  /*
+     開いた瞬間もPV
+  */
+
+  setTimeout(
+
+    () => {
+
+      runMovieFx();
+
+      replayText();
+
+    },
+
+    250
+
+  );
 
 }
 
 
 
-/* =====================================
-   EVENT
-===================================== */
+/* =========================================
+   EVENTS
+========================================= */
 
 movieA.addEventListener(
 
