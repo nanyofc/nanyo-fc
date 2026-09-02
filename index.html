@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>NANYO FOOTBALL CLUB</title>
 
   <style>
@@ -16,139 +15,97 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
       background: #000;
       font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .hero {
+      width: 100%;
+      min-height: 100svh;
+      background: #000;
+      color: #fff;
+    }
+
+    /* =====================
+       VIDEO AREA
+    ===================== */
+
+    .video-area {
       position: relative;
       width: 100%;
-      height: 100vh;
-      height: 100svh;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
       background: #000;
     }
 
-
-    /* -------------------------
-       背景動画
-       画面いっぱい＋ぼかし
-    ------------------------- */
-
-    .bg-video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-
-      width: 110%;
-      height: 110%;
-
-      transform: translate(-50%, -50%) scale(1.08);
-
-      object-fit: cover;
-
-      filter: blur(18px);
-      opacity: 0;
-
-      transition: opacity 0.8s ease;
-
-      z-index: 0;
-    }
-
-    .bg-video.active {
-      opacity: 0.55;
-    }
-
-
-    /* -------------------------
-       メイン動画
-       16:9を絶対に切らない
-    ------------------------- */
-
-    .main-video {
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      width: 100%;
-      height: auto;
-
-      max-height: 100%;
-
-      object-fit: contain;
-
-      opacity: 0;
-
-      transition: opacity 0.8s ease;
-
-      z-index: 1;
-    }
-
-    .main-video.active {
-      opacity: 1;
-    }
-
-
-    /* 黒フィルター */
-
-    .hero-overlay {
+    .hero-video {
       position: absolute;
       inset: 0;
 
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      opacity: 0;
+      transition: opacity 0.65s ease;
+    }
+
+    .hero-video.active {
+      opacity: 1;
+    }
+
+    /* 少し暗くする */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
       z-index: 2;
 
       background:
         linear-gradient(
           to bottom,
-          rgba(0,0,0,0.30) 0%,
-          rgba(0,0,0,0.05) 38%,
-          rgba(0,0,0,0.10) 60%,
-          rgba(0,0,0,0.75) 100%
+          rgba(0,0,0,0.22),
+          rgba(0,0,0,0.02) 55%,
+          rgba(0,0,0,0.28)
         );
 
       pointer-events: none;
     }
 
-
-    /* -------------------------
+    /* =====================
        HEADER
-    ------------------------- */
+    ===================== */
 
     .header {
       position: absolute;
-
       top: 0;
       left: 0;
 
       width: 100%;
 
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
 
       padding:
         calc(20px + env(safe-area-inset-top))
         24px
         20px;
 
-      z-index: 10;
+      z-index: 5;
     }
 
-    .header-name {
-      color: #fff;
-
+    .logo-text {
       font-size: 15px;
       font-weight: 900;
+      letter-spacing: 0.28em;
+      color: #fff;
 
-      letter-spacing: 0.25em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
     .menu {
@@ -164,221 +121,205 @@
     }
 
     .menu span {
-      display: block;
-
-      width: 27px;
+      width: 28px;
       height: 2px;
-
       background: #fff;
+
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
+    /* =====================
+       TEXT AREA
+    ===================== */
 
-    /* -------------------------
-       メイン文字
-    ------------------------- */
+    .copy-area {
+      position: relative;
 
-    .hero-content {
-      position: absolute;
+      min-height: calc(100svh - 56.25vw);
 
-      left: 24px;
-      right: 24px;
+      padding:
+        60px
+        24px
+        calc(35px + env(safe-area-inset-bottom));
 
-      bottom: 82px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      z-index: 10;
+      background: #000;
     }
 
     .club-name {
-      color: #fff;
-
-      font-size: clamp(35px, 10vw, 74px);
-
-      line-height: 0.92;
-
+      font-size: clamp(42px, 11vw, 78px);
+      line-height: 0.88;
       font-weight: 900;
-
-      letter-spacing: -0.045em;
-
-      text-shadow:
-        0 2px 12px rgba(0,0,0,0.45);
+      letter-spacing: -0.055em;
 
       opacity: 0;
-
-      transform: translateY(24px);
+      transform: translateY(28px);
 
       animation: titleIn 0.9s ease forwards;
-
-      animation-delay: 0.35s;
+      animation-delay: 0.25s;
     }
 
     .catch {
-      margin-top: 16px;
+      margin-top: 24px;
 
-      color: #ef1717;
+      color: #ed1717;
 
-      font-size: clamp(18px, 5vw, 34px);
-
+      font-size: clamp(19px, 5.3vw, 35px);
       font-weight: 900;
       font-style: italic;
 
-      letter-spacing: 0.035em;
+      line-height: 1;
+      letter-spacing: 0.025em;
 
       white-space: nowrap;
 
-      text-shadow:
-        0 2px 10px rgba(0,0,0,0.55);
-
       opacity: 0;
-
-      transform: translateX(-20px);
+      transform: translateX(-22px);
 
       animation: catchIn 0.8s ease forwards;
-
-      animation-delay: 0.85s;
+      animation-delay: 0.75s;
     }
 
     .red-line {
+      margin-top: 21px;
+
       width: 0;
       height: 3px;
 
-      margin-top: 18px;
-
-      background: #ef1717;
+      background: #ed1717;
 
       animation: lineIn 1s ease forwards;
-
-      animation-delay: 1.1s;
+      animation-delay: 1.05s;
     }
-
-
-    /* -------------------------
-       SCROLL
-    ------------------------- */
 
     .scroll {
       position: absolute;
 
-      left: 50%;
-      bottom: 18px;
-
-      transform: translateX(-50%);
-
-      color: rgba(255,255,255,0.8);
+      right: 25px;
+      bottom: 26px;
 
       font-size: 9px;
+      letter-spacing: 0.3em;
 
-      letter-spacing: 0.30em;
-
-      z-index: 10;
-
-      text-align: center;
+      color: rgba(255,255,255,0.65);
     }
 
     .scroll::after {
       content: "";
 
-      display: block;
+      display: inline-block;
 
       width: 1px;
-      height: 25px;
+      height: 28px;
 
-      margin: 8px auto 0;
+      margin-left: 10px;
 
-      background: rgba(255,255,255,0.8);
+      vertical-align: middle;
 
-      animation: scrollMove 1.5s ease-in-out infinite;
+      background: rgba(255,255,255,0.65);
+
+      animation: scrollLine 1.5s ease-in-out infinite;
     }
 
-
-    /* -------------------------
+    /* =====================
        ANIMATION
-    ------------------------- */
+    ===================== */
 
     @keyframes titleIn {
-
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
-
     }
 
-
     @keyframes catchIn {
-
-      from {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-
       to {
         opacity: 1;
         transform: translateX(0);
       }
-
     }
 
-
     @keyframes lineIn {
-
-      from {
-        width: 0;
-      }
-
       to {
         width: 150px;
       }
-
     }
 
-
-    @keyframes scrollMove {
-
-      0% {
+    @keyframes scrollLine {
+      0%, 100% {
         opacity: 0.25;
-        transform: scaleY(0.25);
-        transform-origin: top;
+        transform: scaleY(0.35);
       }
 
       50% {
         opacity: 1;
         transform: scaleY(1);
-        transform-origin: top;
       }
-
-      100% {
-        opacity: 0.25;
-        transform: scaleY(0.25);
-        transform-origin: top;
-      }
-
     }
 
-
-    /* PC */
+    /* =====================
+       PC
+    ===================== */
 
     @media (min-width: 768px) {
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .video-area {
+        height: 100vh;
+        aspect-ratio: auto;
+      }
+
+      .hero-video {
+        object-fit: cover;
+      }
+
+      .copy-area {
+        position: absolute;
+
+        left: 0;
+        bottom: 0;
+
+        z-index: 5;
+
+        width: 100%;
+        min-height: auto;
+
+        padding:
+          0
+          6vw
+          9vh;
+
+        background:
+          linear-gradient(
+            to top,
+            rgba(0,0,0,0.92),
+            rgba(0,0,0,0)
+          );
+
+        pointer-events: none;
+      }
+
+      .club-name {
+        font-size: clamp(70px, 7vw, 120px);
+      }
+
+      .catch {
+        font-size: clamp(28px, 3vw, 52px);
+      }
 
       .header {
         padding: 32px 50px;
       }
 
-      .hero-content {
-        left: 6vw;
-        bottom: 10vh;
-      }
-
-      .club-name {
-        font-size: clamp(60px, 7vw, 110px);
-      }
-
-      .catch {
-        font-size: clamp(25px, 2.8vw, 48px);
+      .logo-text {
+        font-size: 18px;
       }
 
     }
@@ -389,66 +330,46 @@
 
 <body>
 
-
 <section class="hero">
 
+  <div class="video-area">
 
-  <!-- 背景動画 -->
+    <video
+      id="videoA"
+      class="hero-video active"
+      muted
+      playsinline
+      preload="auto">
+    </video>
 
-  <video
-    id="bgA"
-    class="bg-video active"
-    muted
-    playsinline
-    preload="metadata">
-  </video>
+    <video
+      id="videoB"
+      class="hero-video"
+      muted
+      playsinline
+      preload="metadata">
+    </video>
 
-  <video
-    id="bgB"
-    class="bg-video"
-    muted
-    playsinline
-    preload="metadata">
-  </video>
-
-
-  <!-- メイン動画 -->
-
-  <video
-    id="mainA"
-    class="main-video active"
-    muted
-    playsinline
-    preload="auto">
-  </video>
-
-  <video
-    id="mainB"
-    class="main-video"
-    muted
-    playsinline
-    preload="metadata">
-  </video>
+    <div class="video-overlay"></div>
 
 
-  <div class="hero-overlay"></div>
+    <header class="header">
+
+      <div class="logo-text">
+        NANYO FC
+      </div>
+
+      <div class="menu">
+        <span></span>
+        <span></span>
+      </div>
+
+    </header>
+
+  </div>
 
 
-  <header class="header">
-
-    <div class="header-name">
-      NANYO FC
-    </div>
-
-    <div class="menu">
-      <span></span>
-      <span></span>
-    </div>
-
-  </header>
-
-
-  <div class="hero-content">
+  <div class="copy-area">
 
     <h1 class="club-name">
       NANYO<br>
@@ -461,201 +382,135 @@
 
     <div class="red-line"></div>
 
+    <div class="scroll">
+      SCROLL
+    </div>
+
   </div>
-
-
-  <div class="scroll">
-    SCROLL
-  </div>
-
 
 </section>
-
 
 
 <script>
 
 const movies = [
-
   "movie/nf1.mp4",
   "movie/nf2.mp4",
   "movie/nf3.mp4",
   "movie/nf4.mp4",
   "movie/nf5.mp4",
   "movie/nf6.mp4"
-
 ];
 
+const videoA = document.getElementById("videoA");
+const videoB = document.getElementById("videoB");
 
-const bgA = document.getElementById("bgA");
-const bgB = document.getElementById("bgB");
-
-const mainA = document.getElementById("mainA");
-const mainB = document.getElementById("mainB");
-
-
-let activeMain = mainA;
-let standbyMain = mainB;
-
-let activeBg = bgA;
-let standbyBg = bgB;
+let activeVideo = videoA;
+let standbyVideo = videoB;
 
 let playlist = [];
+let lastMovie = null;
 
 
+/* ランダム順を作る */
 function shuffleMovies() {
 
   playlist = [...movies];
 
   for (let i = playlist.length - 1; i > 0; i--) {
 
-    const j =
-      Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
 
-    [
-      playlist[i],
-      playlist[j]
-
-    ] = [
-
-      playlist[j],
-      playlist[i]
-
-    ];
-
+    [playlist[i], playlist[j]] =
+    [playlist[j], playlist[i]];
   }
 
+  /* 前回最後と次回最初が同じになるのを防ぐ */
+  if (
+    lastMovie &&
+    playlist.length > 1 &&
+    playlist[0] === lastMovie
+  ) {
+
+    [playlist[0], playlist[1]] =
+    [playlist[1], playlist[0]];
+  }
 }
 
 
+/* 次の動画 */
 function getNextMovie() {
 
   if (playlist.length === 0) {
-
     shuffleMovies();
-
   }
 
-  return playlist.shift();
+  const movie = playlist.shift();
 
+  lastMovie = movie;
+
+  return movie;
 }
 
 
-function setVideoPair(mainVideo, bgVideo, src) {
+/* 次動画を準備 */
+function prepareNextVideo() {
 
-  mainVideo.src = src;
-  bgVideo.src = src;
-
-  mainVideo.load();
-  bgVideo.load();
-
+  standbyVideo.src = getNextMovie();
+  standbyVideo.load();
 }
 
 
-function playPair(mainVideo, bgVideo) {
-
-  mainVideo.currentTime = 0;
-  bgVideo.currentTime = 0;
-
-  mainVideo.play().catch(() => {});
-  bgVideo.play().catch(() => {});
-
-}
-
-
-function prepareNext() {
-
-  const nextMovie = getNextMovie();
-
-  setVideoPair(
-    standbyMain,
-    standbyBg,
-    nextMovie
-  );
-
-}
-
-
+/* 動画切替 */
 function switchVideo() {
 
-  playPair(
-    standbyMain,
-    standbyBg
-  );
+  standbyVideo.currentTime = 0;
 
+  standbyVideo.play()
+    .then(() => {
 
-  standbyMain.classList.add("active");
-  standbyBg.classList.add("active");
+      standbyVideo.classList.add("active");
+      activeVideo.classList.remove("active");
 
+      setTimeout(() => {
 
-  activeMain.classList.remove("active");
-  activeBg.classList.remove("active");
+        activeVideo.pause();
 
+        const oldVideo = activeVideo;
 
-  setTimeout(() => {
+        activeVideo = standbyVideo;
+        standbyVideo = oldVideo;
 
-    activeMain.pause();
-    activeBg.pause();
+        prepareNextVideo();
 
+      }, 700);
 
-    const oldMain = activeMain;
-    activeMain = standbyMain;
-    standbyMain = oldMain;
-
-
-    const oldBg = activeBg;
-    activeBg = standbyBg;
-    standbyBg = oldBg;
-
-
-    prepareNext();
-
-  }, 850);
-
+    })
+    .catch(() => {});
 }
 
 
-function start() {
+/* 最初の動画 */
+function startVideos() {
 
   shuffleMovies();
 
-  const firstMovie =
-    getNextMovie();
+  activeVideo.src = getNextMovie();
 
+  activeVideo.load();
 
-  setVideoPair(
-    activeMain,
-    activeBg,
-    firstMovie
-  );
+  activeVideo.play().catch(() => {});
 
-
-  playPair(
-    activeMain,
-    activeBg
-  );
-
-
-  prepareNext();
-
+  prepareNextVideo();
 }
 
 
-mainA.addEventListener(
-  "ended",
-  switchVideo
-);
+videoA.addEventListener("ended", switchVideo);
+videoB.addEventListener("ended", switchVideo);
 
-mainB.addEventListener(
-  "ended",
-  switchVideo
-);
-
-
-start();
+startVideos();
 
 </script>
-
 
 </body>
 </html>
