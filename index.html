@@ -3,19 +3,15 @@
 
 <head>
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>NANYO FOOTBALL CLUB</title>
 
 <style>
 
-/* ==================================================
+/* =========================
    RESET
-================================================== */
+========================= */
 
 *{
   margin:0;
@@ -28,7 +24,7 @@ body{
   width:100%;
   background:#000;
   color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -36,9 +32,9 @@ body{
 }
 
 
-/* ==================================================
+/* =========================
    HEADER
-================================================== */
+========================= */
 
 .header{
   width:100%;
@@ -55,11 +51,11 @@ body{
       180deg,
       #d00023 0%,
       #b6001d 55%,
-      #970018 100%
+      #980018 100%
     );
 
   position:relative;
-  z-index:50;
+  z-index:20;
 }
 
 .brand{
@@ -94,6 +90,7 @@ body{
 
   display:flex;
   flex-direction:column;
+
   justify-content:center;
   align-items:center;
 
@@ -112,9 +109,9 @@ body{
 }
 
 
-/* ==================================================
-   MOVIE AREA
-================================================== */
+/* =========================
+   MOVIE
+========================= */
 
 .movie-wrap{
   position:relative;
@@ -123,15 +120,9 @@ body{
   aspect-ratio:16 / 9;
 
   overflow:hidden;
+
   background:#000;
-
-  isolation:isolate;
 }
-
-
-/* ==================================================
-   MOVIE
-================================================== */
 
 .movie{
   position:absolute;
@@ -147,16 +138,14 @@ body{
 
   opacity:0;
 
-  transform-origin:center center;
+  transform:scale(1);
 
-  filter:
-    contrast(1.06)
-    saturate(1.08);
+  transition:
+    opacity .4s ease;
 
   will-change:
     transform,
-    opacity,
-    filter;
+    opacity;
 }
 
 .movie.active{
@@ -165,366 +154,160 @@ body{
 
 .movie.motion{
   animation:
-    cinematicMotion
+    movieMotion
     var(--movie-duration, 8s)
     linear
     forwards;
 }
 
-@keyframes cinematicMotion{
+@keyframes movieMotion{
 
-  0%{
-    transform:scale(1.035);
-
-    filter:
-      contrast(1.18)
-      saturate(1.18)
-      brightness(1.04);
+  from{
+    transform:scale(1.01);
   }
 
-  10%{
-    transform:scale(1.015);
+  to{
+    transform:scale(1.04);
   }
 
-  100%{
-    transform:scale(1.07);
-
-    filter:
-      contrast(1.10)
-      saturate(1.12)
-      brightness(.98);
-  }
 }
 
 
-/* ==================================================
-   CINEMATIC SHADE
-================================================== */
+/* 動画をほんの少し締める */
 
 .movie-shade{
   position:absolute;
   inset:0;
 
-  z-index:5;
+  z-index:2;
 
   pointer-events:none;
 
   background:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.05) 0%,
-      transparent 28%,
-      transparent 72%,
-      rgba(0,0,0,.14) 100%
+      rgba(0,0,0,.02) 0%,
+      transparent 55%,
+      rgba(0,0,0,.06) 100%
     );
 }
 
 
-/* ==================================================
-   4 PANEL OVERLAY
-================================================== */
+/* =========================
+   SVG MARK
+========================= */
 
-.panel-grid{
+.mark-layer{
   position:absolute;
   inset:0;
 
-  z-index:8;
-
-  display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
-
-  pointer-events:none;
-}
-
-.panel{
-  position:relative;
-
-  opacity:0;
-
-  transform:translateX(0);
-
-  transition:
-    opacity .22s ease,
-    transform .22s ease;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(170,0,20,.18) 0%,
-      rgba(220,0,28,.10) 52%,
-      rgba(120,0,15,.15) 100%
-    );
-
-  mix-blend-mode:multiply;
-}
-
-
-/* ほんの少し赤い光も重ねる */
-
-.panel::after{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,40,55,.12) 50%,
-      transparent 100%
-    );
-
-  mix-blend-mode:screen;
-}
-
-
-.panel.active{
-  opacity:var(--panel-opacity,.14);
-}
-
-.panel.shift-left{
-  transform:translateX(-4px);
-}
-
-.panel.shift-right{
-  transform:translateX(4px);
-}
-
-
-/* ==================================================
-   SCANLINES
-================================================== */
-
-.scanlines{
-  position:absolute;
-  inset:0;
-
-  z-index:9;
+  z-index:3;
 
   pointer-events:none;
 
-  opacity:.045;
-
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,.18) 0px,
-      rgba(255,255,255,.18) 1px,
-      transparent 1px,
-      transparent 5px
-    );
+  overflow:hidden;
 }
 
-
-/* ==================================================
-   CORNER FRAME
-================================================== */
-
-.corner{
-  position:absolute;
-
-  width:31px;
-  height:31px;
-
-  z-index:14;
-
-  pointer-events:none;
-
-  opacity:.86;
-}
-
-.corner.tl{
-  top:12px;
-  left:12px;
-
-  border-top:2px solid rgba(255,255,255,.88);
-  border-left:2px solid #e40025;
-}
-
-.corner.tr{
-  top:12px;
-  right:12px;
-
-  border-top:2px solid rgba(255,255,255,.88);
-  border-right:2px solid #e40025;
-}
-
-.corner.bl{
-  bottom:12px;
-  left:12px;
-
-  border-bottom:2px solid rgba(255,255,255,.88);
-  border-left:2px solid #e40025;
-}
-
-.corner.br{
-  bottom:12px;
-  right:12px;
-
-  border-bottom:2px solid rgba(255,255,255,.88);
-  border-right:2px solid #e40025;
-}
-
-
-/* ==================================================
-   FAST LIGHT SWEEP
-================================================== */
-
-.light-sweep{
-  position:absolute;
-
-  top:0;
-  left:-65%;
-
-  width:48%;
+.mark-svg{
+  width:100%;
   height:100%;
 
-  z-index:12;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transform:skewX(-12deg);
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,20,40,.02) 22%,
-      rgba(255,20,40,.18) 48%,
-      rgba(255,255,255,.30) 52%,
-      rgba(255,20,40,.12) 57%,
-      transparent 100%
-    );
+  display:block;
 }
 
-.light-sweep.fire{
+
+/*
+  動画を邪魔しないように
+  かなり薄い赤
+*/
+
+.mark-outline{
+  fill:none;
+
+  stroke:#e0002c;
+
+  stroke-opacity:.11;
+
+  stroke-width:3.5;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  vector-effect:
+    non-scaling-stroke;
+
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+}
+
+
+/*
+  完成時に
+  ごく薄く面も残す
+*/
+
+.mark-fill{
+  fill:#d60028;
+
+  fill-rule:evenodd;
+
+  fill-opacity:0;
+}
+
+
+/* 8秒で完成 */
+
+.mark-layer.play .mark-outline{
   animation:
-    lightSweep .62s
-    cubic-bezier(.12,.76,.18,1);
-}
-
-@keyframes lightSweep{
-
-  0%{
-    left:-65%;
-    opacity:0;
-  }
-
-  12%{
-    opacity:1;
-  }
-
-  100%{
-    left:120%;
-    opacity:0;
-  }
+    drawMark
+    8s
+    linear
+    forwards;
 }
 
 
-/* ==================================================
-   HORIZONTAL RED BEAM
-================================================== */
+/* 最後1秒くらいで
+   ごく薄い面が入る */
 
-.red-beam{
-  position:absolute;
-
-  left:-50%;
-  top:var(--beam-y,50%);
-
-  width:46%;
-  height:2px;
-
-  z-index:15;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,0,30,.40) 20%,
-      #ff1735 46%,
-      #fff 52%,
-      #ff1735 58%,
-      transparent 100%
-    );
-
-  box-shadow:
-    0 0 8px
-    rgba(255,0,30,.5);
-}
-
-.red-beam.fire{
+.mark-layer.play .mark-fill{
   animation:
-    redBeamMove .50s
-    cubic-bezier(.10,.78,.18,1);
-}
-
-@keyframes redBeamMove{
-
-  0%{
-    left:-50%;
-    opacity:0;
-  }
-
-  10%{
-    opacity:1;
-  }
-
-  100%{
-    left:110%;
-    opacity:0;
-  }
+    fillMark
+    1s
+    ease
+    7s
+    forwards;
 }
 
 
-/* ==================================================
-   SWITCH FLASH
-================================================== */
+@keyframes drawMark{
 
-.switch-flash{
-  position:absolute;
-  inset:0;
-
-  z-index:25;
-
-  background:#fff;
-
-  opacity:0;
-
-  pointer-events:none;
-}
-
-.switch-flash.fire{
-  animation:
-    switchFlash .24s ease;
-}
-
-@keyframes switchFlash{
-
-  0%{
-    opacity:0;
+  from{
+    stroke-dashoffset:1;
   }
 
-  28%{
-    opacity:.72;
+  to{
+    stroke-dashoffset:0;
   }
 
-  100%{
-    opacity:0;
-  }
 }
 
 
-/* ==================================================
+@keyframes fillMark{
+
+  from{
+    fill-opacity:0;
+  }
+
+  to{
+    fill-opacity:.025;
+  }
+
+}
+
+
+/* =========================
    COPY AREA
-================================================== */
+========================= */
 
 .hero-copy{
   width:100%;
@@ -547,9 +330,9 @@ body{
 }
 
 
-/* ==================================================
-   MAIN TITLE
-================================================== */
+/* =========================
+   TITLE
+========================= */
 
 .main-title{
   padding-right:20px;
@@ -572,47 +355,39 @@ body{
 
 .main-title.play{
   animation:
-    titleHit .68s
-    cubic-bezier(.08,.82,.2,1);
+    titleIn
+    .65s
+    cubic-bezier(.12,.8,.2,1);
 }
 
-@keyframes titleHit{
+@keyframes titleIn{
 
-  0%{
+  from{
     opacity:0;
 
     transform:
-      translateX(-42px)
-      scale(1.13);
+      translateX(-28px);
 
-    filter:blur(7px);
+    filter:
+      blur(4px);
   }
 
-  48%{
+  to{
     opacity:1;
 
     transform:
-      translateX(6px)
-      scale(1.02);
+      translateX(0);
 
-    filter:blur(1px);
+    filter:
+      blur(0);
   }
 
-  100%{
-    opacity:1;
-
-    transform:
-      translateX(0)
-      scale(1);
-
-    filter:blur(0);
-  }
 }
 
 
-/* ==================================================
+/* =========================
    COUNTERATTACK
-================================================== */
+========================= */
 
 .catch{
   margin-top:22px;
@@ -640,43 +415,33 @@ body{
 
 .catch.play{
   animation:
-    catchHit .58s ease;
+    catchIn
+    .55s
+    ease;
 }
 
-@keyframes catchHit{
+@keyframes catchIn{
 
-  0%{
+  from{
     opacity:0;
 
     transform:
-      translateX(-26px);
-
-    filter:blur(6px);
+      translateX(-18px);
   }
 
-  55%{
-    opacity:1;
-
-    transform:
-      translateX(4px);
-
-    filter:blur(1px);
-  }
-
-  100%{
+  to{
     opacity:1;
 
     transform:
       translateX(0);
-
-    filter:blur(0);
   }
+
 }
 
 
-/* ==================================================
-   RED LINE UNDER COPY
-================================================== */
+/* =========================
+   RED LINE
+========================= */
 
 .red-line{
   width:
@@ -686,7 +451,8 @@ body{
 
   margin-top:20px;
 
-  transform-origin:left center;
+  transform-origin:
+    left center;
 
   background:
     linear-gradient(
@@ -699,27 +465,29 @@ body{
 
 .red-line.play{
   animation:
-    copyBeam .75s
+    redLineIn
+    .75s
     cubic-bezier(.1,.8,.18,1);
 }
 
-@keyframes copyBeam{
+@keyframes redLineIn{
 
-  0%{
-    transform:scaleX(0);
-    filter:brightness(3);
+  from{
+    transform:
+      scaleX(0);
   }
 
-  100%{
-    transform:scaleX(1);
-    filter:brightness(1);
+  to{
+    transform:
+      scaleX(1);
   }
+
 }
 
 
-/* ==================================================
+/* =========================
    PC
-================================================== */
+========================= */
 
 @media(min-width:768px){
 
@@ -749,17 +517,19 @@ body{
       65px
       6vw;
   }
+
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <header class="header">
 
@@ -779,16 +549,20 @@ body{
 
 
   <div class="menu">
+
     <span></span>
     <span></span>
     <span></span>
+
   </div>
 
 </header>
 
 
 
-<!-- MOVIE -->
+<!-- =========================
+     MOVIE
+========================= -->
 
 <section class="movie-wrap">
 
@@ -814,42 +588,167 @@ body{
   <div class="movie-shade"></div>
 
 
-  <!-- 4分割パネル -->
 
-  <div class="panel-grid">
-
-    <div class="panel"></div>
-    <div class="panel"></div>
-    <div class="panel"></div>
-    <div class="panel"></div>
-
-  </div>
-
-
-  <div class="scanlines"></div>
-
-
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
-
+  <!-- =====================
+       SVG
+       別ファイル不要
+  ====================== -->
 
   <div
-    id="lightSweep"
-    class="light-sweep">
-  </div>
+    id="markLayer"
+    class="mark-layer">
 
 
-  <div
-    id="redBeam"
-    class="red-beam">
-  </div>
+    <svg
+      class="mark-svg"
+
+      viewBox="0 0 1536 922"
+
+      preserveAspectRatio="xMidYMid meet"
+
+      aria-hidden="true">
 
 
-  <div
-    id="switchFlash"
-    class="switch-flash">
+      <!-- 描かれる線 -->
+
+      <path
+
+        class="mark-outline"
+
+        pathLength="1"
+
+        d="
+M308,66 L355,156 L358,174 L361,169 L365,178 L367,250 L372,194 L377,202 L377,219 L379,207 L398,245 L397,256 L381,291 L365,341 L353,416 L356,498 L381,599 L393,620 L395,690 L397,645 L401,639 L405,648 L405,667 L407,648 L443,705 L444,759 L446,711 L450,708 L456,720 L459,718 L474,737 L506,763 L512,774 L514,833 L515,780 L519,772 L524,779 L526,776 L596,816 L602,827 L606,827 L608,891 L612,833 L625,827 L672,841 L677,846 L680,910 L680,858 L686,845 L692,846 L698,855 L699,885 L700,857 L708,848 L772,853 L777,861 L779,913 L779,872 L784,854 L788,855 L789,862 L790,854 L796,850 L829,844 L840,850 L866,836 L873,839 L874,847 L876,841 L880,849 L882,906 L884,848 L891,832 L898,825 L910,821 L915,832 L916,907 L917,834 L921,818 L956,796 L964,796 L965,807 L967,794 L970,795 L980,781 L1001,767 L1006,771 L1007,810 L1011,762 L1015,766 L1015,783 L1015,762 L1021,750 L1049,724 L1052,726 L1052,743 L1053,725 L1058,720 L1101,750 L1106,758 L1109,837 L1112,760 L1119,764 L1120,780 L1121,768 L1127,768 L1175,802 L1180,812 L1181,808 L1184,810 L1188,879 L1189,818 L1193,815 L1199,819 L1202,840 L1205,824 L1218,832 L1123,658 L1115,636 L1128,603 L1131,632 L1132,589 L1135,583 L1137,595 L1138,574 L1159,483 L1161,420 L1153,357 L1134,294 L1110,243 L1072,185 L1030,138 L961,86 L889,52 L812,33 L737,30 L666,40 L590,66 L520,108 L452,168 L345,92 L324,71Z
+
+M528,624 L580,589 L642,708 L626,705 L579,677 L548,650Z
+
+M663,535 L678,522 L688,522 L690,570 L692,518 L697,515 L698,528 L701,508 L727,490 L786,533 L789,593 L790,543 L796,537 L888,601 L894,614 L895,646 L899,610 L939,635 L944,644 L910,675 L857,705 L811,721 L767,729 L664,543Z
+
+M596,411 L601,411 L626,432 L611,442 L596,418Z
+
+M826,425 L859,403 L896,470 L890,470Z
+
+M472,386 L530,492 L529,498 L509,508 L480,530 L471,506 L466,473 L465,430Z
+
+M817,328 L852,389 L653,521 L619,457 L698,404 L702,404 L705,410 L706,455 L708,401 L711,399 L713,420 L715,395 L774,355 L779,359 L780,381 L781,354 L784,351 L786,357 L792,343Z
+
+M1010,312 L1025,342 L1036,392 L1038,445 L1031,486 L1020,476 L954,358 L954,349Z
+
+M846,161 L858,162 L898,182 L934,208 L955,230 L902,266 L853,181Z
+
+M548,233 L576,207 L583,211 L584,233 L585,207 L589,201 L590,208 L591,198 L596,192 L623,175 L663,158 L673,160 L676,165 L677,227 L680,159 L687,155 L688,171 L690,155 L697,149 L714,145 L796,288 L804,312 L796,321 L781,327 L726,367 L638,304 L584,256 L551,239Z
+
+M359,126 L396,151 L416,160 L481,210 L488,221 L489,261 L490,228 L496,220 L502,226 L503,241 L505,228 L516,233 L556,262 L567,277 L569,273 L710,375 L705,382 L641,423 L543,352 L669,579 L674,605 L676,596 L743,715 L759,750 L772,743 L864,720 L867,722 L868,740 L870,718 L927,681 L953,658 L957,658 L958,664 L961,652 L988,671 L975,672 L966,678 L973,686 L984,685 L993,693 L995,708 L1003,715 L1008,705 L1004,682 L1040,707 L1034,716 L972,769 L910,804 L845,826 L768,836 L693,830 L620,810 L549,774 L495,733 L448,682 L415,632 L389,574 L372,509 L366,457 L370,388 L384,325 L409,265 L461,363 L452,418 L451,455 L458,511 L471,553 L512,530 L514,559 L516,528 L519,525 L521,528 L524,520 L540,511 L571,570 L571,575 L515,614 L508,623 L534,657 L580,696 L621,719 L676,738 L375,165Z
+
+M815,802 L775,807 L775,815 L816,812Z
+M731,786 L731,795 L747,796 L747,787Z
+M795,762 L783,764 L788,801 L800,800Z
+M578,760 L575,769 L610,787 L613,778Z
+M760,759 L759,765 L731,764 L729,773 L752,776 L750,807 L729,806 L727,816 L763,817 L765,766 L760,764Z
+M827,757 L814,764 L830,810 L840,806 L831,774 L856,800 L849,778Z
+M681,757 L680,777 L684,783 L677,790 L678,805 L698,812 L699,804 L690,800 L689,793 L695,787 L704,788 L702,812 L714,815 L721,763 L710,761 L707,779 L699,780 L692,774 L693,759Z
+M856,748 L845,754 L861,800 L871,797Z
+M633,741 L632,795 L649,800 L677,756 L667,752 L660,761 L644,755 L644,745Z
+M647,766 L655,771 L644,787 L643,768Z
+M878,737 L870,748 L870,758 L887,791 L897,785 L882,754 L884,743Z
+M538,735 L534,743 L569,764 L573,758Z
+M611,729 L593,762 L604,769 L621,735Z
+M999,718 L990,711 L982,712 L974,721 L980,728Z
+M926,711 L917,723 L917,752 L905,734 L885,734 L889,743 L898,746 L913,779 L925,773 L919,759 L921,747 L940,757 L955,754 L949,745 L941,745 L929,731 L931,719Z
+M575,707 L554,738 L563,746 L584,715Z
+M929,708 L935,717 L942,716 L952,724 L956,732 L954,744 L959,751 L968,736 L962,715 L947,705Z
+M963,681 L956,694 L960,706 L969,698 L969,688Z
+M528,669 L505,715 L510,728 L513,725 L518,728 L562,698 L554,691 L543,697 L532,687 L535,676Z
+M527,695 L535,703 L519,715Z
+M469,654 L465,661 L469,680 L477,673 L476,663Z
+M511,651 L503,657 L504,665 L496,676 L489,679 L479,677 L472,684 L485,691 L503,686 L515,668Z
+M484,642 L491,651 L501,653 L508,648 L499,640Z
+M492,627 L486,616 L473,624 L426,617 L432,629 L459,633 L442,644 L448,655Z
+M469,589 L456,617 L467,618 L477,602Z
+M463,573 L417,591 L420,603 L466,583Z
+M455,555 L443,549 L434,554 L431,564 L424,561 L415,563 L410,570 L413,586 L420,585 L419,578 L424,572 L430,573 L434,579 L440,577 L438,569 L443,562 L450,563 L453,570 L460,568Z
+M412,516 L416,532 L425,530 L421,514Z
+M441,507 L432,509 L437,530 L407,539 L401,518 L392,520 L401,554 L449,540Z
+M433,455 L406,459 L409,481 L417,480 L418,470 L427,474 L426,484 L417,490 L405,491 L396,485 L395,478 L400,472 L398,461 L388,466 L385,484 L396,501 L416,504 L433,494 L437,485 L431,468 L435,465Z
+M384,433 L384,446 L433,446 L433,433Z
+M385,409 L384,419 L434,424 L435,412Z
+M389,375 L388,386 L419,391 L388,403 L409,405 L437,395 L438,380Z
+M403,329 L395,343 L395,353 L400,361 L415,361 L430,343 L437,346 L437,352 L427,358 L426,370 L443,361 L446,342 L441,334 L427,331 L407,350 L403,344 L412,337 L413,326Z
+
+M471,172 L524,123 L577,89 L647,60 L717,46 L731,50 L734,57 L732,63 L725,63 L726,74 L733,78 L736,87 L734,98 L727,104 L728,114 L740,109 L748,95 L746,76 L735,61 L736,51 L752,44 L787,45 L858,58 L911,77 L970,109 L1008,138 L1055,186 L1091,238 L1123,304 L1140,364 L1147,424 L1144,490 L1130,551 L1111,602 L1102,616 L1081,582 L1070,552 L1041,511 L1051,459 L1051,400 L1039,339 L1019,291 L942,337 L909,279 L945,255 L951,258 L951,279 L955,251 L961,250 L961,266 L964,245 L978,234 L945,198 L921,179 L877,154 L835,137 L835,126 L850,121 L862,103 L861,87 L852,76 L847,74 L845,81 L849,90 L848,104 L833,118 L834,134 L809,131 L824,158 L828,180 L830,171 L1084,615 L1170,775 L1167,777 L1151,767 L1123,743 L1101,732 L742,482 L804,439 L814,437 L904,498 L909,507 L910,542 L911,512 L915,506 L923,512 L925,527 L926,514 L946,526 L723,130 L664,142 L616,162 L572,191 L533,227 L470,177Z
+
+M1120,483 L1114,483 L1112,490 L1104,493 L1099,488 L1099,481 L1091,480 L1089,489 L1080,492 L1075,486 L1076,478 L1067,478 L1068,498 L1085,509 L1085,556 L1087,508 L1095,499 L1102,508 L1103,516 L1104,509 L1117,501Z
+M1069,461 L1068,473 L1122,479 L1123,467Z
+M1069,433 L1072,443 L1083,451 L1124,450 L1124,438 L1085,438 L1080,432Z
+M1123,406 L1078,409 L1071,416 L1069,427 L1079,427 L1088,419 L1123,419Z
+M1117,358 L1064,365 L1068,402 L1079,400 L1077,377 L1118,372Z
+M1056,343 L1065,353 L1078,356 L1074,343 L1067,339Z
+M1108,326 L1098,329 L1094,338 L1098,350 L1107,341Z
+M1105,317 L1090,306 L1071,308 L1057,320 L1054,337 L1065,335 L1067,328 L1078,320 L1089,319 L1098,325 L1106,322Z
+M1072,246 L1026,273 L1042,302 L1050,297 L1041,279 L1078,258Z
+M1046,210 L1004,240 L1023,268 L1031,261 L1019,245 L1053,220Z
+M1021,178 L971,201 L978,210 L988,205 L999,217 L994,228 L1001,237 L1030,192Z
+M1016,190 L1005,209 L999,200Z
+
+M510,158 L502,166 L529,199 L535,201 L541,194Z
+M988,146 L982,151 L986,161 L982,165 L972,162 L967,168 L973,175 L972,181 L965,184 L958,179 L953,184 L962,193 L979,191 L984,182 L983,175 L996,168 L997,156Z
+M534,137 L526,145 L545,169 L514,155 L527,172 L554,184 L565,174Z
+M975,136 L940,175 L948,183 L982,144Z
+M936,126 L914,157 L923,165 L946,134Z
+M569,114 L555,122 L568,172 L577,166 L575,156 L587,148 L596,154 L606,149Z
+M565,127 L568,126 L581,141 L572,146Z
+M932,108 L927,116 L960,137 L965,129Z
+M602,96 L592,103 L612,147 L620,141Z
+M906,95 L901,103 L903,121 L895,131 L886,133 L882,143 L898,143 L912,131 L917,115 L913,102Z
+M901,93 L885,92 L870,104 L865,121 L875,139 L881,132 L878,125 L880,113 L888,104 L896,103Z
+M790,84 L789,93 L806,95 L807,86Z
+M632,83 L621,88 L631,118 L606,95 L613,115 L637,135 L649,127Z
+M644,78 L665,103 L669,123 L680,122 L677,102 L656,75Z
+M841,72 L824,76 L813,92 L814,111 L826,122 L830,113 L825,105 L826,93 L833,84 L840,82Z
+M687,67 L676,69 L671,88 L678,96Z
+M718,63 L702,75 L699,94 L707,109 L722,114 L722,104 L712,93 L713,81 L721,74Z
+M811,65 L777,62 L770,114 L778,121 L783,113 L788,74 L810,75Z
+        "
+
+      />
+
+
+      <!-- 完成時の薄い面 -->
+
+      <path
+
+        class="mark-fill"
+
+        d="
+M308,66 L355,156 L358,174 L361,169 L365,178 L367,250 L372,194 L377,202 L377,219 L379,207 L398,245 L397,256 L381,291 L365,341 L353,416 L356,498 L381,599 L393,620 L395,690 L397,645 L401,639 L405,648 L405,667 L407,648 L443,705 L444,759 L446,711 L450,708 L456,720 L459,718 L474,737 L506,763 L512,774 L514,833 L515,780 L519,772 L524,779 L526,776 L596,816 L602,827 L606,827 L608,891 L612,833 L625,827 L672,841 L677,846 L680,910 L680,858 L686,845 L692,846 L698,855 L699,885 L700,857 L708,848 L772,853 L777,861 L779,913 L779,872 L784,854 L788,855 L789,862 L790,854 L796,850 L829,844 L840,850 L866,836 L873,839 L874,847 L876,841 L880,849 L882,906 L884,848 L891,832 L898,825 L910,821 L915,832 L916,907 L917,834 L921,818 L956,796 L964,796 L965,807 L967,794 L970,795 L980,781 L1001,767 L1006,771 L1007,810 L1011,762 L1015,766 L1015,783 L1015,762 L1021,750 L1049,724 L1052,726 L1052,743 L1053,725 L1058,720 L1101,750 L1106,758 L1109,837 L1112,760 L1119,764 L1120,780 L1121,768 L1127,768 L1175,802 L1180,812 L1181,808 L1184,810 L1188,879 L1189,818 L1193,815 L1199,819 L1202,840 L1205,824 L1218,832 L1123,658 L1115,636 L1128,603 L1131,632 L1132,589 L1135,583 L1137,595 L1138,574 L1159,483 L1161,420 L1153,357 L1134,294 L1110,243 L1072,185 L1030,138 L961,86 L889,52 L812,33 L737,30 L666,40 L590,66 L520,108 L452,168 L345,92 L324,71Z
+
+M528,624 L580,589 L642,708 L626,705 L579,677 L548,650Z
+
+M663,535 L678,522 L688,522 L690,570 L692,518 L697,515 L698,528 L701,508 L727,490 L786,533 L789,593 L790,543 L796,537 L888,601 L894,614 L895,646 L899,610 L939,635 L944,644 L910,675 L857,705 L811,721 L767,729 L664,543Z
+
+M596,411 L601,411 L626,432 L611,442 L596,418Z
+
+M826,425 L859,403 L896,470 L890,470Z
+
+M472,386 L530,492 L529,498 L509,508 L480,530 L471,506 L466,473 L465,430Z
+
+M817,328 L852,389 L653,521 L619,457 L698,404 L702,404 L705,410 L706,455 L708,401 L711,399 L713,420 L715,395 L774,355 L779,359 L780,381 L781,354 L784,351 L786,357 L792,343Z
+
+M1010,312 L1025,342 L1036,392 L1038,445 L1031,486 L1020,476 L954,358 L954,349Z
+
+M846,161 L858,162 L898,182 L934,208 L955,230 L902,266 L853,181Z
+
+M548,233 L576,207 L583,211 L584,233 L585,207 L589,201 L590,208 L591,198 L596,192 L623,175 L663,158 L673,160 L676,165 L677,227 L680,159 L687,155 L688,171 L690,155 L697,149 L714,145 L796,288 L804,312 L796,321 L781,327 L726,367 L638,304 L584,256 L551,239Z
+
+M359,126 L396,151 L416,160 L481,210 L488,221 L489,261 L490,228 L496,220 L502,226 L503,241 L505,228 L516,233 L556,262 L567,277 L569,273 L710,375 L705,382 L641,423 L543,352 L669,579 L674,605 L676,596 L743,715 L759,750 L772,743 L864,720 L867,722 L868,740 L870,718 L927,681 L953,658 L957,658 L958,664 L961,652 L988,671 L975,672 L966,678 L973,686 L984,685 L993,693 L995,708 L1003,715 L1008,705 L1004,682 L1040,707 L1034,716 L972,769 L910,804 L845,826 L768,836 L693,830 L620,810 L549,774 L495,733 L448,682 L415,632 L389,574 L372,509 L366,457 L370,388 L384,325 L409,265 L461,363 L452,418 L451,455 L458,511 L471,553 L512,530 L514,559 L516,528 L519,525 L521,528 L524,520 L540,511 L571,570 L571,575 L515,614 L508,623 L534,657 L580,696 L621,719 L676,738 L375,165Z
+        "
+
+      />
+
+
+    </svg>
+
+
   </div>
 
 
@@ -857,7 +756,9 @@ body{
 
 
 
-<!-- COPY -->
+<!-- =========================
+     TEXT
+========================= -->
 
 <section class="hero-copy">
 
@@ -894,10 +795,6 @@ body{
 <script>
 
 
-/* ==================================================
-   MOVIES
-================================================== */
-
 const movies = [
 
   "movie/nf1.mp4",
@@ -913,29 +810,22 @@ const movies = [
 const movieA =
   document.getElementById("movieA");
 
+
 const movieB =
   document.getElementById("movieB");
 
 
-const panels =
-  document.querySelectorAll(".panel");
-
-
-const lightSweep =
-  document.getElementById("lightSweep");
-
-const redBeam =
-  document.getElementById("redBeam");
-
-const switchFlash =
-  document.getElementById("switchFlash");
+const markLayer =
+  document.getElementById("markLayer");
 
 
 const mainTitle =
   document.getElementById("mainTitle");
 
+
 const catchText =
   document.getElementById("catchText");
+
 
 const redLine =
   document.getElementById("redLine");
@@ -944,585 +834,110 @@ const redLine =
 let activeMovie =
   movieA;
 
+
 let standbyMovie =
   movieB;
 
+
 let playlist = [];
 
-let previousMovie =
+
+let lastMovie =
   null;
+
 
 let switching =
   false;
 
 
-let panelTimer =
-  null;
-
-let beamTimer =
-  null;
-
-let sweepTimer =
-  null;
-
-
-/* ==================================================
+/* =========================
    SHUFFLE
-================================================== */
+========================= */
 
 function shuffleMovies(){
 
-  playlist = [...movies];
+  playlist =
+    [...movies];
+
 
   for(
-    let i = playlist.length - 1;
+    let i =
+      playlist.length - 1;
+
     i > 0;
+
     i--
   ){
 
     const j =
       Math.floor(
-        Math.random() * (i + 1)
+        Math.random() *
+        (i + 1)
       );
+
 
     [
       playlist[i],
       playlist[j]
+
     ] = [
+
       playlist[j],
       playlist[i]
+
     ];
 
   }
 
 
   if(
-    previousMovie &&
+    lastMovie &&
     playlist.length > 1 &&
-    playlist[0] === previousMovie
+    playlist[0] === lastMovie
   ){
 
     [
       playlist[0],
       playlist[1]
+
     ] = [
+
       playlist[1],
       playlist[0]
+
     ];
 
   }
+
 }
 
 
+
+/* =========================
+   NEXT
+========================= */
+
 function getNextMovie(){
 
-  if(playlist.length === 0){
+  if(
+    playlist.length === 0
+  ){
+
     shuffleMovies();
+
   }
+
 
   const next =
     playlist.shift();
 
-  previousMovie =
+
+  lastMovie =
     next;
 
+
   return next;
-}
-
-
-/* ==================================================
-   ANIMATION RESTART
-================================================== */
-
-function restart(
-  element,
-  className
-){
-
-  element
-    .classList
-    .remove(className);
-
-  void element.offsetWidth;
-
-  element
-    .classList
-    .add(className);
-}
-
-
-/* ==================================================
-   4 PANEL RANDOM
-================================================== */
-
-function randomPanels(){
-
-  panels.forEach(panel => {
-
-    panel.classList.remove(
-      "active",
-      "shift-left",
-      "shift-right"
-    );
-
-  });
-
-
-  /*
-    1〜2枚だけ反応させる
-  */
-
-  const panelCount =
-    Math.random() < .72
-      ? 1
-      : 2;
-
-
-  const available =
-    [0,1,2,3];
-
-
-  for(
-    let i = 0;
-    i < panelCount;
-    i++
-  ){
-
-    const randomIndex =
-      Math.floor(
-        Math.random() *
-        available.length
-      );
-
-
-    const panelNumber =
-      available.splice(
-        randomIndex,
-        1
-      )[0];
-
-
-    const panel =
-      panels[panelNumber];
-
-
-    const opacity =
-      (
-        Math.random() *
-        .10 +
-        .07
-      )
-      .toFixed(2);
-
-
-    panel.style.setProperty(
-      "--panel-opacity",
-      opacity
-    );
-
-
-    panel.classList.add(
-      "active"
-    );
-
-
-    const shift =
-      Math.random();
-
-
-    if(shift < .18){
-
-      panel.classList.add(
-        "shift-left"
-      );
-
-    }else if(shift > .82){
-
-      panel.classList.add(
-        "shift-right"
-      );
-
-    }
-
-  }
 
 }
 
 
-function startPanelMotion(){
-
-  clearInterval(
-    panelTimer
-  );
-
-
-  randomPanels();
-
-
-  panelTimer =
-    setInterval(
-      randomPanels,
-      520
-    );
-
-}
-
-
-/* ==================================================
-   LIGHT SWEEP
-================================================== */
-
-function fireLightSweep(){
-
-  restart(
-    lightSweep,
-    "fire"
-  );
-
-}
-
-
-function startLightSweep(){
-
-  clearInterval(
-    sweepTimer
-  );
-
-
-  sweepTimer =
-    setInterval(
-      fireLightSweep,
-      3100
-    );
-
-}
-
-
-/* ==================================================
-   RED BEAM
-================================================== */
-
-function fireRedBeam(){
-
-  const y =
-    18 +
-    Math.random() * 64;
-
-
-  redBeam.style.setProperty(
-    "--beam-y",
-    y + "%"
-  );
-
-
-  restart(
-    redBeam,
-    "fire"
-  );
-
-}
-
-
-function startRedBeam(){
-
-  clearInterval(
-    beamTimer
-  );
-
-
-  beamTimer =
-    setInterval(
-      fireRedBeam,
-      2250
-    );
-
-}
-
-
-/* ==================================================
-   TEXT FX
-================================================== */
-
-function replayText(){
-
-  restart(
-    mainTitle,
-    "play"
-  );
-
-
-  setTimeout(() => {
-
-    restart(
-      catchText,
-      "play"
-    );
-
-  },110);
-
-
-  setTimeout(() => {
-
-    restart(
-      redLine,
-      "play"
-    );
-
-  },230);
-
-}
-
-
-/* ==================================================
-   VIDEO MOTION
-================================================== */
-
-function startMovieMotion(video){
-
-  video
-    .classList
-    .remove("motion");
-
-
-  void video.offsetWidth;
-
-
-  video
-    .classList
-    .add("motion");
-
-}
-
-
-/* ==================================================
-   PREPARE NEXT
-================================================== */
-
-function prepareNext(){
-
-  standbyMovie.src =
-    getNextMovie();
-
-
-  standbyMovie.load();
-
-}
-
-
-/* ==================================================
-   SWITCH MOVIE
-================================================== */
-
-function switchMovie(){
-
-  if(switching){
-    return;
-  }
-
-
-  switching =
-    true;
-
-
-  restart(
-    switchFlash,
-    "fire"
-  );
-
-
-  setTimeout(() => {
-
-
-    standbyMovie.currentTime =
-      0;
-
-
-    standbyMovie.play()
-
-      .then(() => {
-
-
-        standbyMovie
-          .classList
-          .add("active");
-
-
-        activeMovie
-          .classList
-          .remove("active");
-
-
-        startMovieMotion(
-          standbyMovie
-        );
-
-
-        replayText();
-
-
-        fireLightSweep();
-
-
-        setTimeout(() => {
-
-
-          activeMovie.pause();
-
-
-          activeMovie
-            .classList
-            .remove("motion");
-
-
-          const oldMovie =
-            activeMovie;
-
-
-          activeMovie =
-            standbyMovie;
-
-
-          standbyMovie =
-            oldMovie;
-
-
-          prepareNext();
-
-
-          switching =
-            false;
-
-
-        },420);
-
-
-      })
-
-      .catch(() => {
-
-        switching =
-          false;
-
-      });
-
-
-  },90);
-
-}
-
-
-/* ==================================================
-   VIDEO METADATA
-================================================== */
-
-movieA.addEventListener(
-  "loadedmetadata",
-  () => {
-
-    movieA.style.setProperty(
-      "--movie-duration",
-      movieA.duration + "s"
-    );
-
-  }
-);
-
-
-movieB.addEventListener(
-  "loadedmetadata",
-  () => {
-
-    movieB.style.setProperty(
-      "--movie-duration",
-      movieB.duration + "s"
-    );
-
-  }
-);
-
-
-/* ==================================================
-   START
-================================================== */
-
-function start(){
-
-  shuffleMovies();
-
-
-  activeMovie.src =
-    getNextMovie();
-
-
-  activeMovie.load();
-
-
-  activeMovie.play()
-    .catch(() => {});
-
-
-  prepareNext();
-
-
-  activeMovie.addEventListener(
-    "loadedmetadata",
-    () => {
-
-
-      startMovieMotion(
-        activeMovie
-      );
-
-
-      replayText();
-
-
-      startPanelMotion();
-
-
-      startLightSweep();
-
-
-      startRedBeam();
-
-
-      setTimeout(
-        fireLightSweep,
-        500
-      );
-
-
-    },
-    {
-      once:true
-    }
-  );
-
-}
-
-
-/* ==================================================
-   END
-================================================== */
-
-movieA.addEventListener(
-  "ended",
-  switchMovie
-);
-
-
-movieB.addEventListener(
-  "ended",
-  switchMovie
-);
-
-
-start();
-
-
-</script>
-
-
-</body>
-
-</html>
