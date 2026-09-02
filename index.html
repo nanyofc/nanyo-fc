@@ -1,89 +1,161 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NANYO FOOTBALL CLUB</title>
 
   <style>
+    /* =========================
+       RESET
+    ========================= */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      width: 100%;
+    html {
       background: #000;
-      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
+      width: 100%;
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
+
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
       width: 100%;
       min-height: 100svh;
       background: #000;
-      color: #fff;
     }
 
-    /* =====================
-       VIDEO AREA
-    ===================== */
 
-    .video-area {
+    /* =========================
+       VIDEO
+       スマホでは必ず16:9
+    ========================= */
+
+    .movie-wrap {
       position: relative;
+
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: 56.25vw;
+
+      min-height: 0;
+      max-height: none;
+
       overflow: hidden;
       background: #000;
     }
 
-    .hero-video {
+    .movie {
       position: absolute;
       inset: 0;
+
+      display: block;
 
       width: 100%;
       height: 100%;
 
       object-fit: cover;
+      object-position: center center;
 
       opacity: 0;
-      transition: opacity 0.65s ease;
+
+      transform: scale(1);
+
+      transition:
+        opacity 0.45s ease,
+        transform 7s linear;
+
+      background: #000;
     }
 
-    .hero-video.active {
+    .movie.active {
       opacity: 1;
+      transform: scale(1.035);
     }
 
-    /* 少し暗くする */
-    .video-overlay {
+
+    /* 映像を少し締める */
+
+    .movie-shade {
       position: absolute;
       inset: 0;
-      z-index: 2;
+
+      z-index: 3;
+
+      pointer-events: none;
 
       background:
         linear-gradient(
           to bottom,
-          rgba(0,0,0,0.22),
-          rgba(0,0,0,0.02) 55%,
-          rgba(0,0,0,0.28)
+          rgba(0, 0, 0, 0.25) 0%,
+          rgba(0, 0, 0, 0.02) 45%,
+          rgba(0, 0, 0, 0.25) 100%
         );
+    }
 
+
+    /* =========================
+       FLASH
+    ========================= */
+
+    .flash {
+      position: absolute;
+      inset: 0;
+
+      z-index: 8;
+
+      background: #fff;
+
+      opacity: 0;
       pointer-events: none;
     }
 
-    /* =====================
+    .flash.fire {
+      animation: flashEffect 0.26s ease;
+    }
+
+    @keyframes flashEffect {
+      0% {
+        opacity: 0;
+      }
+
+      35% {
+        opacity: 0.8;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+
+    /* =========================
        HEADER
-    ===================== */
+    ========================= */
 
     .header {
       position: absolute;
+
       top: 0;
       left: 0;
+
+      z-index: 10;
 
       width: 100%;
 
@@ -91,21 +163,19 @@
       justify-content: space-between;
       align-items: center;
 
-      padding:
-        calc(20px + env(safe-area-inset-top))
-        24px
-        20px;
-
-      z-index: 5;
+      padding: 22px 24px;
     }
 
-    .logo-text {
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: 0.28em;
+    .header-logo {
       color: #fff;
 
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      font-size: 15px;
+      font-weight: 900;
+
+      letter-spacing: 0.30em;
+
+      text-shadow:
+        0 2px 8px rgba(0,0,0,0.8);
     }
 
     .menu {
@@ -114,142 +184,233 @@
 
       display: flex;
       flex-direction: column;
-      justify-content: center;
+
       align-items: center;
+      justify-content: center;
 
       gap: 7px;
     }
 
     .menu span {
+      display: block;
+
       width: 28px;
       height: 2px;
+
       background: #fff;
 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.7);
     }
 
-    /* =====================
-       TEXT AREA
-    ===================== */
 
-    .copy-area {
+    /* =========================
+       COPY AREA
+    ========================= */
+
+    .copy {
       position: relative;
 
-      min-height: calc(100svh - 56.25vw);
+      width: 100%;
 
-      padding:
-        60px
-        24px
-        calc(35px + env(safe-area-inset-bottom));
+      min-height: calc(100svh - 56.25vw);
 
       display: flex;
       flex-direction: column;
       justify-content: center;
 
-      background: #000;
+      padding:
+        46px
+        24px
+        calc(50px + env(safe-area-inset-bottom));
+
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(130, 0, 0, 0.14),
+          transparent 40%
+        ),
+        #000;
     }
 
-    .club-name {
-      font-size: clamp(42px, 11vw, 78px);
-      line-height: 0.88;
+
+    /* =========================
+       MAIN TITLE
+    ========================= */
+
+    .main-title {
+      color: #fff;
+
+      font-size: clamp(40px, 11vw, 72px);
+
       font-weight: 900;
+
+      line-height: 0.88;
+
       letter-spacing: -0.055em;
 
       opacity: 0;
       transform: translateY(28px);
 
-      animation: titleIn 0.9s ease forwards;
-      animation-delay: 0.25s;
+      animation:
+        titleEnter 0.8s cubic-bezier(.16,.8,.25,1)
+        0.15s forwards;
     }
 
-    .catch {
-      margin-top: 24px;
-
-      color: #ed1717;
-
-      font-size: clamp(19px, 5.3vw, 35px);
-      font-weight: 900;
-      font-style: italic;
-
-      line-height: 1;
-      letter-spacing: 0.025em;
-
-      white-space: nowrap;
-
-      opacity: 0;
-      transform: translateX(-22px);
-
-      animation: catchIn 0.8s ease forwards;
-      animation-delay: 0.75s;
-    }
-
-    .red-line {
-      margin-top: 21px;
-
-      width: 0;
-      height: 3px;
-
-      background: #ed1717;
-
-      animation: lineIn 1s ease forwards;
-      animation-delay: 1.05s;
-    }
-
-    .scroll {
-      position: absolute;
-
-      right: 25px;
-      bottom: 26px;
-
-      font-size: 9px;
-      letter-spacing: 0.3em;
-
-      color: rgba(255,255,255,0.65);
-    }
-
-    .scroll::after {
-      content: "";
-
-      display: inline-block;
-
-      width: 1px;
-      height: 28px;
-
-      margin-left: 10px;
-
-      vertical-align: middle;
-
-      background: rgba(255,255,255,0.65);
-
-      animation: scrollLine 1.5s ease-in-out infinite;
-    }
-
-    /* =====================
-       ANIMATION
-    ===================== */
-
-    @keyframes titleIn {
+    @keyframes titleEnter {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    @keyframes catchIn {
+
+    /* =========================
+       COUNTERATTACK
+    ========================= */
+
+    .catch-wrap {
+      position: relative;
+
+      margin-top: 24px;
+
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .catch {
+      position: relative;
+
+      color: #f01414;
+
+      font-size: clamp(18px, 5.2vw, 33px);
+
+      font-weight: 900;
+      font-style: italic;
+
+      line-height: 1;
+
+      letter-spacing: 0.025em;
+
+      white-space: nowrap;
+
+      opacity: 0;
+
+      animation:
+        catchEnter 0.5s ease
+        0.72s forwards;
+    }
+
+    @keyframes catchEnter {
+      from {
+        opacity: 0;
+        transform: translateX(-18px);
+        filter: blur(5px);
+      }
+
       to {
         opacity: 1;
         transform: translateX(0);
+        filter: blur(0);
       }
     }
 
-    @keyframes lineIn {
+
+    /* グリッチ */
+
+    .catch.glitch {
+      animation:
+        glitch 0.34s linear,
+        catchEnter 0s forwards;
+    }
+
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+
+      20% {
+        transform: translate(-4px, 1px);
+      }
+
+      40% {
+        transform: translate(4px, -1px);
+      }
+
+      60% {
+        transform: translate(-2px, 0);
+      }
+
+      80% {
+        transform: translate(3px, 1px);
+      }
+
+      100% {
+        transform: translate(0);
+      }
+    }
+
+
+    /* =========================
+       RED LINE
+    ========================= */
+
+    .red-line {
+      width: 0;
+      height: 3px;
+
+      margin-top: 20px;
+
+      background: #f01414;
+
+      animation:
+        lineEnter 0.8s ease
+        1s forwards;
+    }
+
+    @keyframes lineEnter {
       to {
         width: 150px;
       }
     }
 
-    @keyframes scrollLine {
-      0%, 100% {
+
+    /* =========================
+       SCROLL
+    ========================= */
+
+    .scroll {
+      position: absolute;
+
+      right: 28px;
+      bottom: 28px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      color: rgba(255,255,255,0.62);
+
+      font-size: 9px;
+
+      letter-spacing: 0.32em;
+    }
+
+    .scroll-line {
+      display: block;
+
+      width: 1px;
+      height: 30px;
+
+      background: rgba(255,255,255,0.65);
+
+      animation: scrollAnimation 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollAnimation {
+      0%,
+      100% {
         opacity: 0.25;
         transform: scaleY(0.35);
       }
@@ -260,66 +421,97 @@
       }
     }
 
-    /* =====================
-       PC
-    ===================== */
 
-    @media (min-width: 768px) {
+    /* =========================
+       PC
+    ========================= */
+
+    @media (min-width: 800px) {
 
       .hero {
         position: relative;
-        min-height: 100vh;
-      }
-
-      .video-area {
         height: 100vh;
-        aspect-ratio: auto;
+        min-height: 700px;
+        overflow: hidden;
       }
 
-      .hero-video {
-        object-fit: cover;
-      }
-
-      .copy-area {
-        position: absolute;
-
-        left: 0;
-        bottom: 0;
-
-        z-index: 5;
-
+      .movie-wrap {
         width: 100%;
-        min-height: auto;
-
-        padding:
-          0
-          6vw
-          9vh;
-
-        background:
-          linear-gradient(
-            to top,
-            rgba(0,0,0,0.92),
-            rgba(0,0,0,0)
-          );
-
-        pointer-events: none;
+        height: 100%;
       }
 
-      .club-name {
-        font-size: clamp(70px, 7vw, 120px);
-      }
-
-      .catch {
-        font-size: clamp(28px, 3vw, 52px);
+      .movie {
+        object-fit: cover;
       }
 
       .header {
         padding: 32px 50px;
       }
 
-      .logo-text {
+      .header-logo {
         font-size: 18px;
+      }
+
+      .copy {
+        position: absolute;
+
+        left: 0;
+        bottom: 0;
+
+        z-index: 6;
+
+        width: 100%;
+        min-height: 55%;
+
+        padding:
+          100px
+          6vw
+          8vh;
+
+        justify-content: flex-end;
+
+        background:
+          linear-gradient(
+            to top,
+            rgba(0,0,0,0.93) 0%,
+            rgba(0,0,0,0.65) 42%,
+            transparent 100%
+          );
+      }
+
+      .main-title {
+        font-size: clamp(70px, 7vw, 120px);
+      }
+
+      .catch {
+        font-size: clamp(30px, 3vw, 50px);
+      }
+
+    }
+
+
+    /* 動きを減らす設定の端末 */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .movie,
+      .main-title,
+      .catch,
+      .red-line,
+      .scroll-line {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .main-title,
+      .catch {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .red-line {
+        width: 150px;
       }
 
     }
@@ -330,187 +522,430 @@
 
 <body>
 
+
 <section class="hero">
 
-  <div class="video-area">
+
+  <!-- =====================
+       MOVIE AREA
+  ====================== -->
+
+  <div class="movie-wrap">
+
 
     <video
-      id="videoA"
-      class="hero-video active"
+      id="movieA"
+      class="movie active"
       muted
       playsinline
       preload="auto">
     </video>
 
+
     <video
-      id="videoB"
-      class="hero-video"
+      id="movieB"
+      class="movie"
       muted
       playsinline
       preload="metadata">
     </video>
 
-    <div class="video-overlay"></div>
 
+    <div class="movie-shade"></div>
+
+    <div
+      id="flash"
+      class="flash">
+    </div>
+
+
+    <!-- HEADER -->
 
     <header class="header">
 
-      <div class="logo-text">
+      <div class="header-logo">
         NANYO FC
       </div>
 
+
       <div class="menu">
+
         <span></span>
         <span></span>
+
       </div>
 
     </header>
 
+
   </div>
 
 
-  <div class="copy-area">
 
-    <h1 class="club-name">
+  <!-- =====================
+       COPY
+  ====================== -->
+
+  <div class="copy">
+
+
+    <h1 class="main-title">
+
       NANYO<br>
       FOOTBALL CLUB
+
     </h1>
 
-    <div class="catch">
-      COUNTERATTACK BEGINS
+
+    <div class="catch-wrap">
+
+      <div
+        id="catch"
+        class="catch">
+
+        COUNTERATTACK BEGINS
+
+      </div>
+
     </div>
+
 
     <div class="red-line"></div>
 
+
     <div class="scroll">
-      SCROLL
+
+      <span>
+        SCROLL
+      </span>
+
+      <span class="scroll-line"></span>
+
     </div>
 
+
   </div>
+
 
 </section>
 
 
+
 <script>
 
-const movies = [
-  "movie/nf1.mp4",
-  "movie/nf2.mp4",
-  "movie/nf3.mp4",
-  "movie/nf4.mp4",
-  "movie/nf5.mp4",
-  "movie/nf6.mp4"
-];
+  /* =========================
+     MOVIES
+  ========================= */
 
-const videoA = document.getElementById("videoA");
-const videoB = document.getElementById("videoB");
+  const movies = [
 
-let activeVideo = videoA;
-let standbyVideo = videoB;
+    "movie/nf1.mp4",
+    "movie/nf2.mp4",
+    "movie/nf3.mp4",
+    "movie/nf4.mp4",
+    "movie/nf5.mp4",
+    "movie/nf6.mp4"
 
-let playlist = [];
-let lastMovie = null;
+  ];
 
 
-/* ランダム順を作る */
-function shuffleMovies() {
+  const movieA =
+    document.getElementById("movieA");
 
-  playlist = [...movies];
+  const movieB =
+    document.getElementById("movieB");
 
-  for (let i = playlist.length - 1; i > 0; i--) {
 
-    const j = Math.floor(Math.random() * (i + 1));
+  const flash =
+    document.getElementById("flash");
 
-    [playlist[i], playlist[j]] =
-    [playlist[j], playlist[i]];
+
+  const catchText =
+    document.getElementById("catch");
+
+
+  let activeMovie = movieA;
+  let standbyMovie = movieB;
+
+  let playlist = [];
+
+  let previousMovie = null;
+
+  let switching = false;
+
+
+
+  /* =========================
+     SHUFFLE
+  ========================= */
+
+  function shuffleMovies() {
+
+    playlist = [...movies];
+
+
+    for (
+      let i = playlist.length - 1;
+      i > 0;
+      i--
+    ) {
+
+      const j =
+        Math.floor(
+          Math.random() * (i + 1)
+        );
+
+
+      [
+        playlist[i],
+        playlist[j]
+
+      ] = [
+
+        playlist[j],
+        playlist[i]
+
+      ];
+
+    }
+
+
+    /* 前回の最後と
+       次回の最初を被らせない */
+
+    if (
+      previousMovie &&
+      playlist.length > 1 &&
+      playlist[0] === previousMovie
+    ) {
+
+      [
+        playlist[0],
+        playlist[1]
+
+      ] = [
+
+        playlist[1],
+        playlist[0]
+
+      ];
+
+    }
+
   }
 
-  /* 前回最後と次回最初が同じになるのを防ぐ */
-  if (
-    lastMovie &&
-    playlist.length > 1 &&
-    playlist[0] === lastMovie
-  ) {
 
-    [playlist[0], playlist[1]] =
-    [playlist[1], playlist[0]];
+
+  /* =========================
+     NEXT MOVIE
+  ========================= */
+
+  function getNextMovie() {
+
+    if (playlist.length === 0) {
+
+      shuffleMovies();
+
+    }
+
+
+    const next =
+      playlist.shift();
+
+
+    previousMovie =
+      next;
+
+
+    return next;
+
   }
-}
 
 
-/* 次の動画 */
-function getNextMovie() {
 
-  if (playlist.length === 0) {
+  /* =========================
+     PRELOAD
+  ========================= */
+
+  function prepareNextMovie() {
+
+    const next =
+      getNextMovie();
+
+
+    standbyMovie.src =
+      next;
+
+
+    standbyMovie.load();
+
+  }
+
+
+
+  /* =========================
+     FLASH
+  ========================= */
+
+  function fireFlash() {
+
+    flash.classList.remove("fire");
+
+
+    void flash.offsetWidth;
+
+
+    flash.classList.add("fire");
+
+  }
+
+
+
+  /* =========================
+     GLITCH
+  ========================= */
+
+  function fireGlitch() {
+
+    catchText.classList.remove("glitch");
+
+
+    void catchText.offsetWidth;
+
+
+    catchText.classList.add("glitch");
+
+  }
+
+
+
+  /* =========================
+     SWITCH
+  ========================= */
+
+  function switchMovie() {
+
+    if (switching) {
+      return;
+    }
+
+
+    switching = true;
+
+
+    fireFlash();
+
+
+    setTimeout(() => {
+
+      standbyMovie.currentTime = 0;
+
+
+      standbyMovie.play()
+        .then(() => {
+
+
+          standbyMovie.classList.add(
+            "active"
+          );
+
+
+          activeMovie.classList.remove(
+            "active"
+          );
+
+
+          fireGlitch();
+
+
+          setTimeout(() => {
+
+
+            activeMovie.pause();
+
+
+            const old =
+              activeMovie;
+
+
+            activeMovie =
+              standbyMovie;
+
+
+            standbyMovie =
+              old;
+
+
+            prepareNextMovie();
+
+
+            switching =
+              false;
+
+
+          }, 500);
+
+
+        })
+
+        .catch(() => {
+
+          switching =
+            false;
+
+        });
+
+
+    }, 110);
+
+  }
+
+
+
+  /* =========================
+     START
+  ========================= */
+
+  function start() {
+
     shuffleMovies();
+
+
+    activeMovie.src =
+      getNextMovie();
+
+
+    activeMovie.load();
+
+
+    activeMovie.play()
+      .catch(() => {});
+
+
+    prepareNextMovie();
+
   }
 
-  const movie = playlist.shift();
-
-  lastMovie = movie;
-
-  return movie;
-}
 
 
-/* 次動画を準備 */
-function prepareNextVideo() {
-
-  standbyVideo.src = getNextMovie();
-  standbyVideo.load();
-}
+  movieA.addEventListener(
+    "ended",
+    switchMovie
+  );
 
 
-/* 動画切替 */
-function switchVideo() {
-
-  standbyVideo.currentTime = 0;
-
-  standbyVideo.play()
-    .then(() => {
-
-      standbyVideo.classList.add("active");
-      activeVideo.classList.remove("active");
-
-      setTimeout(() => {
-
-        activeVideo.pause();
-
-        const oldVideo = activeVideo;
-
-        activeVideo = standbyVideo;
-        standbyVideo = oldVideo;
-
-        prepareNextVideo();
-
-      }, 700);
-
-    })
-    .catch(() => {});
-}
+  movieB.addEventListener(
+    "ended",
+    switchMovie
+  );
 
 
-/* 最初の動画 */
-function startVideos() {
+  start();
 
-  shuffleMovies();
-
-  activeVideo.src = getNextMovie();
-
-  activeVideo.load();
-
-  activeVideo.play().catch(() => {});
-
-  prepareNextVideo();
-}
-
-
-videoA.addEventListener("ended", switchVideo);
-videoB.addEventListener("ended", switchVideo);
-
-startVideos();
 
 </script>
 
+
 </body>
+
 </html>
