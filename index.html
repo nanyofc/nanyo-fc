@@ -1,61 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>NANYO FOOTBALL CLUB</title>
 
   <style>
-    /* =========================
-       RESET
-    ========================= */
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html {
-      background: #000;
-    }
-
+    html,
     body {
       width: 100%;
-      margin: 0;
       background: #000;
       color: #fff;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
       overflow-x: hidden;
     }
 
 
     /* =========================
-       HERO
+       HEADER
     ========================= */
 
-    .hero {
+    .header {
       width: 100%;
-      min-height: 100svh;
-      background: #000;
+      height: 80px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 20px;
+
+      background: #a90016;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-name {
+      color: #d9b45d;
+
+      font-size: 20px;
+      font-weight: 900;
+
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+
+    /* ハンバーガー */
+
+    .menu {
+      width: 46px;
+      height: 46px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      gap: 7px;
+    }
+
+    .menu span {
+      width: 29px;
+      height: 3px;
+
+      display: block;
+
+      background: #d9b45d;
     }
 
 
     /* =========================
-       VIDEO
-       スマホでは必ず16:9
+       MOVIE
     ========================= */
 
     .movie-wrap {
       position: relative;
 
       width: 100%;
-      height: 56.25vw;
-
-      min-height: 0;
-      max-height: none;
+      aspect-ratio: 16 / 9;
 
       overflow: hidden;
       background: #000;
@@ -65,28 +108,26 @@
       position: absolute;
       inset: 0;
 
-      display: block;
-
       width: 100%;
       height: 100%;
 
-      object-fit: cover;
-      object-position: center center;
+      object-fit: contain;
+      object-position: center;
+
+      background: #000;
 
       opacity: 0;
 
-      transform: scale(1);
-
       transition:
-        opacity 0.45s ease,
-        transform 7s linear;
+        opacity 0.5s ease,
+        transform 8s linear;
 
-      background: #000;
+      transform: scale(1);
     }
 
     .movie.active {
       opacity: 1;
-      transform: scale(1.035);
+      transform: scale(1.025);
     }
 
 
@@ -96,29 +137,27 @@
       position: absolute;
       inset: 0;
 
-      z-index: 3;
+      z-index: 4;
 
       pointer-events: none;
 
       background:
         linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.25) 0%,
-          rgba(0, 0, 0, 0.02) 45%,
-          rgba(0, 0, 0, 0.25) 100%
+          rgba(0,0,0,0.08),
+          rgba(0,0,0,0) 55%,
+          rgba(0,0,0,0.15)
         );
     }
 
 
-    /* =========================
-       FLASH
-    ========================= */
+    /* 切替フラッシュ */
 
     .flash {
       position: absolute;
       inset: 0;
 
-      z-index: 8;
+      z-index: 5;
 
       background: #fff;
 
@@ -127,7 +166,7 @@
     }
 
     .flash.fire {
-      animation: flashEffect 0.26s ease;
+      animation: flashEffect 0.24s ease;
     }
 
     @keyframes flashEffect {
@@ -136,7 +175,7 @@
       }
 
       35% {
-        opacity: 0.8;
+        opacity: 0.65;
       }
 
       100% {
@@ -146,214 +185,62 @@
 
 
     /* =========================
-       HEADER
+       VIDEO下の文字
     ========================= */
 
-    .header {
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      z-index: 10;
-
+    .hero-copy {
       width: 100%;
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 22px 24px;
-    }
-
-    .header-logo {
-      color: #fff;
-
-      font-size: 15px;
-      font-weight: 900;
-
-      letter-spacing: 0.30em;
-
-      text-shadow:
-        0 2px 8px rgba(0,0,0,0.8);
-    }
-
-    .menu {
-      width: 44px;
-      height: 44px;
-
-      display: flex;
-      flex-direction: column;
-
-      align-items: center;
-      justify-content: center;
-
-      gap: 7px;
-    }
-
-    .menu span {
-      display: block;
-
-      width: 28px;
-      height: 2px;
-
-      background: #fff;
-
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.7);
-    }
-
-
-    /* =========================
-       COPY AREA
-    ========================= */
-
-    .copy {
-      position: relative;
-
-      width: 100%;
-
-      min-height: calc(100svh - 56.25vw);
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      padding:
-        46px
-        24px
-        calc(50px + env(safe-area-inset-bottom));
+      padding: 32px 22px 48px;
 
       background:
         radial-gradient(
-          circle at 90% 10%,
-          rgba(130, 0, 0, 0.14),
-          transparent 40%
+          circle at 100% 0%,
+          rgba(130,0,0,0.18),
+          transparent 45%
         ),
         #000;
     }
 
 
-    /* =========================
-       MAIN TITLE
-    ========================= */
-
     .main-title {
       color: #fff;
 
-      font-size: clamp(40px, 11vw, 72px);
-
+      font-size: clamp(39px, 10.5vw, 70px);
       font-weight: 900;
 
-      line-height: 0.88;
-
-      letter-spacing: -0.055em;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
 
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(20px);
 
-      animation:
-        titleEnter 0.8s cubic-bezier(.16,.8,.25,1)
-        0.15s forwards;
+      animation: titleIn 0.8s ease forwards;
+      animation-delay: 0.2s;
     }
 
-    @keyframes titleEnter {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-
-    /* =========================
-       COUNTERATTACK
-    ========================= */
-
-    .catch-wrap {
-      position: relative;
-
-      margin-top: 24px;
-
-      display: inline-block;
-      width: fit-content;
-    }
 
     .catch {
-      position: relative;
+      margin-top: 22px;
 
-      color: #f01414;
+      color: #ed1717;
 
-      font-size: clamp(18px, 5.2vw, 33px);
-
+      font-size: clamp(18px, 5vw, 32px);
       font-weight: 900;
       font-style: italic;
 
       line-height: 1;
-
-      letter-spacing: 0.025em;
+      letter-spacing: 0.02em;
 
       white-space: nowrap;
 
       opacity: 0;
+      transform: translateX(-18px);
 
-      animation:
-        catchEnter 0.5s ease
-        0.72s forwards;
+      animation: catchIn 0.7s ease forwards;
+      animation-delay: 0.7s;
     }
 
-    @keyframes catchEnter {
-      from {
-        opacity: 0;
-        transform: translateX(-18px);
-        filter: blur(5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-        filter: blur(0);
-      }
-    }
-
-
-    /* グリッチ */
-
-    .catch.glitch {
-      animation:
-        glitch 0.34s linear,
-        catchEnter 0s forwards;
-    }
-
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-      }
-
-      20% {
-        transform: translate(-4px, 1px);
-      }
-
-      40% {
-        transform: translate(4px, -1px);
-      }
-
-      60% {
-        transform: translate(-2px, 0);
-      }
-
-      80% {
-        transform: translate(3px, 1px);
-      }
-
-      100% {
-        transform: translate(0);
-      }
-    }
-
-
-    /* =========================
-       RED LINE
-    ========================= */
 
     .red-line {
       width: 0;
@@ -361,63 +248,30 @@
 
       margin-top: 20px;
 
-      background: #f01414;
+      background: #ed1717;
 
-      animation:
-        lineEnter 0.8s ease
-        1s forwards;
+      animation: lineIn 0.9s ease forwards;
+      animation-delay: 1s;
     }
 
-    @keyframes lineEnter {
+
+    @keyframes titleIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes catchIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes lineIn {
       to {
         width: 150px;
-      }
-    }
-
-
-    /* =========================
-       SCROLL
-    ========================= */
-
-    .scroll {
-      position: absolute;
-
-      right: 28px;
-      bottom: 28px;
-
-      display: flex;
-      align-items: center;
-
-      gap: 10px;
-
-      color: rgba(255,255,255,0.62);
-
-      font-size: 9px;
-
-      letter-spacing: 0.32em;
-    }
-
-    .scroll-line {
-      display: block;
-
-      width: 1px;
-      height: 30px;
-
-      background: rgba(255,255,255,0.65);
-
-      animation: scrollAnimation 1.5s ease-in-out infinite;
-    }
-
-    @keyframes scrollAnimation {
-      0%,
-      100% {
-        opacity: 0.25;
-        transform: scaleY(0.35);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scaleY(1);
       }
     }
 
@@ -426,94 +280,33 @@
        PC
     ========================= */
 
-    @media (min-width: 800px) {
-
-      .hero {
-        position: relative;
-        height: 100vh;
-        min-height: 700px;
-        overflow: hidden;
-      }
-
-      .movie-wrap {
-        width: 100%;
-        height: 100%;
-      }
-
-      .movie {
-        object-fit: cover;
-      }
+    @media (min-width: 768px) {
 
       .header {
-        padding: 32px 50px;
+        height: 95px;
+        padding: 0 45px;
       }
 
-      .header-logo {
-        font-size: 18px;
+      .brand-logo {
+        width: 68px;
+        height: 68px;
       }
 
-      .copy {
-        position: absolute;
+      .brand-name {
+        font-size: 25px;
+      }
 
-        left: 0;
-        bottom: 0;
-
-        z-index: 6;
-
-        width: 100%;
-        min-height: 55%;
-
-        padding:
-          100px
-          6vw
-          8vh;
-
-        justify-content: flex-end;
-
-        background:
-          linear-gradient(
-            to top,
-            rgba(0,0,0,0.93) 0%,
-            rgba(0,0,0,0.65) 42%,
-            transparent 100%
-          );
+      .hero-copy {
+        padding: 45px 6vw 65px;
       }
 
       .main-title {
-        font-size: clamp(70px, 7vw, 120px);
+        font-size: clamp(65px, 7vw, 105px);
       }
 
       .catch {
-        font-size: clamp(30px, 3vw, 50px);
+        font-size: clamp(27px, 3vw, 48px);
       }
-
-    }
-
-
-    /* 動きを減らす設定の端末 */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      .movie,
-      .main-title,
-      .catch,
-      .red-line,
-      .scroll-line {
-        animation: none !important;
-        transition: none !important;
-      }
-
-      .main-title,
-      .catch {
-        opacity: 1;
-        transform: none;
-        filter: none;
-      }
-
-      .red-line {
-        width: 150px;
-      }
-
     }
 
   </style>
@@ -523,15 +316,38 @@
 <body>
 
 
-<section class="hero">
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="brand">
+
+      <img
+        src="nf1.png"
+        alt="NANYO FC"
+        class="brand-logo"
+      >
+
+      <div class="brand-name">
+        NANYO FC
+      </div>
+
+    </div>
 
 
-  <!-- =====================
-       MOVIE AREA
-  ====================== -->
+    <div class="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <div class="movie-wrap">
+  </header>
 
+
+
+  <!-- MOVIE -->
+
+  <section class="movie-wrap">
 
     <video
       id="movieA"
@@ -541,7 +357,6 @@
       preload="auto">
     </video>
 
-
     <video
       id="movieB"
       class="movie"
@@ -550,7 +365,6 @@
       preload="metadata">
     </video>
 
-
     <div class="movie-shade"></div>
 
     <div
@@ -558,394 +372,210 @@
       class="flash">
     </div>
 
-
-    <!-- HEADER -->
-
-    <header class="header">
-
-      <div class="header-logo">
-        NANYO FC
-      </div>
-
-
-      <div class="menu">
-
-        <span></span>
-        <span></span>
-
-      </div>
-
-    </header>
-
-
-  </div>
+  </section>
 
 
 
-  <!-- =====================
-       COPY
-  ====================== -->
+  <!-- VIDEO直下の文字 -->
 
-  <div class="copy">
-
+  <section class="hero-copy">
 
     <h1 class="main-title">
-
       NANYO<br>
       FOOTBALL CLUB
-
     </h1>
 
-
-    <div class="catch-wrap">
-
-      <div
-        id="catch"
-        class="catch">
-
-        COUNTERATTACK BEGINS
-
-      </div>
-
+    <div class="catch">
+      COUNTERATTACK BEGINS
     </div>
-
 
     <div class="red-line"></div>
 
-
-    <div class="scroll">
-
-      <span>
-        SCROLL
-      </span>
-
-      <span class="scroll-line"></span>
-
-    </div>
-
-
-  </div>
-
-
-</section>
+  </section>
 
 
 
-<script>
+  <script>
 
-  /* =========================
-     MOVIES
-  ========================= */
-
-  const movies = [
-
-    "movie/nf1.mp4",
-    "movie/nf2.mp4",
-    "movie/nf3.mp4",
-    "movie/nf4.mp4",
-    "movie/nf5.mp4",
-    "movie/nf6.mp4"
-
-  ];
+    const movies = [
+      "movie/nf1.mp4",
+      "movie/nf2.mp4",
+      "movie/nf3.mp4",
+      "movie/nf4.mp4",
+      "movie/nf5.mp4",
+      "movie/nf6.mp4"
+    ];
 
 
-  const movieA =
-    document.getElementById("movieA");
+    const movieA =
+      document.getElementById("movieA");
 
-  const movieB =
-    document.getElementById("movieB");
+    const movieB =
+      document.getElementById("movieB");
 
-
-  const flash =
-    document.getElementById("flash");
-
-
-  const catchText =
-    document.getElementById("catch");
+    const flash =
+      document.getElementById("flash");
 
 
-  let activeMovie = movieA;
-  let standbyMovie = movieB;
+    let activeMovie = movieA;
+    let standbyMovie = movieB;
 
-  let playlist = [];
-
-  let previousMovie = null;
-
-  let switching = false;
+    let playlist = [];
+    let lastMovie = null;
+    let switching = false;
 
 
+    function shuffleMovies() {
 
-  /* =========================
-     SHUFFLE
-  ========================= */
+      playlist = [...movies];
 
-  function shuffleMovies() {
+      for (
+        let i = playlist.length - 1;
+        i > 0;
+        i--
+      ) {
 
-    playlist = [...movies];
+        const j =
+          Math.floor(Math.random() * (i + 1));
+
+        [
+          playlist[i],
+          playlist[j]
+        ] = [
+          playlist[j],
+          playlist[i]
+        ];
+      }
 
 
-    for (
-      let i = playlist.length - 1;
-      i > 0;
-      i--
-    ) {
+      if (
+        lastMovie &&
+        playlist.length > 1 &&
+        playlist[0] === lastMovie
+      ) {
 
-      const j =
-        Math.floor(
-          Math.random() * (i + 1)
-        );
-
-
-      [
-        playlist[i],
-        playlist[j]
-
-      ] = [
-
-        playlist[j],
-        playlist[i]
-
-      ];
-
+        [
+          playlist[0],
+          playlist[1]
+        ] = [
+          playlist[1],
+          playlist[0]
+        ];
+      }
     }
 
 
-    /* 前回の最後と
-       次回の最初を被らせない */
+    function getNextMovie() {
 
-    if (
-      previousMovie &&
-      playlist.length > 1 &&
-      playlist[0] === previousMovie
-    ) {
+      if (playlist.length === 0) {
+        shuffleMovies();
+      }
 
-      [
-        playlist[0],
-        playlist[1]
+      const next = playlist.shift();
 
-      ] = [
+      lastMovie = next;
 
-        playlist[1],
-        playlist[0]
-
-      ];
-
+      return next;
     }
 
-  }
+
+    function prepareNextMovie() {
+
+      standbyMovie.src = getNextMovie();
+
+      standbyMovie.load();
+    }
 
 
+    function fireFlash() {
 
-  /* =========================
-     NEXT MOVIE
-  ========================= */
+      flash.classList.remove("fire");
 
-  function getNextMovie() {
+      void flash.offsetWidth;
 
-    if (playlist.length === 0) {
+      flash.classList.add("fire");
+    }
+
+
+    function switchMovie() {
+
+      if (switching) return;
+
+      switching = true;
+
+      fireFlash();
+
+
+      setTimeout(() => {
+
+        standbyMovie.currentTime = 0;
+
+        standbyMovie.play()
+
+          .then(() => {
+
+            standbyMovie.classList.add("active");
+
+            activeMovie.classList.remove("active");
+
+
+            setTimeout(() => {
+
+              activeMovie.pause();
+
+              const oldMovie = activeMovie;
+
+              activeMovie = standbyMovie;
+
+              standbyMovie = oldMovie;
+
+              prepareNextMovie();
+
+              switching = false;
+
+            }, 550);
+
+          })
+
+          .catch(() => {
+
+            switching = false;
+
+          });
+
+      }, 90);
+    }
+
+
+    function startMovies() {
 
       shuffleMovies();
 
+      activeMovie.src = getNextMovie();
+
+      activeMovie.load();
+
+      activeMovie.play().catch(() => {});
+
+      prepareNextMovie();
     }
 
 
-    const next =
-      playlist.shift();
+    movieA.addEventListener(
+      "ended",
+      switchMovie
+    );
 
+    movieB.addEventListener(
+      "ended",
+      switchMovie
+    );
 
-    previousMovie =
-      next;
 
+    startMovies();
 
-    return next;
-
-  }
-
-
-
-  /* =========================
-     PRELOAD
-  ========================= */
-
-  function prepareNextMovie() {
-
-    const next =
-      getNextMovie();
-
-
-    standbyMovie.src =
-      next;
-
-
-    standbyMovie.load();
-
-  }
-
-
-
-  /* =========================
-     FLASH
-  ========================= */
-
-  function fireFlash() {
-
-    flash.classList.remove("fire");
-
-
-    void flash.offsetWidth;
-
-
-    flash.classList.add("fire");
-
-  }
-
-
-
-  /* =========================
-     GLITCH
-  ========================= */
-
-  function fireGlitch() {
-
-    catchText.classList.remove("glitch");
-
-
-    void catchText.offsetWidth;
-
-
-    catchText.classList.add("glitch");
-
-  }
-
-
-
-  /* =========================
-     SWITCH
-  ========================= */
-
-  function switchMovie() {
-
-    if (switching) {
-      return;
-    }
-
-
-    switching = true;
-
-
-    fireFlash();
-
-
-    setTimeout(() => {
-
-      standbyMovie.currentTime = 0;
-
-
-      standbyMovie.play()
-        .then(() => {
-
-
-          standbyMovie.classList.add(
-            "active"
-          );
-
-
-          activeMovie.classList.remove(
-            "active"
-          );
-
-
-          fireGlitch();
-
-
-          setTimeout(() => {
-
-
-            activeMovie.pause();
-
-
-            const old =
-              activeMovie;
-
-
-            activeMovie =
-              standbyMovie;
-
-
-            standbyMovie =
-              old;
-
-
-            prepareNextMovie();
-
-
-            switching =
-              false;
-
-
-          }, 500);
-
-
-        })
-
-        .catch(() => {
-
-          switching =
-            false;
-
-        });
-
-
-    }, 110);
-
-  }
-
-
-
-  /* =========================
-     START
-  ========================= */
-
-  function start() {
-
-    shuffleMovies();
-
-
-    activeMovie.src =
-      getNextMovie();
-
-
-    activeMovie.load();
-
-
-    activeMovie.play()
-      .catch(() => {});
-
-
-    prepareNextMovie();
-
-  }
-
-
-
-  movieA.addEventListener(
-    "ended",
-    switchMovie
-  );
-
-
-  movieB.addEventListener(
-    "ended",
-    switchMovie
-  );
-
-
-  start();
-
-
-</script>
+  </script>
 
 
 </body>
-
 </html>
