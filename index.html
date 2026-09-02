@@ -16,9 +16,9 @@
 <style>
 
 
-/* ========================================
+/* =====================================
    RESET
-======================================== */
+===================================== */
 
 *{
   margin:0;
@@ -45,31 +45,29 @@ body{
 }
 
 
-/* ========================================
+
+/* =====================================
    HEADER
-======================================== */
+===================================== */
 
 .header{
 
   width:100%;
-  height:80px;
+  height:82px;
 
   display:flex;
   align-items:center;
   justify-content:space-between;
 
-  padding:0 20px;
+  padding:0 18px;
 
   background:
     linear-gradient(
       180deg,
-      #c90020 0%,
-      #ae001b 42%,
-      #870014 100%
+      #c60022 0%,
+      #ae001d 55%,
+      #980019 100%
     );
-
-  border-bottom:
-    1px solid rgba(255,215,100,.18);
 
   position:relative;
 
@@ -77,84 +75,72 @@ body{
 }
 
 
-/* ----------------------------------------
+
+/* =====================================
    BRAND
----------------------------------------- */
+===================================== */
 
 .brand{
 
   display:flex;
+
   align-items:center;
 
   gap:13px;
+
+  min-width:0;
 }
+
 
 
 /* ロゴ */
 
 .brand-logo{
 
-  display:block;
-
   width:56px;
   height:56px;
 
+  flex:0 0 56px;
+
+  display:block;
+
   object-fit:contain;
 }
+
 
 
 /* NANYO FC */
 
 .brand-name{
 
-  font-size:21px;
+  color:#fff;
+
+  font-size:31px;
+
+  line-height:1;
+
   font-weight:900;
 
-  letter-spacing:.15em;
+  letter-spacing:.055em;
 
   white-space:nowrap;
 
-
-  /* GOLD */
-
-  background:
-    linear-gradient(
-      180deg,
-
-      #fff8d0 0%,
-      #f8e49b 14%,
-      #d7ad3a 30%,
-      #9d6911 44%,
-      #fff0a4 55%,
-      #d5a62c 68%,
-      #8d5b0c 82%,
-      #e7c85d 100%
-    );
-
-
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-
-
-  filter:
-    drop-shadow(
-      0 1px 1px
-      rgba(0,0,0,.35)
-    );
+  text-shadow:
+    0 2px 4px rgba(0,0,0,.18);
 }
 
 
-/* ========================================
-   MENU
-======================================== */
+
+/* =====================================
+   HAMBURGER
+===================================== */
 
 .menu{
 
   width:48px;
   height:48px;
+
+  flex:0 0 48px;
 
   display:flex;
 
@@ -167,6 +153,7 @@ body{
 }
 
 
+
 .menu span{
 
   display:block;
@@ -174,31 +161,18 @@ body{
   width:30px;
   height:3px;
 
-  border-radius:100px;
+  border-radius:3px;
 
+  /* 普通のゴールド */
 
-  background:
-    linear-gradient(
-      90deg,
-
-      #fff7c8 0%,
-      #d9ad39 22%,
-      #8e5c0b 42%,
-      #ffe999 59%,
-      #b68119 78%,
-      #f2d775 100%
-    );
-
-
-  box-shadow:
-    0 1px 1px
-    rgba(0,0,0,.25);
+  background:#d8b44a;
 }
 
 
-/* ========================================
+
+/* =====================================
    MOVIE
-======================================== */
+===================================== */
 
 .movie-wrap{
 
@@ -214,7 +188,6 @@ body{
 }
 
 
-/* 動画本体 */
 
 .movie{
 
@@ -226,6 +199,7 @@ body{
   height:100%;
 
   object-fit:contain;
+
   object-position:center;
 
   background:#000;
@@ -235,21 +209,22 @@ body{
   transform:scale(1);
 
   transition:
-    opacity .45s ease,
+    opacity .48s ease,
     transform 8s linear;
 }
+
 
 
 .movie.active{
 
   opacity:1;
 
-  transform:
-    scale(1.025);
+  transform:scale(1.025);
 }
 
 
-/* 動画の色味調整 */
+
+/* 動画を少し締める */
 
 .movie-shade{
 
@@ -261,21 +236,21 @@ body{
 
   pointer-events:none;
 
-
   background:
     linear-gradient(
       to bottom,
 
-      rgba(0,0,0,.06) 0%,
+      rgba(0,0,0,.04) 0%,
       rgba(0,0,0,0) 55%,
-      rgba(0,0,0,.14) 100%
+      rgba(0,0,0,.13) 100%
     );
 }
 
 
-/* ========================================
+
+/* =====================================
    FLASH
-======================================== */
+===================================== */
 
 .flash{
 
@@ -293,21 +268,23 @@ body{
 }
 
 
+
 .flash.fire{
 
   animation:
-    movieFlash .28s ease;
+    flashEffect .27s ease;
 }
 
 
-@keyframes movieFlash{
+
+@keyframes flashEffect{
 
   0%{
     opacity:0;
   }
 
-  25%{
-    opacity:.75;
+  28%{
+    opacity:.68;
   }
 
   100%{
@@ -317,39 +294,44 @@ body{
 }
 
 
-/* ========================================
-   TEXT AREA
-======================================== */
+
+/* =====================================
+   VIDEO下 TEXT AREA
+===================================== */
 
 .hero-copy{
 
-  position:relative;
-
   width:100%;
 
-  padding:
-    32px
-    22px
-    46px;
+  overflow:hidden;
 
+  padding:
+
+    32px
+    0
+    46px
+    22px;
 
   background:
+
     radial-gradient(
       circle at 100% 0%,
-
-      rgba(150,0,15,.16),
-      transparent 45%
+      rgba(120,0,15,.15),
+      transparent 42%
     ),
 
     #000;
 }
 
 
-/* ========================================
-   MAIN TITLE
-======================================== */
+
+/* =====================================
+   NANYO FOOTBALL CLUB
+===================================== */
 
 .main-title{
+
+  padding-right:22px;
 
   color:#fff;
 
@@ -360,43 +342,37 @@ body{
       70px
     );
 
-  font-weight:900;
-
   line-height:.90;
 
-  letter-spacing:-.05em;
+  font-weight:900;
 
-
-  opacity:1;
+  letter-spacing:-.055em;
 }
 
 
-/* 毎回発火 */
 
 .main-title.play{
 
   animation:
-    titleMovie .75s
-    cubic-bezier(
-      .17,
-      .84,
-      .26,
-      1
-    );
+    mainTitleAnimation
+    .75s
+    cubic-bezier(.16,.8,.25,1);
 }
 
 
-@keyframes titleMovie{
+
+@keyframes mainTitleAnimation{
 
   0%{
 
     opacity:0;
 
     transform:
-      translateY(25px);
+      translateY(22px);
 
     filter:
       blur(5px);
+
   }
 
 
@@ -409,20 +385,24 @@ body{
 
     filter:
       blur(0);
+
   }
 
 }
 
 
-/* ========================================
+
+/* =====================================
    COUNTERATTACK
-======================================== */
+===================================== */
 
 .catch{
 
   margin-top:22px;
 
-  color:#ee151b;
+  padding-right:12px;
+
+  color:#ef161d;
 
   font-size:
     clamp(
@@ -431,39 +411,40 @@ body{
       32px
     );
 
-  font-weight:900;
-  font-style:italic;
-
   line-height:1;
 
-  letter-spacing:.015em;
+  font-weight:900;
+
+  font-style:italic;
+
+  letter-spacing:.012em;
 
   white-space:nowrap;
-
-  opacity:1;
 }
 
 
-/* 毎回発火 */
 
 .catch.play{
 
   animation:
-    catchMovie .58s ease;
+    catchAnimation
+    .58s ease;
 }
 
 
-@keyframes catchMovie{
+
+@keyframes catchAnimation{
 
   0%{
 
     opacity:0;
 
     transform:
-      translateX(-25px);
+      translateX(-28px);
 
     filter:
-      blur(8px);
+      blur(7px);
+
   }
 
 
@@ -472,24 +453,27 @@ body{
     opacity:1;
 
     transform:
-      translateX(4px);
+      translateX(5px);
 
     filter:
       blur(1px);
+
   }
 
 
-  58%{
+  60%{
 
     transform:
       translateX(-3px);
+
   }
 
 
-  72%{
+  76%{
 
     transform:
       translateX(2px);
+
   }
 
 
@@ -502,14 +486,16 @@ body{
 
     filter:
       blur(0);
+
   }
 
 }
 
 
-/* ========================================
+
+/* =====================================
    RED LINE
-======================================== */
+===================================== */
 
 .red-line{
 
@@ -517,74 +503,117 @@ body{
 
   margin-top:20px;
 
-  width:150px;
+  width:
+    calc(100vw - 22px);
+
+  transform-origin:left center;
 
   background:
     linear-gradient(
       90deg,
-      #ef101b,
-      #ff2731
+
+      #ef101b 0%,
+      #ff2029 72%,
+      rgba(255,32,41,.1) 100%
     );
 }
+
 
 
 .red-line.play{
 
   animation:
-    redLineMovie .72s ease;
+    redLineAnimation
+    .9s
+    cubic-bezier(.2,.8,.2,1);
 }
 
 
-@keyframes redLineMovie{
+
+@keyframes redLineAnimation{
 
   0%{
-    width:0;
-    opacity:0;
+
+    transform:
+      scaleX(0);
+
+    opacity:.2;
+
   }
 
+
   100%{
-    width:150px;
+
+    transform:
+      scaleX(1);
+
     opacity:1;
+
   }
 
 }
 
 
-/* ========================================
+
+/* =====================================
    PC
-======================================== */
+===================================== */
 
 @media(min-width:768px){
 
 
   .header{
 
-    height:96px;
+    height:98px;
 
     padding:
-      0 45px;
+      0 42px;
+
   }
 
 
   .brand-logo{
 
-    width:68px;
-    height:68px;
+    width:70px;
+    height:70px;
+
+    flex-basis:70px;
+
   }
 
 
   .brand-name{
 
-    font-size:26px;
+    font-size:40px;
+
+  }
+
+
+  .menu{
+
+    width:56px;
+    height:56px;
+
+  }
+
+
+  .menu span{
+
+    width:36px;
+    height:4px;
+
   }
 
 
   .hero-copy{
 
     padding:
-      45px
-      6vw
-      65px;
+
+      48px
+      0
+      65px
+      6vw;
+
   }
 
 
@@ -592,10 +621,11 @@ body{
 
     font-size:
       clamp(
-        65px,
+        68px,
         7vw,
-        105px
+        110px
       );
+
   }
 
 
@@ -603,10 +633,19 @@ body{
 
     font-size:
       clamp(
-        27px,
+        28px,
         3vw,
         48px
       );
+
+  }
+
+
+  .red-line{
+
+    width:
+      calc(100vw - 6vw);
+
   }
 
 }
@@ -622,9 +661,9 @@ body{
 
 
 
-<!-- ========================================
+<!-- =====================================
      HEADER
-========================================= -->
+===================================== -->
 
 <header class="header">
 
@@ -668,9 +707,9 @@ body{
 
 
 
-<!-- ========================================
+<!-- =====================================
      MOVIE
-========================================= -->
+===================================== -->
 
 <section class="movie-wrap">
 
@@ -721,18 +760,21 @@ body{
 
 
 
-<!-- ========================================
+<!-- =====================================
      TEXT
-========================================= -->
+===================================== -->
 
 <section class="hero-copy">
 
 
   <h1
+
     id="mainTitle"
+
     class="main-title">
 
     NANYO<br>
+
     FOOTBALL CLUB
 
   </h1>
@@ -740,7 +782,9 @@ body{
 
 
   <div
+
     id="catchText"
+
     class="catch">
 
     COUNTERATTACK BEGINS
@@ -750,8 +794,11 @@ body{
 
 
   <div
+
     id="redLine"
+
     class="red-line">
+
   </div>
 
 
@@ -763,9 +810,9 @@ body{
 <script>
 
 
-/* ========================================
-   MOVIE LIST
-======================================== */
+/* =====================================
+   VIDEO LIST
+===================================== */
 
 const movies = [
 
@@ -786,39 +833,27 @@ const movies = [
 
 
 const movieA =
-  document.getElementById(
-    "movieA"
-  );
+  document.getElementById("movieA");
 
 
 const movieB =
-  document.getElementById(
-    "movieB"
-  );
+  document.getElementById("movieB");
 
 
 const flash =
-  document.getElementById(
-    "flash"
-  );
+  document.getElementById("flash");
 
 
 const mainTitle =
-  document.getElementById(
-    "mainTitle"
-  );
+  document.getElementById("mainTitle");
 
 
 const catchText =
-  document.getElementById(
-    "catchText"
-  );
+  document.getElementById("catchText");
 
 
 const redLine =
-  document.getElementById(
-    "redLine"
-  );
+  document.getElementById("redLine");
 
 
 
@@ -833,16 +868,18 @@ let standbyMovie =
 let playlist = [];
 
 
-let lastMovie = null;
+let lastMovie =
+  null;
 
 
-let switching = false;
+let switching =
+  false;
 
 
 
-/* ========================================
-   RANDOM
-======================================== */
+/* =====================================
+   SHUFFLE
+===================================== */
 
 function shuffleMovies(){
 
@@ -896,8 +933,7 @@ function shuffleMovies(){
 
     playlist.length > 1 &&
 
-    playlist[0] ===
-    lastMovie
+    playlist[0] === lastMovie
 
   ){
 
@@ -920,6 +956,9 @@ function shuffleMovies(){
 
 
 
+/* =====================================
+   NEXT
+===================================== */
 
 function getNextMovie(){
 
@@ -947,9 +986,9 @@ function getNextMovie(){
 
 
 
-/* ========================================
-   次動画準備
-======================================== */
+/* =====================================
+   PRELOAD
+===================================== */
 
 function prepareNextMovie(){
 
@@ -964,9 +1003,9 @@ function prepareNextMovie(){
 
 
 
-/* ========================================
+/* =====================================
    FLASH
-======================================== */
+===================================== */
 
 function fireFlash(){
 
@@ -987,9 +1026,9 @@ function fireFlash(){
 
 
 
-/* ========================================
-   文字演出を毎回リセット
-======================================== */
+/* =====================================
+   TEXT REPLAY
+===================================== */
 
 function replayTextAnimation(){
 
@@ -1008,11 +1047,6 @@ function replayTextAnimation(){
     "play"
   );
 
-
-  /*
-    一度DOMを再計算させて
-    animationを最初から実行
-  */
 
   void mainTitle.offsetWidth;
 
@@ -1035,9 +1069,9 @@ function replayTextAnimation(){
 
 
 
-/* ========================================
-   動画切替
-======================================== */
+/* =====================================
+   SWITCH
+===================================== */
 
 function switchMovie(){
 
@@ -1047,17 +1081,17 @@ function switchMovie(){
   }
 
 
-  switching = true;
+  switching =
+    true;
 
 
-
-  /* FLASH */
 
   fireFlash();
 
 
 
   setTimeout(
+
     () => {
 
 
@@ -1065,30 +1099,28 @@ function switchMovie(){
         0;
 
 
-
       standbyMovie.play()
 
 
       .then(
+
         () => {
 
 
-          standbyMovie.classList.add(
-            "active"
-          );
+          standbyMovie
+          .classList
+          .add("active");
 
 
-          activeMovie.classList.remove(
-            "active"
-          );
+          activeMovie
+          .classList
+          .remove("active");
 
 
 
           /*
-
-          動画が切り替わったら
-          文字演出を最初から
-
+             動画変更ごとに
+             文字＋線も再演出
           */
 
           replayTextAnimation();
@@ -1096,6 +1128,7 @@ function switchMovie(){
 
 
           setTimeout(
+
             () => {
 
 
@@ -1107,10 +1140,8 @@ function switchMovie(){
                 activeMovie;
 
 
-
               activeMovie =
                 standbyMovie;
-
 
 
               standbyMovie =
@@ -1134,16 +1165,19 @@ function switchMovie(){
 
 
         }
+
       )
 
 
       .catch(
+
         () => {
 
           switching =
             false;
 
         }
+
       );
 
 
@@ -1157,9 +1191,9 @@ function switchMovie(){
 
 
 
-/* ========================================
+/* =====================================
    START
-======================================== */
+===================================== */
 
 function startMovies(){
 
@@ -1172,15 +1206,14 @@ function startMovies(){
     getNextMovie();
 
 
-
   activeMovie.load();
 
 
 
   activeMovie.play()
-    .catch(
-      () => {}
-    );
+  .catch(
+    () => {}
+  );
 
 
 
@@ -1188,17 +1221,15 @@ function startMovies(){
 
 
 
-  /* 最初の文字演出 */
-
   replayTextAnimation();
 
 }
 
 
 
-/* ========================================
-   END
-======================================== */
+/* =====================================
+   EVENT
+===================================== */
 
 movieA.addEventListener(
 
