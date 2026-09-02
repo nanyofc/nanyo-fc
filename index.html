@@ -12,11 +12,8 @@
 
 <title>NANYO FOOTBALL CLUB</title>
 
-<style>
 
-/* ======================================
-   RESET
-====================================== */
+<style>
 
 *{
   margin:0;
@@ -37,12 +34,11 @@ body{
 }
 
 
-/* ======================================
+/* =========================
    HEADER
-====================================== */
+========================= */
 
 .header{
-
   width:100%;
   height:82px;
 
@@ -71,74 +67,55 @@ body{
 }
 
 .brand-logo{
-
   width:56px;
   height:56px;
-
   object-fit:contain;
   display:block;
 }
 
 .brand-name{
-
   color:#fff;
-
   font-size:31px;
   line-height:1;
-
   font-weight:900;
   letter-spacing:.055em;
-
   white-space:nowrap;
 }
 
 .menu{
-
   width:48px;
   height:48px;
 
   display:flex;
   flex-direction:column;
-
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
   gap:7px;
 }
 
 .menu span{
-
-  display:block;
-
   width:30px;
   height:3px;
-
+  display:block;
   border-radius:3px;
-
   background:#d7b24a;
 }
 
 
-/* ======================================
+/* =========================
    MOVIE
-====================================== */
+========================= */
 
 .movie-wrap{
-
   position:relative;
-
   width:100%;
   aspect-ratio:16 / 9;
-
   overflow:hidden;
-
   background:#000;
-
-  --cut-time:460ms;
 }
 
 .movie{
-
   position:absolute;
   inset:0;
 
@@ -147,8 +124,6 @@ body{
 
   object-fit:contain;
   object-position:center;
-
-  display:block;
 
   background:#000;
 
@@ -162,68 +137,54 @@ body{
 }
 
 
-/* ======================================
-   CUT BLACK
-====================================== */
+/* =========================
+   BLACK CUT
+========================= */
 
 .cut-black{
-
   position:absolute;
   inset:0;
-
-  z-index:10;
 
   background:#000;
 
   opacity:0;
 
+  z-index:10;
+
   pointer-events:none;
 }
 
 
-/*
-  毎回同じ時間で暗転
-*/
+/* =========================
+   SUBTLE RED FLASH
+========================= */
 
-.cut-black.play{
+.red-flash{
+  position:absolute;
+  inset:0;
 
-  animation:
-    blackCut
-    var(--cut-time)
-    linear
-    forwards;
+  z-index:9;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 15%,
+      rgba(220,0,35,.22) 48%,
+      transparent 76%
+    );
 }
 
 
-@keyframes blackCut{
-
-  0%{
-    opacity:0;
-  }
-
-  38%{
-    opacity:1;
-  }
-
-  62%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:0;
-  }
-
-}
-
-
-/* ======================================
+/* =========================
    COPY
-====================================== */
+========================= */
 
 .hero-copy{
-
   width:100%;
-
   overflow:hidden;
 
   padding:
@@ -241,13 +202,7 @@ body{
     #000;
 }
 
-
-/* ======================================
-   TITLE
-====================================== */
-
 .main-title{
-
   padding-right:20px;
 
   color:#fff;
@@ -264,55 +219,14 @@ body{
   font-weight:900;
 
   letter-spacing:-.055em;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
 }
-
-
-/*
-  毎回動画切替で動く
-*/
-
-.main-title.play{
-
-  animation:
-    titleMove
-    .75s
-    cubic-bezier(.15,.80,.20,1);
-}
-
-
-@keyframes titleMove{
-
-  0%{
-
-    opacity:0;
-
-    transform:
-      translateX(-35px);
-
-    filter:
-      blur(4px);
-  }
-
-  100%{
-
-    opacity:1;
-
-    transform:
-      translateX(0);
-
-    filter:
-      blur(0);
-  }
-
-}
-
-
-/* ======================================
-   CATCH
-====================================== */
 
 .catch{
-
   margin-top:22px;
 
   padding-right:12px;
@@ -332,45 +246,13 @@ body{
   font-style:italic;
 
   white-space:nowrap;
+
+  will-change:
+    transform,
+    opacity;
 }
-
-
-.catch.play{
-
-  animation:
-    catchMove
-    .65s
-    cubic-bezier(.15,.80,.20,1);
-}
-
-
-@keyframes catchMove{
-
-  0%{
-
-    opacity:0;
-
-    transform:
-      translateX(28px);
-  }
-
-  100%{
-
-    opacity:1;
-
-    transform:
-      translateX(0);
-  }
-
-}
-
-
-/* ======================================
-   RED LINE
-====================================== */
 
 .red-line{
-
   width:
     calc(100vw - 22px);
 
@@ -387,36 +269,16 @@ body{
       #ff1931 65%,
       transparent 100%
     );
+
+  will-change:
+    transform,
+    opacity;
 }
 
 
-.red-line.play{
-
-  animation:
-    lineMove
-    .85s
-    cubic-bezier(.1,.8,.18,1);
-}
-
-
-@keyframes lineMove{
-
-  0%{
-    transform:scaleX(0);
-    opacity:0;
-  }
-
-  100%{
-    transform:scaleX(1);
-    opacity:1;
-  }
-
-}
-
-
-/* ======================================
+/* =========================
    PC
-====================================== */
+========================= */
 
 @media(min-width:768px){
 
@@ -440,7 +302,6 @@ body{
   }
 
   .hero-copy{
-
     padding:
       48px
       0
@@ -457,10 +318,6 @@ body{
 
 <body>
 
-
-<!-- ======================================
-     HEADER
-====================================== -->
 
 <header class="header">
 
@@ -489,10 +346,6 @@ body{
 
 
 
-<!-- ======================================
-     MOVIE
-====================================== -->
-
 <section class="movie-wrap">
 
   <video
@@ -516,6 +369,12 @@ body{
 
 
   <div
+    id="redFlash"
+    class="red-flash">
+  </div>
+
+
+  <div
     id="cutBlack"
     class="cut-black">
   </div>
@@ -523,10 +382,6 @@ body{
 </section>
 
 
-
-<!-- ======================================
-     COPY
-====================================== -->
 
 <section class="hero-copy">
 
@@ -560,10 +415,9 @@ body{
 
 <script>
 
-
-/* ======================================
+/* =========================
    MOVIES
-====================================== */
+========================= */
 
 const movies = [
 
@@ -586,6 +440,9 @@ const movieB =
 const cutBlack =
   document.getElementById("cutBlack");
 
+const redFlash =
+  document.getElementById("redFlash");
+
 const mainTitle =
   document.getElementById("mainTitle");
 
@@ -605,10 +462,12 @@ let lastMovie = null;
 
 let switching = false;
 
+let waitingForStandby = false;
 
-/* ======================================
-   SHUFFLE
-====================================== */
+
+/* =========================
+   RANDOM
+========================= */
 
 function shuffleMovies(){
 
@@ -630,20 +489,17 @@ function shuffleMovies(){
     [
       playlist[i],
       playlist[j]
-
     ] = [
-
       playlist[j],
       playlist[i]
-
     ];
 
   }
 
 
   /*
-    一巡した境目で
-    同じ動画が連続しない
+    一巡の境目も
+    同じ動画を連続させない
   */
 
   if(
@@ -655,22 +511,15 @@ function shuffleMovies(){
     [
       playlist[0],
       playlist[1]
-
     ] = [
-
       playlist[1],
       playlist[0]
-
     ];
 
   }
 
 }
 
-
-/* ======================================
-   NEXT
-====================================== */
 
 function getNextMovie(){
 
@@ -692,82 +541,167 @@ function getNextMovie(){
 }
 
 
-/* ======================================
-   ANIMATION RESTART
-====================================== */
-
-function restartAnimation(
-  element,
-  className
-){
-
-  element
-    .classList
-    .remove(className);
-
-
-  void element.offsetWidth;
-
-
-  element
-    .classList
-    .add(className);
-
-}
-
-
-/* ======================================
-   TEXT ANIMATION
-====================================== */
+/* =========================
+   TEXT EFFECT
+========================= */
 
 function animateText(){
 
-  restartAnimation(
-    mainTitle,
-    "play"
+  /*
+    古いアニメーションを
+    全部強制終了
+  */
+
+  mainTitle
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+  catchText
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+  redLine
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+
+  /*
+    NANYO FOOTBALL CLUB
+  */
+
+  mainTitle.animate(
+
+    [
+      {
+        opacity:0,
+        transform:"translateX(-42px)",
+        filter:"blur(5px)"
+      },
+
+      {
+        opacity:1,
+        transform:"translateX(0)",
+        filter:"blur(0)"
+      }
+    ],
+
+    {
+      duration:720,
+      easing:"cubic-bezier(.12,.80,.20,1)",
+      fill:"both"
+    }
+
   );
 
 
-  setTimeout(
-    () => {
+  /*
+    COUNTERATTACK BEGINS
+  */
 
-      restartAnimation(
-        catchText,
-        "play"
-      );
+  catchText.animate(
 
-    },
-    110
+    [
+      {
+        opacity:0,
+        transform:"translateX(32px)"
+      },
+
+      {
+        opacity:1,
+        transform:"translateX(0)"
+      }
+    ],
+
+    {
+      duration:650,
+      delay:170,
+      easing:"cubic-bezier(.12,.80,.20,1)",
+      fill:"both"
+    }
+
   );
 
 
-  setTimeout(
-    () => {
+  /*
+    赤ライン
+  */
 
-      restartAnimation(
-        redLine,
-        "play"
-      );
+  redLine.animate(
 
-    },
-    240
+    [
+      {
+        opacity:0,
+        transform:"scaleX(0)"
+      },
+
+      {
+        opacity:1,
+        transform:"scaleX(1)"
+      }
+    ],
+
+    {
+      duration:800,
+      delay:320,
+      easing:"cubic-bezier(.10,.80,.18,1)",
+      fill:"both"
+    }
+
   );
 
 }
 
 
-/* ======================================
-   PRELOAD NEXT
-====================================== */
+/* =========================
+   MOVIE ZOOM
+========================= */
+
+function animateMovie(video){
+
+  video
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+
+  const duration =
+    Number.isFinite(video.duration)
+    ?
+    video.duration * 1000
+    :
+    8000;
+
+
+  video.animate(
+
+    [
+      {
+        transform:"scale(1.00)"
+      },
+
+      {
+        transform:"scale(1.035)"
+      }
+    ],
+
+    {
+      duration:duration,
+      easing:"linear",
+      fill:"forwards"
+    }
+
+  );
+
+}
+
+
+/* =========================
+   PRELOAD
+========================= */
 
 function preloadNext(){
 
-  const next =
-    getNextMovie();
-
-
   standbyVideo.src =
-    next;
+    getNextMovie();
 
 
   standbyVideo.load();
@@ -775,9 +709,92 @@ function preloadNext(){
 }
 
 
-/* ======================================
-   CUT
-====================================== */
+/* =========================
+   TRANSITION EFFECT
+========================= */
+
+function transitionEffect(){
+
+  cutBlack
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+
+  redFlash
+    .getAnimations()
+    .forEach(a => a.cancel());
+
+
+  /*
+    赤い光がサッと横切る
+  */
+
+  redFlash.animate(
+
+    [
+      {
+        opacity:0,
+        transform:"translateX(-50%)"
+      },
+
+      {
+        opacity:.8,
+        transform:"translateX(0)"
+      },
+
+      {
+        opacity:0,
+        transform:"translateX(50%)"
+      }
+    ],
+
+    {
+      duration:420,
+      easing:"ease-out"
+    }
+
+  );
+
+
+  /*
+    暗転時間は毎回420ms固定
+  */
+
+  cutBlack.animate(
+
+    [
+      {
+        opacity:0
+      },
+
+      {
+        opacity:1,
+        offset:.42
+      },
+
+      {
+        opacity:1,
+        offset:.58
+      },
+
+      {
+        opacity:0
+      }
+    ],
+
+    {
+      duration:420,
+      easing:"linear"
+    }
+
+  );
+
+}
+
+
+/* =========================
+   SWITCH
+========================= */
 
 function switchMovie(){
 
@@ -786,24 +803,55 @@ function switchMovie(){
   }
 
 
+  /*
+    次の動画がまだ読めてなければ
+    最後の画面を残したまま待つ。
+
+    黒画面にはしない。
+  */
+
+  if(standbyVideo.readyState < 2){
+
+    if(waitingForStandby){
+      return;
+    }
+
+
+    waitingForStandby = true;
+
+
+    standbyVideo.addEventListener(
+
+      "loadeddata",
+
+      () => {
+
+        waitingForStandby = false;
+
+        switchMovie();
+
+      },
+
+      {
+        once:true
+      }
+
+    );
+
+
+    return;
+  }
+
+
   switching = true;
 
 
-  /*
-    黒フェード開始
-  */
-
-  restartAnimation(
-    cutBlack,
-    "play"
-  );
+  transitionEffect();
 
 
   /*
-    0.46秒のちょうど中央付近で
-    動画を交換
-
-    230ms固定
+    暗転の真ん中で
+    動画を入れ替える
   */
 
   setTimeout(
@@ -811,8 +859,7 @@ function switchMovie(){
     () => {
 
 
-      standbyVideo.currentTime =
-        0;
+      standbyVideo.currentTime = 0;
 
 
       standbyVideo
@@ -833,15 +880,20 @@ function switchMovie(){
       activeVideo.pause();
 
 
+      animateMovie(
+        standbyVideo
+      );
+
+
       /*
-        動画が変わるたびに
-        下の文字も再アニメーション
+        動画が変わるたび
+        必ず文字を動かす
       */
 
       animateText();
 
 
-      const oldVideo =
+      const old =
         activeVideo;
 
 
@@ -850,46 +902,37 @@ function switchMovie(){
 
 
       standbyVideo =
-        oldVideo;
+        old;
 
-
-      /*
-        次の動画をすぐ裏で先読み
-      */
 
       preloadNext();
 
 
     },
 
-    230
+    210
 
   );
 
-
-  /*
-    暗転終了後
-  */
 
   setTimeout(
 
     () => {
 
-      switching =
-        false;
+      switching = false;
 
     },
 
-    520
+    470
 
   );
 
 }
 
 
-/* ======================================
-   VIDEO END
-====================================== */
+/* =========================
+   ENDED
+========================= */
 
 movieA.addEventListener(
   "ended",
@@ -903,51 +946,9 @@ movieB.addEventListener(
 );
 
 
-/* ======================================
-   ERROR
-====================================== */
-
-movieA.addEventListener(
-
-  "error",
-
-  () => {
-
-    if(
-      activeVideo === movieA
-    ){
-
-      switchMovie();
-
-    }
-
-  }
-
-);
-
-
-movieB.addEventListener(
-
-  "error",
-
-  () => {
-
-    if(
-      activeVideo === movieB
-    ){
-
-      switchMovie();
-
-    }
-
-  }
-
-);
-
-
-/* ======================================
+/* =========================
    START
-====================================== */
+========================= */
 
 function start(){
 
@@ -966,28 +967,33 @@ function start(){
 
 
   /*
-    次の動画は最初から裏で準備
+    次動画を裏で読込
   */
 
   preloadNext();
 
 
-  /*
-    最初の文字演出
-  */
+  const begin = () => {
 
-  animateText();
-
-
-  /*
-    最初の動画を再生
-  */
-
-  const startPlay = () => {
 
     activeVideo
       .play()
       .catch(() => {});
+
+
+    animateMovie(
+      activeVideo
+    );
+
+
+    /*
+      初回も文字を動かす
+    */
+
+    setTimeout(
+      animateText,
+      150
+    );
 
   };
 
@@ -996,7 +1002,7 @@ function start(){
     activeVideo.readyState >= 2
   ){
 
-    startPlay();
+    begin();
 
   }
 
@@ -1006,7 +1012,7 @@ function start(){
 
       "loadeddata",
 
-      startPlay,
+      begin,
 
       {
         once:true
@@ -1021,9 +1027,9 @@ function start(){
 
 start();
 
-
 </script>
 
 
 </body>
+
 </html>
