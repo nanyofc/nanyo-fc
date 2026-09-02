@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>NANYO FOOTBALL CLUB</title>
 
@@ -77,13 +72,10 @@ body{
 
 .brand-name{
   color:#fff;
-
   font-size:31px;
   line-height:1;
-
   font-weight:900;
   letter-spacing:.055em;
-
   white-space:nowrap;
 }
 
@@ -93,7 +85,6 @@ body{
 
   display:flex;
   flex-direction:column;
-
   justify-content:center;
   align-items:center;
 
@@ -113,7 +104,7 @@ body{
 
 
 /* =====================================
-   MOVIE AREA
+   MOVIE
 ===================================== */
 
 .movie-wrap{
@@ -128,11 +119,6 @@ body{
 
   isolation:isolate;
 }
-
-
-/* =====================================
-   MOVIE
-===================================== */
 
 .movie{
   position:absolute;
@@ -151,24 +137,18 @@ body{
   transform-origin:center center;
 
   filter:
-    contrast(1.08)
-    saturate(1.10);
+    contrast(1.07)
+    saturate(1.08);
 
   will-change:
     transform,
-    filter,
-    opacity;
+    opacity,
+    filter;
 }
 
 .movie.active{
   opacity:1;
 }
-
-
-/*
-   動画そのものを
-   最初から最後まで動かす
-*/
 
 .movie.motion{
   animation:
@@ -179,68 +159,27 @@ body{
 }
 
 
+/* 動画自体も少しだけPV感 */
+
 @keyframes movieMotion{
 
   0%{
-    transform:
-      scale(1.30)
-      rotate(-1deg);
-
+    transform:scale(1.08);
     filter:
-      blur(10px)
-      contrast(1.9)
-      saturate(1.6)
-      brightness(1.25);
+      contrast(1.25)
+      saturate(1.20)
+      brightness(1.06);
   }
 
-  2%{
-    transform:
-      scale(1.22)
-      translateX(-10px)
-      rotate(.6deg);
-  }
-
-  4%{
-    transform:
-      scale(1.15)
-      translateX(9px)
-      rotate(-.4deg);
-
-    filter:
-      blur(3px)
-      contrast(1.55)
-      saturate(1.4)
-      brightness(1.12);
-  }
-
-  7%{
-    transform:
-      scale(1.08)
-      translateX(-4px)
-      rotate(.2deg);
-  }
-
-  10%{
-    transform:
-      scale(1.035)
-      translateX(0)
-      rotate(0deg);
-
-    filter:
-      blur(0)
-      contrast(1.10)
-      saturate(1.10)
-      brightness(1);
+  8%{
+    transform:scale(1.025);
   }
 
   100%{
-    transform:
-      scale(1.10);
-
+    transform:scale(1.07);
     filter:
-      blur(0)
-      contrast(1.13)
-      saturate(1.14)
+      contrast(1.10)
+      saturate(1.12)
       brightness(.98);
   }
 
@@ -248,270 +187,110 @@ body{
 
 
 /* =====================================
-   DARK HIT
+   MOVIE SHADE
 ===================================== */
 
-.dark-hit{
+.movie-shade{
   position:absolute;
   inset:0;
 
-  z-index:15;
-
-  background:#000;
-
-  opacity:0;
-
-  pointer-events:none;
-}
-
-.dark-hit.fire{
-  animation:
-    darkHit .38s ease;
-}
-
-@keyframes darkHit{
-
-  0%{
-    opacity:1;
-  }
-
-  30%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:0;
-  }
-
-}
-
-
-/* =====================================
-   WHITE FLASH
-===================================== */
-
-.white-flash{
-  position:absolute;
-  inset:0;
-
-  z-index:30;
-
-  background:#fff;
-
-  opacity:0;
-
-  pointer-events:none;
-}
-
-.white-flash.fire{
-  animation:
-    whiteFlash .42s ease;
-}
-
-@keyframes whiteFlash{
-
-  0%{
-    opacity:0;
-  }
-
-  18%{
-    opacity:1;
-  }
-
-  30%{
-    opacity:.25;
-  }
-
-  47%{
-    opacity:.8;
-  }
-
-  100%{
-    opacity:0;
-  }
-
-}
-
-
-/* =====================================
-   RED FLASH
-===================================== */
-
-.red-flash{
-  position:absolute;
-  inset:0;
-
-  z-index:24;
-
-  background:#ee001e;
-
-  mix-blend-mode:screen;
-
-  opacity:0;
-
-  pointer-events:none;
-}
-
-.red-flash.fire{
-  animation:
-    redFlash .55s ease;
-}
-
-@keyframes redFlash{
-
-  0%{
-    opacity:0;
-  }
-
-  24%{
-    opacity:.7;
-  }
-
-  46%{
-    opacity:.18;
-  }
-
-  100%{
-    opacity:0;
-  }
-
-}
-
-
-/* =====================================
-   RED SLASH
-===================================== */
-
-.slash{
-  position:absolute;
-
-  z-index:28;
-
-  top:-80%;
-  left:-180%;
-
-  width:210%;
-  height:280%;
-
-  transform:
-    rotate(-19deg);
-
-  opacity:0;
+  z-index:5;
 
   pointer-events:none;
 
   background:
     linear-gradient(
-      90deg,
-
-      transparent 0%,
-      transparent 30%,
-
-      rgba(255,0,30,.1) 36%,
-      #ff002b 46%,
-      #fff 49%,
-      #ff002b 52%,
-      rgba(255,0,30,.2) 61%,
-
-      transparent 70%
+      to bottom,
+      rgba(0,0,0,.08) 0%,
+      transparent 28%,
+      transparent 70%,
+      rgba(0,0,0,.17) 100%
     );
 }
 
-.slash.fire{
-  animation:
-    slashMove .58s
-    cubic-bezier(.12,.78,.18,1);
-}
-
-@keyframes slashMove{
-
-  0%{
-    left:-180%;
-    opacity:0;
-  }
-
-  10%{
-    opacity:1;
-  }
-
-  100%{
-    left:120%;
-    opacity:0;
-  }
-
-}
-
 
 /* =====================================
-   SCREEN SHAKE
+   CORNER FRAME
 ===================================== */
 
-.movie-wrap.shake{
-  animation:
-    screenShake .48s linear;
-}
-
-@keyframes screenShake{
-
-  0%{
-    transform:translate(0,0);
-  }
-
-  10%{
-    transform:translate(-7px,3px);
-  }
-
-  20%{
-    transform:translate(8px,-4px);
-  }
-
-  30%{
-    transform:translate(-6px,-2px);
-  }
-
-  40%{
-    transform:translate(7px,3px);
-  }
-
-  50%{
-    transform:translate(-4px,-2px);
-  }
-
-  65%{
-    transform:translate(4px,2px);
-  }
-
-  80%{
-    transform:translate(-2px,0);
-  }
-
-  100%{
-    transform:translate(0,0);
-  }
-
-}
-
-
-/* =====================================
-   SCAN EFFECT
-===================================== */
-
-.scan{
+.corner{
   position:absolute;
-  inset:0;
 
-  z-index:10;
+  width:30px;
+  height:30px;
+
+  z-index:12;
 
   pointer-events:none;
 
-  opacity:.12;
+  opacity:.9;
+}
+
+
+/* 左上 */
+
+.corner.tl{
+  top:12px;
+  left:12px;
+
+  border-top:2px solid rgba(255,255,255,.85);
+  border-left:2px solid #e60020;
+}
+
+
+/* 右上 */
+
+.corner.tr{
+  top:12px;
+  right:12px;
+
+  border-top:2px solid rgba(255,255,255,.85);
+  border-right:2px solid #e60020;
+}
+
+
+/* 左下 */
+
+.corner.bl{
+  bottom:13px;
+  left:12px;
+
+  border-bottom:2px solid rgba(255,255,255,.85);
+  border-left:2px solid #e60020;
+}
+
+
+/* 右下 */
+
+.corner.br{
+  bottom:13px;
+  right:12px;
+
+  border-bottom:2px solid rgba(255,255,255,.85);
+  border-right:2px solid #e60020;
+}
+
+
+/* =====================================
+   SCAN LINES
+===================================== */
+
+.scanlines{
+  position:absolute;
+  inset:0;
+
+  z-index:8;
+
+  pointer-events:none;
+
+  opacity:.09;
 
   background:
     repeating-linear-gradient(
       to bottom,
 
-      rgba(255,255,255,.10) 0px,
-      rgba(255,255,255,.10) 1px,
+      rgba(255,255,255,.11) 0px,
+      rgba(255,255,255,.11) 1px,
 
       transparent 1px,
       transparent 4px
@@ -520,19 +299,70 @@ body{
 
 
 /* =====================================
-   RED SWEEP
+   NOISE
 ===================================== */
 
-.red-sweep{
+.noise{
+  position:absolute;
+  inset:0;
+
+  z-index:9;
+
+  pointer-events:none;
+
+  opacity:.07;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,.65) .45px,
+      transparent .45px
+    );
+
+  background-size:4px 4px;
+
+  animation:
+    noiseMove .28s steps(2) infinite;
+}
+
+@keyframes noiseMove{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  25%{
+    transform:translate(-1px,1px);
+  }
+
+  50%{
+    transform:translate(1px,-1px);
+  }
+
+  75%{
+    transform:translate(1px,1px);
+  }
+
+  100%{
+    transform:translate(0,0);
+  }
+
+}
+
+
+/* =====================================
+   RED SWEEP LINE
+===================================== */
+
+.sweep-line{
   position:absolute;
 
-  z-index:20;
+  left:-45%;
+  top:38%;
 
-  top:0;
-  left:-100%;
+  width:45%;
+  height:2px;
 
-  width:100%;
-  height:100%;
+  z-index:15;
 
   opacity:0;
 
@@ -541,28 +371,32 @@ body{
   background:
     linear-gradient(
       90deg,
-
-      transparent 0%,
-      rgba(255,0,30,.05) 20%,
-      rgba(255,0,30,.50) 48%,
-      rgba(255,0,30,.08) 70%,
-      transparent 100%
+      transparent,
+      rgba(255,0,30,.35),
+      #ff1832,
+      #fff,
+      #ff1832,
+      transparent
     );
+
+  box-shadow:
+    0 0 10px rgba(255,0,30,.8);
 }
 
-.red-sweep.fire{
+.sweep-line.fire{
   animation:
-    redSweep .72s ease-out;
+    sweepLine .55s
+    cubic-bezier(.12,.78,.18,1);
 }
 
-@keyframes redSweep{
+@keyframes sweepLine{
 
   0%{
-    left:-110%;
+    left:-50%;
     opacity:0;
   }
 
-  15%{
+  12%{
     opacity:1;
   }
 
@@ -575,7 +409,108 @@ body{
 
 
 /* =====================================
-   TEXT AREA
+   FLASH
+===================================== */
+
+.white-flash{
+  position:absolute;
+  inset:0;
+
+  z-index:25;
+
+  background:#fff;
+
+  opacity:0;
+
+  pointer-events:none;
+}
+
+.white-flash.fire{
+  animation:
+    flashFx .28s ease;
+}
+
+@keyframes flashFx{
+
+  0%{
+    opacity:0;
+  }
+
+  28%{
+    opacity:.75;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+.progress-track{
+  position:absolute;
+
+  left:0;
+  bottom:0;
+
+  width:100%;
+  height:4px;
+
+  z-index:20;
+
+  background:
+    rgba(255,255,255,.12);
+
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:100%;
+  height:100%;
+
+  transform:scaleX(0);
+  transform-origin:left center;
+
+  background:
+    linear-gradient(
+      90deg,
+      #b60018,
+      #ff1731,
+      #ff4254
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(255,0,30,.75);
+}
+
+.progress-bar.play{
+  animation:
+    progressMovie
+    var(--progress-duration, 8s)
+    linear
+    forwards;
+}
+
+@keyframes progressMovie{
+
+  from{
+    transform:scaleX(0);
+  }
+
+  to{
+    transform:scaleX(1);
+  }
+
+}
+
+
+/* =====================================
+   COPY
 ===================================== */
 
 .hero-copy{
@@ -624,7 +559,7 @@ body{
 
 .main-title.play{
   animation:
-    titleHit .7s
+    titleHit .72s
     cubic-bezier(.08,.82,.2,1);
 }
 
@@ -634,30 +569,20 @@ body{
     opacity:0;
 
     transform:
-      translateX(-55px)
-      scale(1.25)
-      skewX(-14deg);
+      translateX(-45px)
+      scale(1.15);
 
-    filter:
-      blur(9px);
+    filter:blur(7px);
   }
 
-  42%{
+  50%{
     opacity:1;
 
     transform:
-      translateX(10px)
-      scale(1.04)
-      skewX(4deg);
+      translateX(6px)
+      scale(1.02);
 
-    filter:
-      blur(1px);
-  }
-
-  62%{
-    transform:
-      translateX(-5px)
-      skewX(-2deg);
+    filter:blur(1px);
   }
 
   100%{
@@ -665,11 +590,9 @@ body{
 
     transform:
       translateX(0)
-      scale(1)
-      skewX(0);
+      scale(1);
 
-    filter:
-      blur(0);
+    filter:blur(0);
   }
 
 }
@@ -705,66 +628,34 @@ body{
 
 .catch.play{
   animation:
-    catchHit .75s steps(1);
+    catchHit .62s ease;
 }
 
 @keyframes catchHit{
 
   0%{
     opacity:0;
-    transform:translateX(-35px);
+    transform:translateX(-25px);
+    filter:blur(6px);
   }
 
-  14%{
+  55%{
     opacity:1;
-
-    transform:translateX(8px);
-
-    text-shadow:
-      -7px 0 #00eaff,
-      7px 0 #ff003c;
-  }
-
-  27%{
-    transform:translateX(-6px);
-
-    text-shadow:
-      6px 0 #00eaff,
-      -6px 0 #ff003c;
-  }
-
-  42%{
     transform:translateX(4px);
-
-    text-shadow:
-      -3px 0 #00eaff,
-      3px 0 #ff003c;
-  }
-
-  58%{
-    transform:translateX(-2px);
-    text-shadow:none;
-  }
-
-  74%{
-    transform:translateX(2px);
-
-    text-shadow:
-      2px 0 #00eaff,
-      -2px 0 #ff003c;
+    filter:blur(1px);
   }
 
   100%{
     opacity:1;
     transform:translateX(0);
-    text-shadow:none;
+    filter:blur(0);
   }
 
 }
 
 
 /* =====================================
-   RED LINE
+   RED LINE UNDER TEXT
 ===================================== */
 
 .red-line{
@@ -790,7 +681,7 @@ body{
 
 .red-line.play{
   animation:
-    beam .72s
+    beam .75s
     cubic-bezier(.1,.8,.18,1);
 }
 
@@ -798,12 +689,7 @@ body{
 
   0%{
     transform:scaleX(0);
-    filter:brightness(4);
-  }
-
-  65%{
-    transform:scaleX(1.08);
-    filter:brightness(2);
+    filter:brightness(3);
   }
 
   100%{
@@ -900,7 +786,6 @@ body{
     preload="auto">
   </video>
 
-
   <video
     id="movieB"
     class="movie"
@@ -910,31 +795,46 @@ body{
   </video>
 
 
-  <div class="scan"></div>
+  <div class="movie-shade"></div>
+
+  <div class="scanlines"></div>
+
+  <div class="noise"></div>
+
+
+  <!-- 四隅 -->
+
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+
+  <!-- 高速横断ライン -->
 
   <div
-    id="darkHit"
-    class="dark-hit">
+    id="sweepLine"
+    class="sweep-line">
   </div>
 
-  <div
-    id="redSweep"
-    class="red-sweep">
-  </div>
 
-  <div
-    id="redFlash"
-    class="red-flash">
-  </div>
-
-  <div
-    id="slash"
-    class="slash">
-  </div>
+  <!-- 切替フラッシュ -->
 
   <div
     id="whiteFlash"
     class="white-flash">
+  </div>
+
+
+  <!-- 進行ライン -->
+
+  <div class="progress-track">
+
+    <div
+      id="progressBar"
+      class="progress-bar">
+    </div>
+
   </div>
 
 </section>
@@ -975,6 +875,7 @@ body{
 
 <script>
 
+
 /* =====================================
    MOVIES
 ===================================== */
@@ -989,29 +890,20 @@ const movies = [
 ];
 
 
-const movieWrap =
-  document.getElementById("movieWrap");
-
 const movieA =
   document.getElementById("movieA");
 
 const movieB =
   document.getElementById("movieB");
 
-const darkHit =
-  document.getElementById("darkHit");
-
-const redSweep =
-  document.getElementById("redSweep");
-
-const redFlash =
-  document.getElementById("redFlash");
-
-const slash =
-  document.getElementById("slash");
+const sweepLine =
+  document.getElementById("sweepLine");
 
 const whiteFlash =
   document.getElementById("whiteFlash");
+
+const progressBar =
+  document.getElementById("progressBar");
 
 const mainTitle =
   document.getElementById("mainTitle");
@@ -1023,16 +915,26 @@ const redLine =
   document.getElementById("redLine");
 
 
-let activeMovie = movieA;
-let standbyMovie = movieB;
+let activeMovie =
+  movieA;
+
+let standbyMovie =
+  movieB;
 
 let playlist = [];
-let previousMovie = null;
-let switching = false;
+
+let lastMovie =
+  null;
+
+let switching =
+  false;
+
+let sweepTimer =
+  null;
 
 
 /* =====================================
-   RANDOM PLAYLIST
+   SHUFFLE
 ===================================== */
 
 function shuffleMovies(){
@@ -1057,13 +959,14 @@ function shuffleMovies(){
       playlist[j],
       playlist[i]
     ];
+
   }
 
 
   if(
-    previousMovie &&
+    lastMovie &&
     playlist.length > 1 &&
-    playlist[0] === previousMovie
+    playlist[0] === lastMovie
   ){
 
     [
@@ -1073,7 +976,9 @@ function shuffleMovies(){
       playlist[1],
       playlist[0]
     ];
+
   }
+
 }
 
 
@@ -1083,16 +988,19 @@ function getNextMovie(){
     shuffleMovies();
   }
 
-  const movie = playlist.shift();
+  const next =
+    playlist.shift();
 
-  previousMovie = movie;
+  lastMovie =
+    next;
 
-  return movie;
+  return next;
+
 }
 
 
 /* =====================================
-   CLASS RESTART
+   RESTART CLASS
 ===================================== */
 
 function restart(
@@ -1100,100 +1008,29 @@ function restart(
   className
 ){
 
-  element.classList.remove(className);
+  element
+    .classList
+    .remove(className);
 
   void element.offsetWidth;
 
-  element.classList.add(className);
-}
-
-
-/* =====================================
-   VIDEO MOTION
-===================================== */
-
-function startMovieMotion(video){
-
-  video.classList.remove("motion");
-
-  void video.offsetWidth;
-
-  video.classList.add("motion");
-}
-
-
-/* =====================================
-   IMPACT FX
-===================================== */
-
-function impact(){
-
-  movieWrap.classList.remove("shake");
-
-  void movieWrap.offsetWidth;
-
-  movieWrap.classList.add("shake");
-
-
-  restart(
-    darkHit,
-    "fire"
-  );
-
-
-  setTimeout(() => {
-
-    restart(
-      redSweep,
-      "fire"
-    );
-
-  }, 40);
-
-
-  setTimeout(() => {
-
-    restart(
-      redFlash,
-      "fire"
-    );
-
-  }, 70);
-
-
-  setTimeout(() => {
-
-    restart(
-      slash,
-      "fire"
-    );
-
-  }, 90);
-
-
-  setTimeout(() => {
-
-    restart(
-      whiteFlash,
-      "fire"
-    );
-
-  }, 145);
+  element
+    .classList
+    .add(className);
 
 }
 
 
 /* =====================================
-   TEXT FX
+   TEXT
 ===================================== */
 
-function textImpact(){
+function replayText(){
 
   restart(
     mainTitle,
     "play"
   );
-
 
   setTimeout(() => {
 
@@ -1202,7 +1039,7 @@ function textImpact(){
       "play"
     );
 
-  }, 120);
+  },120);
 
 
   setTimeout(() => {
@@ -1212,7 +1049,83 @@ function textImpact(){
       "play"
     );
 
-  }, 260);
+  },240);
+
+}
+
+
+/* =====================================
+   MOVIE MOTION
+===================================== */
+
+function startMovieMotion(video){
+
+  video
+    .classList
+    .remove("motion");
+
+  void video.offsetWidth;
+
+  video
+    .classList
+    .add("motion");
+
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+function startProgress(duration){
+
+  progressBar
+    .classList
+    .remove("play");
+
+  progressBar
+    .style
+    .setProperty(
+      "--progress-duration",
+      duration + "s"
+    );
+
+  void progressBar.offsetWidth;
+
+  progressBar
+    .classList
+    .add("play");
+
+}
+
+
+/* =====================================
+   SWEEP LINE
+===================================== */
+
+function fireSweep(){
+
+  restart(
+    sweepLine,
+    "fire"
+  );
+
+}
+
+
+function startSweepLoop(){
+
+  clearInterval(
+    sweepTimer
+  );
+
+  fireSweep();
+
+  sweepTimer =
+    setInterval(
+      fireSweep,
+      2600
+    );
 
 }
 
@@ -1227,6 +1140,7 @@ function prepareNext(){
     getNextMovie();
 
   standbyMovie.load();
+
 }
 
 
@@ -1240,15 +1154,20 @@ function switchMovie(){
     return;
   }
 
-  switching = true;
+  switching =
+    true;
 
 
-  impact();
+  restart(
+    whiteFlash,
+    "fire"
+  );
 
 
   setTimeout(() => {
 
-    standbyMovie.currentTime = 0;
+    standbyMovie.currentTime =
+      0;
 
 
     standbyMovie.play()
@@ -1270,7 +1189,18 @@ function switchMovie(){
         );
 
 
-        textImpact();
+        const duration =
+          standbyMovie.duration || 8;
+
+
+        startProgress(
+          duration
+        );
+
+
+        replayText();
+
+        startSweepLoop();
 
 
         setTimeout(() => {
@@ -1282,7 +1212,7 @@ function switchMovie(){
             .remove("motion");
 
 
-          const old =
+          const oldMovie =
             activeMovie;
 
 
@@ -1291,7 +1221,7 @@ function switchMovie(){
 
 
           standbyMovie =
-            old;
+            oldMovie;
 
 
           prepareNext();
@@ -1300,7 +1230,7 @@ function switchMovie(){
           switching =
             false;
 
-        }, 500);
+        },450);
 
       })
 
@@ -1311,9 +1241,41 @@ function switchMovie(){
 
       });
 
-  }, 170);
+  },100);
 
 }
+
+
+/* =====================================
+   METADATA
+===================================== */
+
+movieA.addEventListener(
+  "loadedmetadata",
+  () => {
+
+    movieA.style
+      .setProperty(
+        "--movie-duration",
+        movieA.duration + "s"
+      );
+
+  }
+);
+
+
+movieB.addEventListener(
+  "loadedmetadata",
+  () => {
+
+    movieB.style
+      .setProperty(
+        "--movie-duration",
+        movieB.duration + "s"
+      );
+
+  }
+);
 
 
 /* =====================================
@@ -1332,71 +1294,55 @@ function start(){
   activeMovie.load();
 
 
-  activeMovie.addEventListener(
-    "loadedmetadata",
-    () => {
+  activeMovie
+    .addEventListener(
+      "loadedmetadata",
+      () => {
 
-      activeMovie.style.setProperty(
-        "--movie-duration",
-        activeMovie.duration + "s"
-      );
-
-    },
-    { once:true }
-  );
+        const duration =
+          activeMovie.duration || 8;
 
 
-  activeMovie.play()
+        activeMovie.style
+          .setProperty(
+            "--movie-duration",
+            duration + "s"
+          );
+
+
+        startProgress(
+          duration
+        );
+
+
+        startMovieMotion(
+          activeMovie
+        );
+
+
+        startSweepLoop();
+
+
+        replayText();
+
+      },
+      { once:true }
+    );
+
+
+  activeMovie
+    .play()
     .catch(() => {});
 
 
   prepareNext();
 
-
-  setTimeout(() => {
-
-    impact();
-
-    startMovieMotion(
-      activeMovie
-    );
-
-    textImpact();
-
-  }, 250);
-
 }
 
 
-/* 動画ごとの長さをCSSへ */
-
-movieA.addEventListener(
-  "loadedmetadata",
-  () => {
-
-    movieA.style.setProperty(
-      "--movie-duration",
-      movieA.duration + "s"
-    );
-
-  }
-);
-
-
-movieB.addEventListener(
-  "loadedmetadata",
-  () => {
-
-    movieB.style.setProperty(
-      "--movie-duration",
-      movieB.duration + "s"
-    );
-
-  }
-);
-
-
-/* END */
+/* =====================================
+   END
+===================================== */
 
 movieA.addEventListener(
   "ended",
